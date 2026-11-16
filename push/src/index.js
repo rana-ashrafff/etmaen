@@ -6,7 +6,7 @@ import { sendPush, b64u } from "./webpush.js";
 import { times, ymdIn } from "./prayer.js";
 
 const SITE = "https://etmaen.pages.dev/";
-const ORIGINS = ["https://etmaen.pages.dev", "https://itmaen.pages.dev", "https://rana-ashrafff.github.io", "http://localhost:8765", "http://localhost:8770"];
+const ORIGINS = ["https://etmaen.pages.dev", "https://itmaen.pages.dev", "https://rana-ashrafff.github.io", "http://localhost:8765", "http://localhost:8770", "http://localhost:8000"];
 const SITES = { "https://etmaen.pages.dev": "https://etmaen.pages.dev/", "https://itmaen.pages.dev": "https://itmaen.pages.dev/", "https://rana-ashrafff.github.io": "https://rana-ashrafff.github.io/itmaen/" };
 const NAMES = { ar: ["الفجر", "الشروق", "الظهر", "العصر", "المغرب", "العشاء"], en: ["Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha"] };
 const TXT = {
@@ -32,9 +32,67 @@ export class SubStore extends DurableObject {
   async delMany(ids) { if (ids.length) await this.ctx.storage.delete(ids.map(i => "s:" + i)); }
   async log(id, entry) { const k = "l:" + id, L = (await this.ctx.storage.get(k)) || []; L.unshift(entry); await this.ctx.storage.put(k, L.slice(0, 8)); }
   async logs(id) { return (await this.ctx.storage.get("l:" + id)) || []; }
+  // generic key/value used by the per-user account instances
+  async kget(k) { return (await this.ctx.storage.get(k)) ?? null; }
+  async kgetMany(ks) { const m = await this.ctx.storage.get(ks); return ks.map(k => m.get(k) ?? null); }
+  async kput(obj) { await this.ctx.storage.put(obj); }
+  async kdel(ks) { if (ks.length) await this.ctx.storage.delete(ks); }
+  async wipe() { await this.ctx.storage.deleteAll(); }
 }
 
 const store = env => env.SUBS.get(env.SUBS.idFromName("main"));
+const userStore = (env, email) => env.SUBS.get(env.SUBS.idFromName("acct:" + email));
+const enc = new TextEncoder();
+const hex = buf => [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
+const sha = async s => hex(await crypto.subtle.digest("SHA-256", enc.encode(s)));
+const randHex = n => hex(crypto.getRandomValues(new Uint8Array(n)));
+const CHUNK = 100000, MAXDATA = 4000000;
+function eqStr(a, b) { if (a.length !== b.length) return false; let r = 0; for (let i = 0; i < a.length; i++) r |= a.charCodeAt(i) ^ b.charCodeAt(i); return r === 0; }
+// Accounts: the app derives `auth` from the password on the phone (slow PBKDF2) and encrypts the
+// backup on the phone too, so this server never sees the password or the user's data in clear.
+async function account(path, b, env, h) {
+  const email = typeof b.email === "string" ? b.email.trim().toLowerCase() : "";
+  if (!/^[^\s@]{1,64}@[^\s@]{1,100}\.[^\s@]{2,}$/.test(email)) return json({ error: "email" }, 400, h);
+  const us = userStore(env, email);
+  if (path === "/acct/register" || path === "/acct/login") {
+    if (typeof b.auth !== "string" || !/^[0-9a-f]{64}$/.test(b.auth)) return json({ error: "auth" }, 400, h);
+    let u = await us.kget("user");
+    if (path === "/acct/register") {
+      if (u) return json({ error: "exists" }, 409, h);
+      const salt = randHex(16); u = { salt, hash: await sha(salt + b.auth), created: Date.now(), toks: [], fails: 0, lock: 0 };
+    } else {
+      if (!u) return json({ error: "nouser" }, 404, h);
+      if (u.lock > Date.now()) return json({ error: "locked", wait: Math.ceil((u.lock - Date.now()) / 60000) }, 429, h);
+      if (!eqStr(await sha(u.salt + b.auth), u.hash)) { u.fails = (u.fails || 0) + 1; if (u.fails >= 8) { u.fails = 0; u.lock = Date.now() + 15 * 60000; } await us.kput({ user: u }); return json({ error: "wrong" }, 401, h); }
+      u.fails = 0; u.lock = 0;
+    }
+    const token = randHex(24); u.toks = [await sha(token), ...(u.toks || [])].slice(0, 12);
+    await us.kput({ user: u });
+    const meta = await us.kget("meta");
+    return json({ ok: true, token, updated: meta ? meta.updated : 0 }, 200, h);
+  }
+  if (typeof b.token !== "string" || b.token.length > 100) return json({ error: "token" }, 401, h);
+  const u = await us.kget("user"), th = await sha(b.token);
+  if (!u || !(u.toks || []).includes(th)) return json({ error: "token" }, 401, h);
+  const meta = (await us.kget("meta")) || { updated: 0, n: 0 };
+  if (path === "/acct/meta") return json({ updated: meta.updated }, 200, h);
+  if (path === "/acct/pull") {
+    if (!meta.n) return json({ updated: 0, data: null }, 200, h);
+    const parts = await us.kgetMany([...Array(meta.n).keys()].map(i => "c:" + i));
+    return json({ updated: meta.updated, data: parts.join("") }, 200, h);
+  }
+  if (path === "/acct/push") {
+    if (typeof b.data !== "string" || b.data.length > MAXDATA || !/^[A-Za-z0-9+\/=.]+$/.test(b.data)) return json({ error: "data" }, 400, h);
+    if (typeof b.base === "number" && b.base && meta.updated > b.base && !b.force) return json({ error: "newer", updated: meta.updated }, 409, h);
+    const n = Math.ceil(b.data.length / CHUNK), put = {}; for (let i = 0; i < n; i++) put["c:" + i] = b.data.slice(i * CHUNK, (i + 1) * CHUNK);
+    const nm = { updated: Date.now(), n, size: b.data.length }; put.meta = nm;
+    await us.kput(put); if (meta.n > n) await us.kdel([...Array(meta.n - n).keys()].map(i => "c:" + (n + i)));
+    return json({ ok: true, updated: nm.updated }, 200, h);
+  }
+  if (path === "/acct/logout") { u.toks = u.toks.filter(x => x !== th); await us.kput({ user: u }); return json({ ok: true }, 200, h); }
+  if (path === "/acct/delete") { await us.wipe(); return json({ ok: true }, 200, h); }
+  return json({ error: "not found" }, 404, h);
+}
 function cors(req) {
   const o = req.headers.get("Origin") || "";
   return { "Access-Control-Allow-Origin": ORIGINS.includes(o) ? o : ORIGINS[0], "Access-Control-Allow-Methods": "GET, POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type", "Access-Control-Max-Age": "86400", Vary: "Origin" };
@@ -64,6 +122,7 @@ export default {
     if (req.method === "GET" && url.pathname === "/vapid") return json({ publicKey: (await st.vapid()).publicKey }, 200, { ...h, "Cache-Control": "public, max-age=3600" });
     if (req.method !== "POST") return json({ error: "method" }, 405, h);
     let b; try { b = await req.json(); } catch (_) { return json({ error: "json" }, 400, h); }
+    if (url.pathname.startsWith("/acct/")) return account(url.pathname, b || {}, env, h);
     if (url.pathname === "/subscribe") {
       const rec = clean(b); if (!rec) return json({ error: "bad subscription" }, 400, h);
       rec.site = SITES[req.headers.get("Origin") || ""] || SITE;

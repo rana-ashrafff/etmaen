@@ -1,5 +1,5 @@
 /* Itmaen service worker: works offline, keeps the app fast. */
-const VERSION = "itmaen-v19";
+const VERSION = "itmaen-v20";
 const CORE = ["./", "index.html", "manifest.webmanifest", "data/quran.js", "data/content.js", "data/extra.js",
   "data/habits.js", "data/kids.js", "data/pages.js", "data/fonts/kfgqpc-hafs.otf", "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png"];
 self.addEventListener("install", e => {

@@ -8,7 +8,7 @@ Islamic app ("اطمئن", from ﴿أَلَا بِذِكْرِ اللَّهِ ت
 - Push server: https://itmaen.ranaxashraf88.workers.dev — Cloudflare Worker `itmaen`, deployed manually with `npx wrangler deploy` from `push/` on the owner's Mac (Workers Builds Git link was lost when the worker got deleted and recreated on 2026-11-16; all old subscriptions + VAPID keys were lost then). Durable Object stores subscriptions + auto-generated VAPID keys; cron every minute sends prayer-time notifications.
 
 ## Files
-- `index.html` — the whole app (HTML + CSS + JS, single file). Arabic/English via `I18N` object. Data loaded from `data/*.js`.
+- `index.html` — the whole app (edit this file directly; the old /home/user/noor source is no longer used) (HTML + CSS + JS, single file). Arabic/English via `I18N` object. Data loaded from `data/*.js`.
 - `data/quran.js` (Uthmani text, quranenc via quran-json, CC BY-SA), `data/tr-*.js` translations, `data/pages.js` (604 Madinah page starts, quran-meta MIT), `data/content.js` (prophet stories, mood stories, encouragement), `data/extra.js` (quiz + sunnah library), `data/habits.js` (bad-habits solutions), `data/kids.js` (kids mode + daily "رسالة من ربنا ليك" messages), `data/fonts/kfgqpc-hafs.otf` (KFGQPC Mushaf font — license forbids modifying the file; use as-is).
 - `audio/` adhan recordings, `icons/` PWA icons, `manifest.webmanifest`, `sw.js` (bump `VERSION` on every release so phones update).
 - `push/` Cloudflare Worker (`src/index.js`, `src/webpush.js` RFC8291/8292 via WebCrypto, `src/prayer.js`). Test with `npx wrangler dev --local --test-scheduled`.
@@ -24,6 +24,8 @@ Islamic app ("اطمئن", from ﴿أَلَا بِذِكْرِ اللَّهِ ت
 - Khatma counts only when the user taps «خلصت» at the end of a surah.
 - No usernames/handles on Instagram post images.
 - Privacy: everything is stored on-device (localStorage); safe space is AES-GCM encrypted with the user's PIN.
+- Optional cloud account (email + password, added v20): the phone derives `auth` and a data key from the password (PBKDF2), uploads an AES-GCM-encrypted gzip of all `rm:` keys to the worker (`/acct/*`, one Durable Object instance per email). Server never sees the password or data. Forgotten password = data can't be recovered. Device-only keys skipped: see `ACCT_SKIP`.
+- Weekly review («أسبوعك», `#week`): Sat→Fri daily %, review on Friday; prayer/Quran/adhkar/tasbeeh can't be removed, others can (`wkOff`).
 
 ## Open items
 - iPhone web push: tap-to-subscribe was fixed to run inside the user gesture; not yet confirmed working on the owner's iPhone (iOS 26). The Prayer tab shows a status line, an error line (⚠) and the server delivery log to diagnose.

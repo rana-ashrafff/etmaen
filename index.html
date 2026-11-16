@@ -49,14 +49,16 @@ d.innerHTML='<div style="max-width:340px;display:grid;gap:14px"><b style="font-s
 [hidden]{display:none!important}
 html,body{margin:0}
 section.view>*{min-width:0;max-width:100%}
-html{-webkit-tap-highlight-color:transparent}
+html{-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%;text-size-adjust:100%;touch-action:manipulation}
+button,a,label,input,select,textarea{touch-action:manipulation}
+input,select,textarea{font-size:16px!important}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-ui);font-size:16px;line-height:1.7;min-height:100%;
   background-image:radial-gradient(700px 300px at 85% -120px,color-mix(in srgb,var(--pri) 14%,transparent),transparent 70%),radial-gradient(500px 260px at 0% 0%,color-mix(in srgb,var(--brass) 10%,transparent),transparent 70%);background-repeat:no-repeat}
 button,select,input{font:inherit;color:inherit}
 button{cursor:pointer}
 a{color:var(--pri)}
 :focus-visible{outline:2px solid var(--brass);outline-offset:2px}
-.app{max-width:680px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:14px calc(118px + env(safe-area-inset-bottom,0px))}
+.app{max-width:680px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:calc(18px + env(safe-area-inset-top,0px)) calc(118px + env(safe-area-inset-bottom,0px))}
 header.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px;flex-wrap:wrap}
 .brand{font-family:var(--f-disp);font-weight:800;font-size:26px;line-height:1.1;color:var(--deep)}
 .brand small{display:block;font-family:var(--f-ui);font-weight:400;font-size:12px;color:var(--muted);margin-top:4px}
@@ -429,6 +431,42 @@ table.month tr.today td{background:color-mix(in srgb,var(--pri) 12%,transparent)
 .logo{display:inline-block;flex:none}
 .brandrow{display:flex;align-items:center;gap:10px}
 .brandrow .logo{width:44px;height:44px;filter:drop-shadow(0 6px 10px rgba(8,46,35,.3))}
+
+/* cloud account */
+.acseg{display:flex;gap:4px;background:var(--surface-2);border-radius:14px;padding:4px}
+.acseg button{flex:1;border:0;background:transparent;border-radius:11px;padding:8px;font-weight:600;font-size:14px}
+.acseg button[aria-pressed="true"]{background:var(--surface);color:var(--pri);box-shadow:var(--shadow)}
+.splash .acseg{background:rgba(255,255,255,.08)}.splash .acseg button{color:rgba(255,255,255,.75)}.splash .acseg button[aria-pressed="true"]{background:#F3D99B;color:#082E23}
+.acl{display:grid;gap:6px;font-size:13px;color:var(--muted)}.splash .acl{color:rgba(255,255,255,.8)}
+.pwrap{position:relative;display:block}.pwrap input{padding-inline-end:44px}
+.pweye{position:absolute;top:50%;transform:translateY(-50%);right:6px;border:0;background:transparent;font-size:16px;opacity:.6;padding:6px}
+.acerr{min-height:18px;font-size:13px;color:var(--warn)}.splash .acerr{color:#FFD5D5}
+.acme{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.splash .link{border:0;background:transparent;color:rgba(255,255,255,.75);text-decoration:underline;font-size:13px;justify-self:center}
+.nudge{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:start;background:linear-gradient(135deg,color-mix(in srgb,var(--pri) 10%,var(--surface)),var(--surface) 70%)}
+/* week */
+.wkbars{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;height:96px;margin-top:4px}
+.wkbars.big{height:170px;margin-top:12px}
+.wkbars .c{display:grid;grid-template-rows:auto 1fr auto;justify-items:center;gap:4px;min-width:0;height:100%}
+.wkbars .trk{width:72%;max-width:30px;height:100%;background:var(--surface-2);border-radius:10px;display:flex;align-items:flex-end;overflow:hidden}
+.wkbars .trk i{display:block;width:100%;border-radius:10px;background:linear-gradient(0deg,var(--pri),color-mix(in srgb,var(--pri) 55%,var(--brass)));transition:height .5s}
+.wkbars .dn{font-size:11px;color:var(--muted);white-space:nowrap}
+.wkbars .pv{font-size:10px;color:var(--muted);font-variant-numeric:tabular-nums;min-height:14px}
+.wkbars:not(.big) .pv{min-height:0}
+.wkbars .today .trk{outline:2px solid var(--brass);outline-offset:2px}.wkbars .today .dn{color:var(--brass);font-weight:700}
+.wkbars .fut{opacity:.45}
+.wkready{display:inline-block;margin-top:8px;font-size:13px;font-weight:600;color:var(--brass)}
+.wkrow{display:grid;grid-template-columns:minmax(90px,auto) 1fr 44px;gap:10px;align-items:center;font-size:14px}.wkrow b{text-align:end;color:var(--pri)}
+.wkeval{text-align:center;display:grid;gap:6px;justify-items:center;background:linear-gradient(160deg,color-mix(in srgb,var(--brass) 18%,var(--surface)),var(--surface) 70%)}
+.wkeval.t0{background:linear-gradient(160deg,color-mix(in srgb,#E9B949 26%,var(--surface)),var(--surface) 72%)}
+.wkeval.t3{background:linear-gradient(160deg,color-mix(in srgb,#6A7FC4 18%,var(--surface)),var(--surface) 72%)}
+.wkeval p{margin:0;font-size:14px;line-height:1.8;color:var(--ink);max-width:420px}
+.wkemo{font-size:52px;line-height:1.1;animation:pop .6s cubic-bezier(.2,.8,.3,1.4)}
+@keyframes pop{from{transform:scale(.3);opacity:0}to{transform:none;opacity:1}}
+.wkbest{background:var(--surface);border-radius:99px;padding:6px 14px;font-size:14px;box-shadow:var(--shadow)}
+.wkfocus{display:grid;gap:8px;width:100%;text-align:start;margin-top:6px}
+.wkfocus>div{background:var(--surface);border-radius:14px;padding:10px 12px;display:grid;gap:2px;box-shadow:var(--shadow)}
+.wkfocus small{color:var(--muted);font-size:12.5px;line-height:1.7}
 /* splash + onboarding */
 .splash{position:fixed;inset:0;z-index:90;display:grid;place-items:center;text-align:center;background:radial-gradient(120% 80% at 50% 30%,#11674C,#04170F 70%);color:#fff;transition:opacity .5s ease;
   padding:max(24px,env(safe-area-inset-top,0px)) max(24px,env(safe-area-inset-right,0px)) max(24px,env(safe-area-inset-bottom,0px)) max(24px,env(safe-area-inset-left,0px))}
@@ -439,6 +477,7 @@ table.month tr.today td{background:color-mix(in srgb,var(--pri) 12%,transparent)
 .splash .nm{font-family:var(--f-disp);font-size:58px;line-height:1;color:#F3D99B}
 .splash .ay{font-family:var(--f-mushaf);font-size:24px;color:#FBE7B0;line-height:1.8}
 .splash .tg{font-size:15px;color:rgba(255,255,255,.75)}
+.splash{overflow-y:auto;padding:calc(16px + env(safe-area-inset-top,0px)) 0 calc(16px + env(safe-area-inset-bottom,0px))}
 .splash .card2{background:rgba(255,255,255,.07);border-radius:24px;padding:18px;display:grid;gap:12px;width:min(360px,88vw);text-align:start}
 .splash input{width:100%;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;border-radius:14px;padding:12px 14px;font-size:16px}
 .splash input::placeholder{color:rgba(255,255,255,.5)}
@@ -523,7 +562,7 @@ textarea.field:focus{border-color:#6A4C7C;outline:0}
 /* ===================== KIDS MODE ===================== */
 body.kid{background:#FFF8E7;background-image:radial-gradient(600px 300px at 90% -80px,#FFE08A88,transparent 70%),radial-gradient(500px 300px at 0% 10%,#BDE7FF88,transparent 70%);color:#2B2350;font-family:"Baloo Bhaijaan 2","IBM Plex Sans Arabic",sans-serif}
 body.kid .app,body.kid nav.tabs,body.kid .player{display:none!important}
-#kidApp{max-width:640px;overflow-x:hidden;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:14px calc(110px + env(safe-area-inset-bottom,0px));display:grid;gap:14px}
+#kidApp{max-width:640px;overflow-x:hidden;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:calc(18px + env(safe-area-inset-top,0px)) calc(110px + env(safe-area-inset-bottom,0px));display:grid;gap:14px}
 .k-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .k-me{display:flex;align-items:center;gap:10px}
 .k-av{width:58px;height:58px;border-radius:20px;background:#fff;display:grid;place-items:center;font-size:36px;box-shadow:0 6px 0 #F2D27A}
@@ -631,10 +670,12 @@ body.kid .app,body.kid nav.tabs,body.kid .player{display:none!important}
     </div>
 
     <div class="card msg" id="installCard" hidden></div>
+    <div class="card nudge" id="cloudNudge" hidden></div>
     <a class="safebtn" href="#safe"><span class="sic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg></span><div><b data-i="safeT"></b><span data-i="safeSub"></span></div><span style="font-size:22px">‹</span></a>
     <div class="love" id="loveCard"></div>
     <a class="card me" id="meCard" href="#rewards"></a>
     <div class="card" id="todoCard"></div>
+    <a class="card" id="wkCard" href="#week" style="text-decoration:none;color:inherit;display:block"></a>
     <div class="qa" id="qa"></div>
 
     <div class="card msg" id="msgCard"><span class="hi g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3l2.4 5.3 5.6.6-4.2 3.8 1.2 5.6L12 15.6 7 18.3l1.2-5.6L4 8.9l5.6-.6z"/></svg></span>
@@ -762,9 +803,11 @@ body.kid .app,body.kid nav.tabs,body.kid .player{display:none!important}
   </section>
 
   <!-- MORE -->
+  <section class="view" id="v-week" hidden><div id="weekBody" style="display:grid;gap:14px"></div></section>
   <section class="view" id="v-more" hidden>
     <h2 data-i="more"></h2>
     <div class="tiles">
+      <a class="tile new" href="#week"><span class="tag" data-i="newTag"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><b data-i="wkT"></b><span data-i="wkTile"></span></a>
       <a class="tile new" href="#wasl"><span class="tag" data-i="newTag"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2 20c0-3 3-5 6-5s6 2 6 5M14 15.5c.6-.3 1.3-.5 2-.5 3 0 6 2 6 5"/></svg><b data-i="wasl"></b><span data-i="waslSub"></span></a>
       <a class="tile new" href="#quiz"><span class="tag" data-i="newTag"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17.5v.01"/></svg><b data-i="quizT"></b><span data-i="quizTile"></span></a>
       <a class="tile new" href="#sunan"><span class="tag" data-i="newTag"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l2.4 5.3 5.6.6-4.2 3.8 1.2 5.6L12 14.6 7 17.3l1.2-5.6L4 7.9l5.6-.6z"/></svg><b data-i="sunanT"></b><span data-i="sunanTile"></span></a>
@@ -775,6 +818,7 @@ body.kid .app,body.kid nav.tabs,body.kid .player{display:none!important}
       <a class="tile" href="#zakat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg><b data-i="zakat"></b><span data-i="zakatSub"></span></a>
       <a class="tile" href="#occasions"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg><b data-i="occasions"></b><span data-i="occSub"></span></a>
     </div>
+    <div class="card" id="cloudCard" style="display:grid;gap:10px"></div>
     <div class="card" id="accCard" style="display:grid;gap:8px"></div>
     <div class="card form">
       <h3 data-i="appearance"></h3>
@@ -954,10 +998,10 @@ body.kid .app,body.kid nav.tabs,body.kid .player{display:none!important}
 (function(){
 "use strict";
 /* global (device) store and per-account store: each account gets its own key prefix */
-const G={get(k,d){try{const v=localStorage.getItem("rm:@"+k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem("rm:@"+k,JSON.stringify(v))}catch(e){}}};
+const G={get(k,d){try{const v=localStorage.getItem("rm:@"+k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem("rm:@"+k,JSON.stringify(v))}catch(e){}acctTouch("rm:@"+k)}};
 const ACTIVE=G.get("active","main"),PFX=ACTIVE==="main"?"rm:":"rm:"+ACTIVE+":";
 const S={get(k,d){try{const v=localStorage.getItem(PFX+k);return v==null?d:JSON.parse(v)}catch(e){return d}},
-         set(k,v){try{localStorage.setItem(PFX+k,JSON.stringify(v))}catch(e){}}};
+         set(k,v){try{localStorage.setItem(PFX+k,JSON.stringify(v))}catch(e){}acctTouch(PFX+k)}};
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 let lang=S.get("lang","ar");
@@ -1178,6 +1222,32 @@ installT:"Install Itmaen on your phone",installSub:"Get an icon on your home scr
    open:{fri:"Open Al-Kahf",morning:"Morning adhkar",evening:"Evening adhkar",wasl:"Wasl",quran:"Continue reading"}},
  moods:["Anxious","Sad","Afraid","Upset / angry","Feeling I fell short","Tired / ill","Happy and grateful","Unsure about a decision","Worried about money","Feeling lonely"]
 }};
+Object.assign(I18N.ar,{acT:"حسابك",acNew:"حساب جديد",acHave:"عندي حساب",acEmail:"الإيميل",acPw:"الباسورد",acPwPh:"٦ حروف أو أرقام على الأقل",acShow:"إظهار الباسورد",acCreate:"اعمل حسابي",acLogin:"ادخل",acWait:"لحظة…",
+ acErrEmail:"اكتب إيميل صحيح",acErrPw:"الباسورد لازم يكون ٦ حروف أو أرقام على الأقل",acErrName:"اكتب اسمك",acErrExists:"الإيميل ده عليه حساب بالفعل، اختار «عندي حساب»",acErrNoUser:"مفيش حساب بالإيميل ده، اختار «حساب جديد»",acErrWrong:"الباسورد غلط",acErrLocked:n=>`محاولات كتير، جرّب تاني بعد ${nf(n)} دقيقة`,acErrNet:"مفيش اتصال بالإنترنت أو حصلت مشكلة، جرّب تاني",
+ acWhy:"اعمل حساب بإيميل وباسورد، وكل نشاطك (صلواتك، ختمتك، نقاطك، خططك، مساحتك الآمنة…) يتحفظ. لو مسحت التطبيق أو غيّرت موبايلك، ادخل بنفس الحساب وكل حاجة ترجعلك.",
+ acPriv:"بياناتك بتتشفّر على موبايلك قبل ما تتحفظ، ومحدش يقدر يقراها غيرك. خلي الباسورد في بالك، لأن لو نسيته مش هنقدر نرجّعه.",
+ acOn:"متزامن",acSaved:"كل نشاطك بيتحفظ في حسابك أول بأول.",acLast:"آخر حفظ",acPend:"فيه تغييرات هتتحفظ",acSyncNow:"احفظ دلوقتي",acOut:"خروج",acDel:"امسح الحساب",acDelSure:"متأكد؟ اضغط تاني",acDeleted:"الحساب اتمسح، وبياناتك لسه على الموبايل",
+ acOutT:"خرجت من الحساب، وبياناتك لسه على الموبايل",acSyncedT:"اتحفظ ✓",acDone:"تمام! حسابك اتعمل وبياناتك اتحفظت",acRestored:"أهلًا بيك تاني! بياناتك رجعت",acRelogin:"ادخل تاني بحسابك عشان نكمل حفظ بياناتك:",
+ acNudgeT:"احفظ نشاطك في حساب",acNudge:"لو الموبايل اتمسح أو غيّرته، نشاطك يفضل محفوظ ويرجعلك.",acNudgeGo:"اعمل حساب",acSkip:"كمّل من غير حساب",acBack:"رجوع لإنشاء حساب",
+ wkT:"أسبوعك",wkTile:"نسبة عباداتك كل يوم وتقييمك",wkDays:["سبت","حد","اتنين","تلات","أربع","خميس","جمعة"],wkThis:"الأسبوع ده",wkPrevW:"الأسبوع اللي فات",wkAvg:"متوسط الأسبوع",
+ wkReady:"تقييم أسبوعك جاهز، شوفه",wkLastReady:"تقييم الأسبوع اللي فات جاهز",wkSoon:"من السبت للجمعة · التقييم يوم الجمعة",wkEvalT:"تقييم الأسبوع",wkEvalSoon:"تقييمك بيظهر يوم الجمعة إن شاء الله. كمّل، أنت ماشي كويس!",
+ wkBest:"أحسن حاجة عملتها",wkFocus:"ركّز الأسبوع الجاي على:",wkAllGood:"ما شاء الله، كل عباداتك كانت حلوة الأسبوع ده",wkPer:"كل عبادة",wkSet:"العبادات اللي في التقييم",wkSetSub:"شيل أي عبادة مش عايزها تدخل في تقييمك. الصلاة والقرآن والأذكار والتسبيح أساسية.",wkFixed:"أساسية",
+ wkItems:{prayers:"الصلاة",quran:"قراءة القرآن",azkar:"الأذكار",tasbeeh:"التسبيح",sadaqa:"الصدقة",qiyam:"القيام / الضحى",sunnah:"السنن",wasl:"صلة الرحم"},
+ wkTiers:[["🌟","أسبوع نوراني","ما شاء الله! كنت مواظب جدًا الأسبوع ده. ربنا يثبّتك ويزيدك من فضله."],["🌸","أسبوع جميل","أنت ماشي في السكة الصح. شوية تركيز كمان وتبقى نجمة الأسبوع الجاي."],["🌱","بداية حلوة","كل خطوة بتقرّبك من ربنا. اختار عبادة واحدة وركّز فيها الأسبوع الجاي."],["🌙","ولا يهمك","ربنا بيحب العبد اللي بيرجع له. الأسبوع الجاي صفحة جديدة، وخطوة صغيرة كل يوم بتفرق."]],
+ wkTips:{prayers:"حاول تصلي كل صلاة أول وقتها، وفعّل إشعارات الأذان عشان تفكّرك.",quran:"ولو صفحة واحدة في اليوم، بعد الفجر أو قبل النوم.",azkar:"أذكار الصباح والمساء ٥ دقايق بس، وهتحس بالطمأنينة طول اليوم.",tasbeeh:"سبّح ١٠٠ مرة وانت ماشي أو مستني، سهلة وأجرها كبير.",sadaqa:"ولو حاجة بسيطة كل يوم، المهم إنها تكون مستمرة.",qiyam:"ركعتين ضحى أو قيام قبل النوم، ابدأ بيوم واحد في الأسبوع.",sunnah:"طبّق سنة واحدة من مكتبة السنن كل يوم.",wasl:"مكالمة قصيرة لحد من أهلك بتفرق جامد."}});
+Object.assign(I18N.en,{acT:"Your account",acNew:"New account",acHave:"I have an account",acEmail:"Email",acPw:"Password",acPwPh:"At least 6 characters",acShow:"Show password",acCreate:"Create my account",acLogin:"Sign in",acWait:"One moment…",
+ acErrEmail:"Enter a valid email",acErrPw:"Password must be at least 6 characters",acErrName:"Enter your name",acErrExists:"This email already has an account. Choose “I have an account”",acErrNoUser:"No account with this email. Choose “New account”",acErrWrong:"Wrong password",acErrLocked:n=>`Too many tries. Try again in ${n} minutes`,acErrNet:"No internet or something went wrong. Try again",
+ acWhy:"Create an account with email and password and all your activity (prayers, khatma, points, plans, safe space…) is saved. If you delete the app or change phones, sign in and everything comes back.",
+ acPriv:"Your data is encrypted on your phone before it's saved; no one else can read it. Remember your password: if you forget it, it can't be recovered.",
+ acOn:"Synced",acSaved:"All your activity is saved to your account as you go.",acLast:"Last saved",acPend:"changes waiting to save",acSyncNow:"Save now",acOut:"Sign out",acDel:"Delete account",acDelSure:"Sure? Tap again",acDeleted:"Account deleted. Your data is still on this phone",
+ acOutT:"Signed out. Your data is still on this phone",acSyncedT:"Saved ✓",acDone:"Done! Your account is ready and your data is saved",acRestored:"Welcome back! Your data is restored",acRelogin:"Sign in again so we can keep saving your data:",
+ acNudgeT:"Save your activity in an account",acNudge:"If your phone is reset or replaced, your activity stays safe and comes back.",acNudgeGo:"Create account",acSkip:"Continue without an account",acBack:"Back to create account",
+ wkT:"Your week",wkTile:"Daily worship % and your review",wkDays:["Sat","Sun","Mon","Tue","Wed","Thu","Fri"],wkThis:"This week",wkPrevW:"Last week",wkAvg:"Week average",
+ wkReady:"Your weekly review is ready",wkLastReady:"Last week's review is ready",wkSoon:"Saturday to Friday · review on Friday",wkEvalT:"Weekly review",wkEvalSoon:"Your review appears on Friday, in sha Allah. Keep going, you're doing well!",
+ wkBest:"Your best",wkFocus:"Focus next week on:",wkAllGood:"Ma sha Allah, all your worship was great this week",wkPer:"Each worship",wkSet:"Worship included in the review",wkSetSub:"Remove anything you don't want counted. Prayer, Quran, adhkar and tasbeeh are always included.",wkFixed:"core",
+ wkItems:{prayers:"Prayer",quran:"Quran reading",azkar:"Adhkar",tasbeeh:"Tasbeeh",sadaqa:"Charity",qiyam:"Qiyam / Duha",sunnah:"Sunnahs",wasl:"Family ties"},
+ wkTiers:[["🌟","A radiant week","Ma sha Allah! You were so consistent this week. May Allah keep you steadfast."],["🌸","A lovely week","You're on the right track. A little more focus and you'll shine next week."],["🌱","A good start","Every step brings you closer. Pick one worship and focus on it next week."],["🌙","Don't worry","Allah loves those who return to Him. Next week is a fresh page; a small step every day makes a difference."]],
+ wkTips:{prayers:"Try to pray each prayer at its start, and turn on adhan notifications as a reminder.",quran:"Even one page a day, after Fajr or before sleep.",azkar:"Morning and evening adhkar take 5 minutes and bring calm all day.",tasbeeh:"Say SubhanAllah 100 times while walking or waiting. Easy, with great reward.",sadaqa:"Even something small every day; consistency matters most.",qiyam:"Two rak'ahs of Duha or night prayer; start with one day a week.",sunnah:"Apply one sunnah from the Sunnah library each day.",wasl:"A short call to a relative makes a big difference."}});
 const t=(k,...a)=>{const v=I18N[lang][k];return typeof v==="function"?v(...a):v};
 
 /* ================= Quran data ================= */
@@ -1973,11 +2043,20 @@ $("accCard").addEventListener("click",e=>{const sw=e.target.closest("[data-sw]")
 
 /* ================= SPLASH + ONBOARDING ================= */
 function runSplash(){const sp=$("splash");$("splTag").textContent=t("tagline");const P=ensureProfiles();let seen=false;try{seen=sessionStorage.getItem("itm-splash")==="1"}catch(_){}
- if(!P.length||!(P.find(p=>p.id===ACTIVE)||{}).name){ // onboarding
+ if(!P.length||!(P.find(p=>p.id===ACTIVE)||{}).name){ // onboarding: account (email + password) or continue on this phone only
+  const done=()=>{greet();sp.classList.add("out");setTimeout(()=>sp.hidden=true,600)};
+  if(acctMode==="local"){
   $("onb").innerHTML=`<div class="card2"><b style="font-family:var(--f-disp);font-size:20px;color:#F3D99B">${t("welcome")}</b><label style="display:grid;gap:6px;font-size:13px;color:rgba(255,255,255,.8)" for="onbName">${t("yourName")}<input id="onbName" maxlength="30" placeholder="${esc(t("namePh"))}" autocomplete="given-name"></label>
-   <button class="go" id="onbGo">${t("startApp")}</button><div class="note">🔒 ${t("onbNote")}</div><button class="btn sm" id="onbLang" style="justify-self:center;background:rgba(255,255,255,.1);color:#fff">${lang==="ar"?"English":"العربية"}</button></div>`;
-  const go=()=>{const n=$("onbName").value.trim();if(!n){$("onbName").focus();return}let P2=profiles();const ex=P2.find(p=>p.id===ACTIVE);if(ex)ex.name=n;else P2.push({id:ACTIVE,name:n,created:Date.now()});G.set("profiles",P2);greet();sp.classList.add("out");setTimeout(()=>sp.hidden=true,600)};
+   <button class="go" id="onbGo">${t("startApp")}</button><div class="note">🔒 ${t("onbNote")}</div><button class="link" id="onbBack">${t("acBack")}</button></div>`;
+  const go=()=>{const n=$("onbName").value.trim();if(!n){$("onbName").focus();return}let P2=profiles();const ex=P2.find(p=>p.id===ACTIVE);if(ex)ex.name=n;else P2.push({id:ACTIVE,name:n,created:Date.now()});G.set("profiles",P2);done()};
   $("onbGo").addEventListener("click",go);$("onbName").addEventListener("keydown",e=>{if(e.key==="Enter")go()});
+  $("onbBack").addEventListener("click",()=>{acctMode="register";runSplash()});return}
+  if(acctMode!=="login")acctMode="register";
+  $("onb").innerHTML=`<div class="card2"><b style="font-family:var(--f-disp);font-size:20px;color:#F3D99B">${t("welcome")}</b>${acctForm(true)}
+   <div class="note">🔒 ${t("acPriv")}</div><button class="link" id="onbLocal">${t("acSkip")}</button><button class="btn sm" id="onbLang" style="justify-self:center;background:rgba(255,255,255,.1);color:#fff">${lang==="ar"?"English":"العربية"}</button></div>`;
+  const submit=async()=>{const r=await acctSubmit(true);if(r==="restored"){toast(t("acRestored"));setTimeout(()=>location.reload(),600);return}if(r){const P3=profiles();if((P3.find(p=>p.id===ACTIVE)||{}).name){toast(t("acDone"));done()}else{acctMode="local";runSplash()}}};
+  $("onbGo").addEventListener("click",submit);$("onb").querySelectorAll("input").forEach(i=>i.addEventListener("keydown",e=>{if(e.key==="Enter")submit()}));
+  $("onbLocal").addEventListener("click",()=>{acctMode="local";runSplash()});
   $("onbLang").addEventListener("click",()=>{setLang(lang==="ar"?"en":"ar");runSplash()});return}
  if(seen){sp.hidden=true;return}try{sessionStorage.setItem("itm-splash","1")}catch(_){}
  const hide=()=>{sp.classList.add("out");setTimeout(()=>sp.hidden=true,600)};sp.addEventListener("click",hide,{once:true});setTimeout(hide,1900)}
@@ -2223,9 +2302,133 @@ $("citySel").addEventListener("change",e=>{const v=+e.target.value;if(v===-1){lo
 $("hijSeg").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;hijAdj=+b.dataset.v;S.set("hijAdj",hijAdj);rerenderAll()});
 function greet(){const me=(G.get("profiles",[]).find(p=>p.id===ACTIVE)||{}).name;$("greet").textContent=me?(hourNow()<12?t("greetMN",me):t("greetEN",me)):(hourNow()<12?t("greetM"):t("greetE"))}
 
+/* ================= CLOUD ACCOUNT (email + password; backup is encrypted on the phone) ================= */
+const ACCT_SKIP=/^rm:@(acct|acctDirty)$|(^|:)(pushOn|pushLastErr|adFired|instSnooze)$/;
+var ACCT=G.get("acct",null),acctRestoring=false;let acctTmr=null,acctBusy=false,acctLastSync=0,acctMode="register";
+function acctSave(a){ACCT=a;try{a?localStorage.setItem("rm:@acct",JSON.stringify(a)):localStorage.removeItem("rm:@acct")}catch(_){}}
+function acctDirty(){try{return JSON.parse(localStorage.getItem("rm:@acctDirty")||"[]")}catch(_){return []}}
+function acctSetDirty(L){try{L&&L.length?localStorage.setItem("rm:@acctDirty",JSON.stringify(L.slice(-3000))):localStorage.removeItem("rm:@acctDirty")}catch(_){}}
+function acctTouch(k){if(!ACCT||!ACCT.token||acctRestoring||ACCT_SKIP.test(k))return;const L=acctDirty();if(!L.includes(k)){L.push(k);acctSetDirty(L)}clearTimeout(acctTmr);acctTmr=setTimeout(()=>acctSync().catch(()=>{}),4000)}
+const hexOf=b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("");
+async function acctDerive(email,pw){const base=await crypto.subtle.importKey("raw",te.encode(pw),"PBKDF2",false,["deriveBits"]);
+ const d=s=>crypto.subtle.deriveBits({name:"PBKDF2",salt:te.encode(s+"|"+email),iterations:150000,hash:"SHA-256"},base,256);
+ const a=await d("itmaen-auth"),k=await d("itmaen-data");return {auth:hexOf(a),k:b64(k)}}
+async function gz(data,pack){if(typeof CompressionStream==="undefined")return null;const s=new Blob([data]).stream().pipeThrough(pack?new CompressionStream("gzip"):new DecompressionStream("gzip"));return new Uint8Array(await new Response(s).arrayBuffer())}
+function acctCollect(){const o={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith("rm:")&&!ACCT_SKIP.test(k))o[k]=localStorage.getItem(k)}return o}
+async function acctPack(d){const js=JSON.stringify({v:1,at:Date.now(),d});let z=null;try{z=await gz(js,true)}catch(_){}const raw=z||te.encode(js);
+ const key=await crypto.subtle.importKey("raw",unb64(ACCT.k),"AES-GCM",false,["encrypt"]),iv=crypto.getRandomValues(new Uint8Array(12));
+ return (z?"z1.":"p1.")+b64(iv)+"."+b64(await crypto.subtle.encrypt({name:"AES-GCM",iv},key,raw))}
+async function acctUnpack(s,k){const [tag,iv,ct]=s.split("."),key=await crypto.subtle.importKey("raw",unb64(k),"AES-GCM",false,["decrypt"]);
+ const pt=new Uint8Array(await crypto.subtle.decrypt({name:"AES-GCM",iv:unb64(iv)},key,unb64(ct)));return JSON.parse(td.decode(tag==="z1"?await gz(pt,false):pt)).d||{}}
+async function acctApi(path,body){let r;try{r=await fetch(PUSH_URL+"/acct/"+path,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)})}catch(_){return {_s:0,error:"net"}}
+ let j={};try{j=await r.json()}catch(_){}j._s=r.status;return j}
+function acctApply(d){acctRestoring=true;try{Object.keys(localStorage).filter(k=>k.startsWith("rm:")&&!ACCT_SKIP.test(k)&&!(k in d)).forEach(k=>localStorage.removeItem(k));
+ Object.entries(d).forEach(([k,v])=>{if(typeof v==="string"&&!ACCT_SKIP.test(k))try{localStorage.setItem(k,v)}catch(_){}})}finally{acctRestoring=false}}
+function acctReload(){let last=0;try{last=+sessionStorage.getItem("acctReload")||0}catch(_){}if(Date.now()-last<15000)return;try{sessionStorage.setItem("acctReload",String(Date.now()))}catch(_){}location.reload()}
+function acctLost(){acctSave(Object.assign({},ACCT,{token:"",err:"relogin"}));acctRender()}
+/* pull newer data from the server (keeping this phone's unsynced changes), then push this phone's changes */
+async function acctSync(force){if(!ACCT||!ACCT.token||acctBusy)return;acctBusy=true;let reload=false;
+ try{const m=await acctApi("meta",{email:ACCT.email,token:ACCT.token});if(m._s===401){acctLost();return}if(m._s!==200)return;
+  let dirty=acctDirty();
+  if(m.updated>(ACCT.synced||0)){const p=await acctApi("pull",{email:ACCT.email,token:ACCT.token});if(p._s===401){acctLost();return}
+   if(p._s===200&&p.data){const remote=await acctUnpack(p.data,ACCT.k),local=acctCollect(),merged=Object.assign({},remote);dirty=acctDirty();dirty.forEach(k=>{if(k in local)merged[k]=local[k]});
+    reload=Object.keys(merged).some(k=>local[k]!==merged[k])||Object.keys(local).some(k=>!(k in merged));acctApply(merged)}
+   acctSave(Object.assign({},ACCT,{synced:m.updated,err:""}))}
+  if(dirty.length||force){const sent=dirty.slice(),data=await acctPack(acctCollect());const j=await acctApi("push",{email:ACCT.email,token:ACCT.token,data,base:ACCT.synced||0});
+   if(j._s===401){acctLost();return}
+   if(j.ok){const left=acctDirty().filter(k=>!sent.includes(k));acctSetDirty(left);acctSave(Object.assign({},ACCT,{synced:j.updated,err:""}))}
+   else if(j._s===409){acctSave(Object.assign({},ACCT,{synced:0}));clearTimeout(acctTmr);acctTmr=setTimeout(()=>acctSync().catch(()=>{}),800)}}
+  acctLastSync=Date.now()}
+ catch(e){}finally{acctBusy=false;acctRender()}
+ if(reload)acctReload()}
+/* sign up / sign in: mode "register" or "login" */
+async function acctAuth(mode,email,pw,name){email=(email||"").trim().toLowerCase();
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email))throw t("acErrEmail");if((pw||"").length<6)throw t("acErrPw");
+ if(mode==="register"&&name!==undefined&&!name.trim())throw t("acErrName");
+ const {auth,k}=await acctDerive(email,pw),j=await acctApi(mode,{email,auth});
+ if(!j.ok)throw ({exists:t("acErrExists"),nouser:t("acErrNoUser"),wrong:t("acErrWrong"),locked:t("acErrLocked",j.wait||15)}[j.error]||t("acErrNet"));
+ acctSave({email,token:j.token,k,synced:0,since:Date.now()});
+ if(name&&name.trim()){let P=profiles();const ex=P.find(p=>p.id===ACTIVE);if(ex)ex.name=name.trim();else P.push({id:ACTIVE,name:name.trim(),created:Date.now()});G.set("profiles",P)}
+ if(mode==="login"&&j.updated){const p=await acctApi("pull",{email,token:j.token});if(p._s===200&&p.data){const remote=await acctUnpack(p.data,k),local=acctCollect();
+   const extra=Object.keys(local).filter(x=>!(x in remote)&&!/^rm:@/.test(x));acctApply(Object.assign({},local,remote));acctSave(Object.assign({},ACCT,{synced:p.updated}));
+   acctSetDirty(extra);if(extra.length)await acctSync();return "restored"}}
+ acctSetDirty(Object.keys(acctCollect()));await acctSync(true);return "new"}
+async function acctLogout(){if(ACCT&&ACCT.token){await acctSync().catch(()=>{});acctApi("logout",{email:ACCT.email,token:ACCT.token})}acctSave(null);acctSetDirty([]);acctRender()}
+async function acctDelete(){if(!ACCT)return;const j=await acctApi("delete",{email:ACCT.email,token:ACCT.token});if(j.ok||j._s===401){acctSave(null);acctSetDirty([]);toast(t("acDeleted"))}else toast(t("acErrNet"));acctRender()}
+function acctForm(dark){const m=acctMode,reg=m==="register",id=x=>(dark?"onb":"ac")+x;
+ return `<div class="acseg" role="tablist">${["register","login"].map(x=>`<button data-acm="${x}" aria-pressed="${m===x}">${t(x==="register"?"acNew":"acHave")}</button>`).join("")}</div>
+ ${reg&&dark?`<label class="acl" for="${id("Name")}">${t("yourName")}<input id="${id("Name")}" class="${dark?"":"field"}" maxlength="30" placeholder="${esc(t("namePh"))}" autocomplete="given-name"></label>`:""}
+ <label class="acl" for="${id("Email")}">${t("acEmail")}<input id="${id("Email")}" class="${dark?"":"field"}" type="email" dir="ltr" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="120" placeholder="name@email.com"></label>
+ <label class="acl" for="${id("Pw")}">${t("acPw")}<span class="pwrap"><input id="${id("Pw")}" class="${dark?"":"field"}" type="password" dir="ltr" autocomplete="${reg?"new-password":"current-password"}" maxlength="100" placeholder="${esc(t("acPwPh"))}"><button type="button" class="pweye" data-eye="${id("Pw")}" aria-label="${esc(t("acShow"))}">👁</button></span></label>
+ <button class="${dark?"go":"btn primary"}" id="${id("Go")}" style="justify-content:center">${t(reg?"acCreate":"acLogin")}</button>
+ <div class="acerr" id="${id("Err")}" role="alert"></div>`}
+async function acctSubmit(dark){const id=x=>$((dark?"onb":"ac")+x),btn=id("Go"),err=id("Err");if(btn.disabled)return;err.textContent="";
+ const nm=id("Name");btn.disabled=true;const old=btn.textContent;btn.textContent=t("acWait");
+ try{const r=await acctAuth(acctMode,id("Email").value,id("Pw").value,nm?nm.value:undefined);return r}
+ catch(e){err.textContent=typeof e==="string"?e:t("acErrNet");return null}finally{btn.disabled=false;btn.textContent=old}}
+document.addEventListener("click",e=>{const m=e.target.closest("[data-acm]");if(m){acctMode=m.dataset.acm;if(m.closest("#onb"))runSplash();else acctRender();return}
+ const ey=e.target.closest("[data-eye]");if(ey){const i=$(ey.dataset.eye);if(i)i.type=i.type==="password"?"text":"password"}});
+function fmtAgo(ts){if(!ts)return "—";return fmtD(new Date(ts),{day:"numeric",month:"short"})+" · "+new Intl.DateTimeFormat(lang==="ar"?"ar-EG":"en-US",{hour:"numeric",minute:"2-digit"}).format(new Date(ts))}
+function acctRender(){if(acctMode==="local"&&$("splash").hidden)acctMode="register";const C=$("cloudCard");if(C){const ic=`<span class="hi g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 18a5 5 0 0 1-.6-10A6 6 0 0 1 18 9a4.5 4.5 0 0 1-.5 9z"/><path d="M12 11v6M9.5 13.5L12 11l2.5 2.5"/></svg></span>`;
+  if(ACCT&&ACCT.token){const pend=acctDirty().length;
+   C.innerHTML=`<h2>${ic}${t("acT")}</h2><div class="acme"><b dir="ltr">${esc(ACCT.email)}</b><span class="badge ok">${t("acOn")}</span></div>
+   <p class="muted" style="margin:0;font-size:13px">${t("acSaved")}</p><span class="label">${t("acLast")}: ${fmtAgo(ACCT.synced)}${pend?" · "+t("acPend"):""}</span>
+   <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm primary" id="acSync">${acctBusy?t("acWait"):"↻ "+t("acSyncNow")}</button><button class="btn sm" id="acOut">${t("acOut")}</button><button class="btn sm danger" id="acDel">${t("acDel")}</button></div>`}
+  else{C.innerHTML=`<h2>${ic}${t("acT")}</h2>${ACCT&&ACCT.err==="relogin"?`<p style="margin:0;font-size:13px;color:var(--warn)">${t("acRelogin")} <b dir="ltr">${esc(ACCT.email)}</b></p>`:`<p class="muted" style="margin:0;font-size:13px">${t("acWhy")}</p>`}
+   <div class="form">${acctForm(false)}</div><span class="label">🔒 ${t("acPriv")}</span>`;
+   if(ACCT&&ACCT.email&&$("acEmail"))$("acEmail").value=ACCT.email}}
+ const N=$("cloudNudge");if(N){let off=false;try{off=localStorage.getItem("rm:@acctNudgeOff")==="1"}catch(_){}N.hidden=!!(ACCT&&ACCT.token)||off||KID;
+  if(!N.hidden)N.innerHTML=`<span class="hi g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 18a5 5 0 0 1-.6-10A6 6 0 0 1 18 9a4.5 4.5 0 0 1-.5 9z"/><path d="M12 11v6M9.5 13.5L12 11l2.5 2.5"/></svg></span><div style="flex:1"><b>${t("acNudgeT")}</b><div class="mean">${t(ACCT&&ACCT.err==="relogin"?"acRelogin":"acNudge")}</div><a class="btn sm primary" href="#more" style="margin-top:8px;display:inline-flex">${t("acNudgeGo")}</a></div><button class="ibtn" id="acNudgeX" aria-label="✕" style="box-shadow:none;width:32px;height:32px">✕</button>`}}
+document.addEventListener("click",async e=>{const q=s=>e.target.closest(s);
+ if(q("#acGo")){const r=await acctSubmit(false);if(r==="restored"){toast(t("acRestored"));setTimeout(()=>location.reload(),700)}else if(r){toast(t("acDone"));acctRender()}return}
+ if(q("#acSync")){await acctSync(true);toast(ACCT&&ACCT.token?t("acSyncedT"):t("acRelogin"));return}
+ if(q("#acOut")){await acctLogout();toast(t("acOutT"));return}
+ if(q("#acDel")){const b=q("#acDel");if(!b.dataset.sure){b.dataset.sure=1;b.textContent=t("acDelSure");return}await acctDelete();return}
+ if(q("#acNudgeX")){try{localStorage.setItem("rm:@acctNudgeOff","1")}catch(_){}acctRender()}});
+document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.closest&&e.target.closest("#cloudCard input")){e.preventDefault();$("acGo").click()}});
+document.addEventListener("visibilitychange",()=>{if(!ACCT||!ACCT.token)return;if(document.hidden){if(acctDirty().length){clearTimeout(acctTmr);acctSync().catch(()=>{})}}else if(Date.now()-acctLastSync>60000)acctSync().catch(()=>{})});
+
+/* ================= WEEK (Saturday → Friday) + weekly review ================= */
+const WK_ITEMS=[["prayers",1],["quran",1],["azkar",1],["tasbeeh",1],["sadaqa",0],["qiyam",0],["sunnah",0],["wasl",0]];
+const WK_DOW=["Sat","Sun","Mon","Tue","Wed","Thu","Fri"];
+let wkView=0;
+function wkOn(){const off=S.get("wkOff",[]);return WK_ITEMS.filter(([id,f])=>f||!off.includes(id)).map(x=>x[0])}
+function wkDays(w){const idx=WK_DOW.indexOf(new Intl.DateTimeFormat("en-US",{timeZone:TZ(),weekday:"short"}).format(new Date())),s=-idx+w*7;
+ return [...Array(7)].map((_,i)=>{const o=s+i;return {i,o,k:dayKey(o),future:o>0,today:o===0}})}
+function wkScores(k,pk){const d=S.get("d:"+k,{});return {prayers:getPrayed(k).filter(Boolean).length/5,quran:d.quran?1:0,azkar:((d.morning?1:0)+(d.evening?1:0))/2,
+ tasbeeh:Math.min(1,S.get("tasD:"+k,0)/100),sadaqa:d.sadaqa?1:0,qiyam:d.qiyam?1:0,sunnah:pk.some(x=>x.startsWith("sn:")&&x.endsWith(":"+k))?1:0,wasl:pk.some(x=>x.startsWith("ws:")&&x.endsWith(":"+k))?1:0}}
+function wkStats(w){const on=wkOn(),pk=Object.keys(PT.k),days=wkDays(w),per={};on.forEach(id=>per[id]=[]);
+ days.forEach(d=>{if(d.future){d.pct=null;return}const sc=wkScores(d.k,pk);on.forEach(id=>per[id].push(sc[id]));d.pct=Math.round(on.reduce((a,id)=>a+sc[id],0)/on.length*100)});
+ const past=days.filter(d=>!d.future),avg=past.length?Math.round(past.reduce((a,d)=>a+d.pct,0)/past.length):0,items=on.map(id=>({id,v:per[id].length?per[id].reduce((a,b)=>a+b,0)/per[id].length:0}));
+ return {days,avg,items,done:w<0||days[6].today}}
+const pctTxt=n=>nf(n)+(lang==="ar"?"٪":"%");
+function wkBars(st,big){return `<div class="wkbars${big?" big":""}">${st.days.map(d=>`<div class="c${d.today?" today":""}${d.future?" fut":""}"><span class="pv">${big&&d.pct!=null?pctTxt(d.pct):""}</span><span class="trk"><i style="height:${d.pct||0}%"></i></span><span class="dn">${t("wkDays")[d.i]}</span></div>`).join("")}</div>`}
+function wkTier(a){return a>=85?0:a>=65?1:a>=40?2:3}
+function renderWkCard(){const C=$("wkCard");if(!C)return;const st=wkStats(0),dow=st.days.findIndex(d=>d.today),sat=dow===0;
+ C.innerHTML=`<div class="row" style="margin-bottom:6px"><h2><span class="hi g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>${t("wkT")}</h2><b class="num" style="color:var(--pri)">${pctTxt(st.avg)}</b></div>${wkBars(st,false)}
+ ${st.done?`<span class="wkready">✨ ${t("wkReady")}</span>`:sat?`<span class="wkready" data-wklast="1">✨ ${t("wkLastReady")}</span>`:`<span class="label">${t("wkSoon")}</span>`}`}
+$("wkCard")&&$("wkCard").addEventListener("click",e=>{wkView=e.target.closest("[data-wklast]")?-1:0;location.hash="week"});
+function renderWeek(){const B=$("weekBody"),st=wkStats(wkView),me=(profiles().find(p=>p.id===ACTIVE)||{}).name||"",W=t("wkItems"),off=S.get("wkOff",[]);
+ const f=d=>fmtD(new Date(Date.now()+d.o*864e5),{day:"numeric",month:"short"});
+ const items=[...st.items].sort((a,b)=>b.v-a.v),best=items[0]&&items[0].v>0?items[0]:null,focus=[...st.items].filter(x=>x.v<.7).sort((a,b)=>a.v-b.v).slice(0,2),tier=wkTier(st.avg),TT=t("wkTiers")[tier];
+ B.innerHTML=`<div class="card"><div class="row"><h2><span class="hi g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>${t("wkT")}</h2>
+  <div style="display:flex;gap:6px;align-items:center"><button class="ibtn" id="wkPrev" aria-label="‹" style="width:34px;height:34px">${lang==="ar"?"›":"‹"}</button><button class="ibtn" id="wkNext" aria-label="›" style="width:34px;height:34px" ${wkView>=0?"disabled":""}>${lang==="ar"?"‹":"›"}</button></div></div>
+  <span class="label">${wkView===0?t("wkThis"):wkView===-1?t("wkPrevW"):""} ${f(st.days[0])} – ${f(st.days[6])}</span>
+  ${wkBars(st,true)}<div class="row" style="margin-top:6px"><span class="label">${t("wkAvg")}</span><b class="num" style="color:var(--pri);font-size:20px">${pctTxt(st.avg)}</b></div></div>
+ ${st.done?`<div class="card wkeval t${tier}"><div class="wkemo">${TT[0]}</div><div class="label">${t("wkEvalT")}</div><h2 style="justify-content:center">${TT[1]}${me?"، "+esc(me):""}</h2><p>${TT[2]}</p>
+   ${best?`<div class="wkbest">🏅 ${t("wkBest")}: <b>${W[best.id]}</b></div>`:""}
+   ${focus.length?`<div class="wkfocus"><b>${t("wkFocus")}</b>${focus.map(x=>`<div><span>🎯 ${W[x.id]}</span><small>${t("wkTips")[x.id]}</small></div>`).join("")}</div>`:`<div class="wkbest">🌟 ${t("wkAllGood")}</div>`}</div>`
+  :`<div class="card msg"><span class="hi g">✨</span><div><b>${t("wkEvalT")}</b><div class="mean">${t("wkEvalSoon")}</div></div></div>`}
+ <div class="card" style="display:grid;gap:10px"><h3>${t("wkPer")}</h3>${st.items.map(x=>`<div class="wkrow"><span>${W[x.id]}</span><div class="progress"><i style="width:${Math.round(x.v*100)}%"></i></div><b class="num">${pctTxt(Math.round(x.v*100))}</b></div>`).join("")}</div>
+ <div class="card" style="display:grid;gap:8px"><h3>${t("wkSet")}</h3><p class="muted" style="margin:0;font-size:13px">${t("wkSetSub")}</p><div class="checks">
+  ${WK_ITEMS.map(([id,fx])=>{const on=fx||!off.includes(id);return `<button class="check" data-wki="${id}" aria-pressed="${on}" ${fx?"disabled":""}><span class="box">${on?"✓":""}</span><span>${W[id]}${fx?` <span class="muted" style="font-size:11px">🔒 ${t("wkFixed")}</span>`:""}</span></button>`}).join("")}</div></div>`}
+$("weekBody")&&$("weekBody").addEventListener("click",e=>{if(e.target.closest("#wkPrev")){wkView--;renderWeek();return}if(e.target.closest("#wkNext")){if(wkView<0)wkView++;renderWeek();return}
+ const b=e.target.closest("[data-wki]");if(b&&!b.disabled){const id=b.dataset.wki,off=S.get("wkOff",[]);S.set("wkOff",off.includes(id)?off.filter(x=>x!==id):[...off,id]);renderWeek();renderWkCard()}});
+
 /* ================= router ================= */
-const VIEWS=["home","prayer","azkar","tasbeeh","more","quran","read","names","zakat","occasions","wasl","stories","prophet","plans","plan","rewards","quiz","sunan","sunnah","todo","safe"];
-const NAVOF={names:"more",zakat:"more",occasions:"more",wasl:"more",tasbeeh:"azkar",read:"quran",stories:"more",prophet:"more",plans:"more",plan:"more",rewards:"home",todo:"home",safe:"home",quiz:"more",sunan:"more",sunnah:"more"};
+let qReadT=null;
+const VIEWS=["week","home","prayer","azkar","tasbeeh","more","quran","read","names","zakat","occasions","wasl","stories","prophet","plans","plan","rewards","quiz","sunan","sunnah","todo","safe"];
+const NAVOF={names:"more",zakat:"more",occasions:"more",wasl:"more",tasbeeh:"azkar",read:"quran",stories:"more",prophet:"more",plans:"more",plan:"more",rewards:"home",todo:"home",week:"home",safe:"home",quiz:"more",sunan:"more",sunnah:"more"};
 function route(){if(KID){kidRoute();return}document.body.classList.toggle("reading",/^#(s\d+|pg\d+)$/.test(location.hash));let v=location.hash.slice(1),m=/^s(\d{1,3})$/.exec(v),pm=/^p-([a-z]+)$/.exec(v),sm=/^sunnah-([a-z]+)$/.exec(v),plm=/^plan-([a-z0-9]+)$/.exec(v);
  const pgm=/^pg(\d{1,3})$/.exec(v);
  if(m&&+m[1]>=1&&+m[1]<=114){const sn=+m[1];if(pendingAyah==null)pendingAyah=null;const stp=S.get("stopAt",null);if(!pendingAyah&&stp&&fromG(stp.g)[0]===sn&&!sessionStorage.getItem("noStopJump")){pendingAyah=fromG(stp.g)[1];toast(t("backToStop"))}
@@ -2234,7 +2437,7 @@ function route(){if(KID){kidRoute();return}document.body.classList.toggle("readi
  else if(!VIEWS.includes(v)||["read","prophet","plan","sunnah"].includes(v))v="home";
  VIEWS.forEach(x=>$("v-"+x).hidden=x!==v);closeSheet();
  document.querySelectorAll("nav.tabs a").forEach(a=>a.setAttribute("aria-current",a.dataset.v===(NAVOF[v]||v)?"page":"false"));
- if(v==="prayer")renderPrayer();if(v==="occasions")renderOcc();if(v==="azkar")renderAzkar();if(v==="quran"){renderKhatma();renderQTabs()}if(v==="wasl")renderWasl();if(v==="stories")renderStories();if(v==="prophet")renderProphet(pm[1]);if(v==="plans")renderPlans();if(v==="plan")renderPlan();if(v==="home"){renderMsg();renderDQ();renderDS();renderMe()}if(v==="rewards")renderRewards();if(v==="todo")renderTodo();if(v==="safe")renderSafe();if(v!=="safe"&&VK)lockVault();if(v==="more")renderAcc();if(v==="quiz")renderQuizHome();if(v==="sunan")renderSunan();if(v==="sunnah")renderSunnahCat(curSunCat);if(v==="tasbeeh")renderTas();if(v==="prayer"){renderAdhanCard();renderRemCard();renderQada();renderMonth()}if(v!=="prayer"&&compassOn)toggleCompass();
+ if(v==="prayer")renderPrayer();if(v==="occasions")renderOcc();if(v==="azkar")renderAzkar();if(v==="quran"){renderKhatma();renderQTabs()}if(v==="wasl")renderWasl();if(v==="stories")renderStories();if(v==="prophet")renderProphet(pm[1]);if(v==="plans")renderPlans();if(v==="plan")renderPlan();if(v==="home"){renderMsg();renderDQ();renderDS();renderMe()}if(v==="rewards")renderRewards();if(v==="todo")renderTodo();if(v==="safe")renderSafe();if(v!=="safe"&&VK)lockVault();if(v==="more"){renderAcc();acctRender()}if(v==="week")renderWeek();if(v==="home")renderWkCard();clearTimeout(qReadT);if(v==="read")qReadT=setTimeout(()=>{if(!$("v-read").hidden&&!getDaily().quran){setDaily("quran",true);renderDaily()}},120000);if(v==="quiz")renderQuizHome();if(v==="sunan")renderSunan();if(v==="sunnah")renderSunnahCat(curSunCat);if(v==="tasbeeh")renderTas();if(v==="prayer"){renderAdhanCard();renderRemCard();renderQada();renderMonth()}if(v!=="prayer"&&compassOn)toggleCompass();
  if(v==="read"){loadTr(trCode,()=>renderReader(false))}else window.scrollTo(0,0);
  if(v!=="read"&&obs){obs.disconnect()}}
 window.addEventListener("hashchange",route);
@@ -2242,12 +2445,13 @@ window.addEventListener("hashchange",route);
 /* tasbeeh shortcut inside azkar view */
 (function(){const b=document.createElement("a");b.className="btn";b.href="#tasbeeh";b.style.justifyContent="center";b.dataset.i="tasbeeh";$("v-azkar").insertBefore(b,$("azSeg"))})();
 
-function refreshAll(){renderHero();renderFast();renderDaily();renderDailyContent();renderCont();renderWaslHome();renderQA();renderMsg();renderInstall();renderMe();renderDQ();renderDS();renderTodoCard();renderLove();greet();if(!$("v-prayer").hidden)renderPrayer()}
+function refreshAll(){renderWkCard();acctRender();renderHero();renderFast();renderDaily();renderDailyContent();renderCont();renderWaslHome();renderQA();renderMsg();renderInstall();renderMe();renderDQ();renderDS();renderTodoCard();renderLove();greet();if(!$("v-prayer").hidden)renderPrayer()}
 function rerenderAll(){applyLang();applyTheme();fillMethods();fillTrSel();renderMoods();renderAzkar();renderTas();renderNames();renderZakat();refreshAll();route()}
 if(lang==="en")loadTr("en",rerenderAll);
 rerenderAll();
 setInterval(()=>{renderHero();adhanTick()},1000);
 runSplash();if(KID)startKid();
+if(ACCT&&ACCT.token)setTimeout(()=>acctSync().catch(()=>{}),1500);
 scheduleNative();
 })();
 </script>
