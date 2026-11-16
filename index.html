@@ -2161,11 +2161,12 @@ function pushBlock(){if(NATIVE)return "";const on=S.get("pushOn",false)&&typeof 
  const ios=/iphone|ipad|ipod/i.test(navigator.userAgent),needInstall=ios&&!STANDALONE;
  return `<div class="warnbox" style="background:color-mix(in srgb,var(--pri) 9%,transparent)"><div class="row" style="flex-wrap:nowrap"><b>${t("pushT")}</b><button class="switch" id="pushSw" role="switch" aria-checked="${on}" aria-label="${esc(t("pushT"))}" ${(!PUSH_CAN||!PUSH_URL||needInstall)&&!on?"disabled":""}></button></div>
   <span>${!PUSH_CAN&&!needInstall?t("pushNA"):needInstall?t("pushIos"):t("pushSub")}</span>${on?`<button class="btn sm primary" id="pushTest2" style="justify-self:start">${t("pushTest2")}</button><div id="pushLog" class="label" style="line-height:1.8"></div>`:""}
+  ${S.get("pushLastErr","")?`<span class="label" style="color:var(--warn)">⚠ ${esc(S.get("pushLastErr",""))}</span>`:""}
   <span class="label">${t("pushState")} ${ios?(STANDALONE?t("psApp"):t("psSafari"))+" · ":""}${typeof Notification==="undefined"||!("PushManager" in window)?t("psNoApi"):Notification.permission==="granted"?t("psGranted"):Notification.permission==="denied"?t("psDenied"):t("psAsk")}</span></div>`}
 async function pushToggle(){if(S.get("pushOn",false)&&Notification.permission==="granted"){S.set("pushOn",false);await pushOff();toast(t("pushOffT"));renderAdhanCard();return}
  let perm="default";try{perm=await Notification.requestPermission()}catch(_){}
  if(perm!=="granted"){toast(t("pushDenied"));renderAdhanCard();return}
- try{await pushSubscribe(true);S.set("pushOn",true);toast(t("pushOn"))}catch(e){toast(t("pushErr"))}renderAdhanCard()}
+ try{await pushSubscribe(true);S.set("pushOn",true);S.set("pushLastErr","");toast(t("pushOn"))}catch(e){const m=(e&&(e.name||"")+": "+(e.message||e))||"?";S.set("pushLastErr",m.slice(0,140));toast(t("pushErr"))}renderAdhanCard()}
 async function pushLogShow(){const el=document.getElementById("pushLog");if(!el)return;try{const reg=await navigator.serviceWorker.ready,sub=await reg.pushManager.getSubscription();if(!sub)return;
  const r=await fetch(PUSH_URL+"/status",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({endpoint:sub.endpoint})}),d=await r.json();
  if(!d.found){el.textContent=t("plogNotFound");return}if(!d.log||!d.log.length){el.textContent=t("plogNone");return}
