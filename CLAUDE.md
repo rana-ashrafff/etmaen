@@ -5,7 +5,7 @@ Islamic app ("اطمئن", from ﴿أَلَا بِذِكْرِ اللَّهِ ت
 ## Live
 - Site (PWA): https://etmaen.pages.dev — Cloudflare Pages, deploys automatically from `main` of this repo (no build step, output dir `/`).
 - Old address https://rana-ashrafff.github.io/itmaen/ (GitHub Pages, same repo) forwards to etmaen.pages.dev (script at top of `index.html`).
-- Push server: https://itmaen.ranaxashraf88.workers.dev — Cloudflare Worker `itmaen`, deploys automatically from `push/` (Workers Builds). Durable Object stores subscriptions + auto-generated VAPID keys; cron every minute sends prayer-time notifications.
+- Push server: https://itmaen.ranaxashraf88.workers.dev — Cloudflare Worker `itmaen`, deployed manually with `npx wrangler deploy` from `push/` on the owner's Mac (Workers Builds Git link was lost when the worker got deleted and recreated on 2026-11-16; all old subscriptions + VAPID keys were lost then). Durable Object stores subscriptions + auto-generated VAPID keys; cron every minute sends prayer-time notifications.
 
 ## Files
 - `index.html` — the whole app (HTML + CSS + JS, single file). Arabic/English via `I18N` object. Data loaded from `data/*.js`.
