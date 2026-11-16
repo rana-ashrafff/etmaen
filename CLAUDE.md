@@ -25,6 +25,7 @@ Islamic app ("اطمئن", from ﴿أَلَا بِذِكْرِ اللَّهِ ت
 - Mushaf reader: full screen, page + juz always visible at top, KFGQPC font, real 604-page layout.
 - Khatma counts only when the user taps «خلصت» at the end of a surah.
 - No usernames/handles on Instagram post images.
+- Instagram posts: always use the original post template (scratchpad ig/posts3.html CSS: tag pill, Quran in KFGQPC, src, txt, logo foot). Morning posts = beige `light`, night/evening posts = green `dark`. No other palettes. Don't repeat content already in /home/user/instagram (check captions.txt).
 - Privacy: everything is stored on-device (localStorage); safe space is AES-GCM encrypted with the user's PIN.
 - Optional cloud account (email + password, added v20): the phone derives `auth` and a data key from the password (PBKDF2), uploads an AES-GCM-encrypted gzip of all `rm:` keys to the worker (`/acct/*`, one Durable Object instance per email). Server never sees the password or data. Forgotten password = data can't be recovered. Device-only keys skipped: see `ACCT_SKIP`.
 - Browser tab vs installed app (v21): in a normal browser tab `index.html` shows only the landing page (`#landing`: what the app is + install steps for iPhone/Android/computer, auto-picks the tab). Installed (standalone), Capacitor, `?app` in the URL, or sessionStorage `itm-web=1` → the normal app. Screenshots for it: `img/shot-*.webp`. For local testing open http://localhost:8000/?app
