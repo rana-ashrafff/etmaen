@@ -1,5 +1,5 @@
 /* Itmaen service worker: works offline, keeps the app fast. */
-const VERSION = "itmaen-v12";
+const VERSION = "itmaen-v13";
 const CORE = ["./", "index.html", "manifest.webmanifest", "data/quran.js", "data/content.js", "data/extra.js",
   "data/habits.js", "data/kids.js", "data/pages.js", "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png"];
 self.addEventListener("install", e => {
@@ -31,7 +31,7 @@ self.addEventListener("push", e => {
   let d = {}; try { d = e.data ? e.data.json() : {}; } catch (_) { d = { title: "اطمئن", body: e.data && e.data.text() }; }
   e.waitUntil(self.registration.showNotification(d.title || "اطمئن", {
     body: d.body || "", icon: "icons/icon-192.png", badge: "icons/icon-192.png", tag: d.tag || "itmaen",
-    lang: "ar", dir: "rtl", vibrate: [300, 150, 300], data: { url: d.url || (self.registration.scope + "#prayer") }, renotify: true
+    lang: "ar", dir: "rtl", vibrate: d.adhan ? [500, 200, 500, 200, 800] : [300, 150, 300], data: { url: d.url || (self.registration.scope + "#prayer") }, renotify: true, requireInteraction: !!d.adhan, silent: false
   }));
 });
 self.addEventListener("notificationclick", e => {

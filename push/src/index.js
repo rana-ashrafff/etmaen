@@ -9,8 +9,8 @@ const SITE = "https://rana-ashrafff.github.io/itmaen/";
 const ORIGINS = ["https://rana-ashrafff.github.io", "http://localhost:8765", "http://localhost:8770"];
 const NAMES = { ar: ["الفجر", "الشروق", "الظهر", "العصر", "المغرب", "العشاء"], en: ["Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha"] };
 const TXT = {
-  ar: { t: p => `حان الآن موعد أذان ${p}`, b: "حيّ على الصلاة، حيّ على الفلاح 🤍", pt: (p, n) => `باقي ${n} دقائق على ${p}`, pb: "اتوضأ واستعد للصلاة", test: "تمام! الإشعارات شغالة، وهتوصلك في وقت كل صلاة 🤍", st: "إشعار تجريبي في ميعاده ✅", sb: "كده إشعارات الصلاة هتوصلك في وقتها بالظبط، حتى والتطبيق مقفول 🤍" },
-  en: { t: p => `It's time for ${p}`, b: "Come to prayer, come to success 🤍", pt: (p, n) => `${n} minutes until ${p}`, pb: "Make wudu and get ready", test: "All set! You'll get a notification at every prayer time 🤍", st: "Scheduled test arrived on time ✅", sb: "Your prayer notifications will arrive right on time, even when the app is closed 🤍" }
+  ar: { t: p => `🕌 صلاة ${p} الآن`, b: (p, tm) => `حان الآن موعد أذان ${p} · ${tm} — حيّ على الصلاة، حيّ على الفلاح 🤍`, pt: (p, n) => `باقي ${n} دقائق على ${p}`, pb: "اتوضأ واستعد للصلاة", test: "تمام! الإشعارات شغالة، وهتوصلك في وقت كل صلاة 🤍", st: "إشعار تجريبي في ميعاده ✅", sb: "كده إشعارات الصلاة هتوصلك في وقتها بالظبط، حتى والتطبيق مقفول 🤍" },
+  en: { t: p => `🕌 ${p} prayer now`, b: (p, tm) => `It's time for ${p} · ${tm} — come to prayer, come to success 🤍`, pt: (p, n) => `${n} minutes until ${p}`, pb: "Make wudu and get ready", test: "All set! You'll get a notification at every prayer time 🤍", st: "Scheduled test arrived on time ✅", sb: "Your prayer notifications will arrive right on time, even when the app is closed 🤍" }
 };
 const PRAYERS = [0, 2, 3, 4, 5];
 
@@ -81,7 +81,8 @@ export default {
       const d = ymdIn(minute, r.tz), tt = times(d.y, d.m, d.d, r.lat, r.lng, r.method, r.asr), N = NAMES[r.lang], T = TXT[r.lang];
       PRAYERS.forEach((idx, pi) => {
         if (!r.prayers[pi]) return;
-        if (tt[idx] === minute) jobs.push([id, r, { title: T.t(N[idx]), body: T.b, tag: "adhan-" + idx, url: SITE + "#prayer" }]);
+        if (tt[idx] === minute) { const tm = new Intl.DateTimeFormat(r.lang === "ar" ? "ar-EG" : "en-GB", { timeZone: r.tz, hour: "numeric", minute: "2-digit", hour12: true }).format(new Date(tt[idx]));
+          jobs.push([id, r, { title: T.t(N[idx]), body: T.b(N[idx], tm), tag: "adhan-" + idx, url: SITE + "#prayer", adhan: 1 }]); }
         if (r.pre && tt[idx] - r.pre * 60000 === minute) jobs.push([id, r, { title: T.pt(N[idx], r.pre), body: T.pb, tag: "pre-" + idx, url: SITE + "#prayer" }]);
       });
     }
