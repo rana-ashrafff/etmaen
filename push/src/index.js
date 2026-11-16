@@ -127,6 +127,7 @@ async function ping(b, env, h) {
   const k = "d:" + b.id, d = (await ss.kget(k)) || { f: day };
   const isNewDay = d.l !== day;
   d.l = day; d.p = ["ios", "and", "pc", "apk"].includes(b.p) ? b.p : "other"; d.n = b.push ? 1 : 0; d.a = b.acct ? 1 : 0; d.k = b.kid ? 1 : 0;
+  if (Array.isArray(b.names)) d.nm = b.names.filter(x => typeof x === "string").map(x => x.replace(/[\u0000-\u001f<>]/g, "").trim().slice(0, 30)).filter(Boolean).slice(0, 5);
   await ss.kput({ [k]: d }); if (isNewDay) await ss.incr("c:" + day, 1);
   return json({ ok: true }, 200, h);
 }
@@ -140,17 +141,21 @@ async function stats(url, env) {
   const days = [...Array(14).keys()].reverse().map(i => dayIn(now - i * 864e5));
   const hist = await ss.kgetMany(days.map(x => "c:" + x)), web = await ss.kgetMany(days.map(x => "w:" + x));
   const accts = (await ss.kget("accts")) || 0, subs = (await store(env).all()).length, mx = Math.max(1, ...hist.map(x => x || 0));
+  const escH = x => String(x).replace(/[&<>"']/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+  const names = devs.filter(d => d.nm && d.nm.length).sort((a, b) => (b.l || "").localeCompare(a.l || "")).flatMap(d => d.nm);
   const card = (n, t) => `<div class="c"><b>${n.toLocaleString("ar-EG")}</b><span>${t}</span></div>`;
   const html = `<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>إحصائيات اطمئن</title><style>
 body{margin:0;font-family:system-ui,"Segoe UI",Tahoma,sans-serif;background:#F6F2E8;color:#0B3D2E;padding:20px}h1{margin:0 0 4px;font-size:24px}p{margin:0 0 18px;color:#5E6F69;font-size:14px}
 h2{font-size:17px;margin:24px 0 10px}.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}.c{background:#fff;border-radius:16px;padding:14px;box-shadow:0 6px 18px -12px rgba(11,61,46,.4)}
 .c b{display:block;font-size:28px;color:#0B5A43}.c span{font-size:13px;color:#5E6F69}.bars{display:grid;grid-template-columns:repeat(14,1fr);gap:6px;align-items:end;height:160px;background:#fff;border-radius:16px;padding:14px}
+.names{display:flex;flex-wrap:wrap;gap:8px;background:#fff;border-radius:16px;padding:14px}.names span{background:#EAF2EE;color:#0B3D2E;border-radius:99px;padding:5px 14px;font-size:15px}
 .bar{display:grid;grid-template-rows:auto 1fr auto;justify-items:center;height:100%;font-size:11px;color:#5E6F69}.bar i{width:70%;background:#0B5A43;border-radius:6px 6px 3px 3px;align-self:end}</style></head><body>
 <h1>إحصائيات اطمئن</h1><p>أرقام بس، من غير أي بيانات شخصية · آخر تحديث ${new Date(now).toLocaleString("ar-EG", { timeZone: "Africa/Cairo" })}</p>
 <h2>المستخدمين</h2><div class="g">${card(c.tot, "إجمالي الأجهزة اللي ثبّتت التطبيق")}${card(c.today, "فتحوا التطبيق النهارده")}${card(c.w, "فتحوه آخر ٧ أيام")}${card(c.m, "فتحوه آخر ٣٠ يوم")}${card(c.nw, "أجهزة جديدة النهارده")}</div>
 <h2>الأجهزة</h2><div class="g">${card(c.ios, "آيفون")}${card(c.and, "أندرويد (من اللينك)")}${card(c.apk, "أندرويد (APK)")}${card(c.pc, "لابتوب / كمبيوتر")}</div>
 <h2>المميزات</h2><div class="g">${card(subs, "مفعّلين إشعارات الأذان")}${card(accts, "حسابات اتعملت")}${card(c.kid, "بيستخدموا حساب أطفال")}${card(web[13] || 0, "زاروا صفحة التعريف النهارده")}</div>
 <h2>اللي فتحوا التطبيق كل يوم (آخر ١٤ يوم)</h2><div class="bars">${days.map((x, i) => `<div class="bar"><span>${(hist[i] || 0).toLocaleString("ar-EG")}</span><i style="height:${Math.round((hist[i] || 0) / mx * 100)}%"></i><span>${x.slice(8)}/${x.slice(5, 7)}</span></div>`).join("")}</div>
+<h2>أسماء المستخدمين (${names.length.toLocaleString("ar-EG")})</h2><div class="names">${names.length ? names.map(n => `<span>${escH(n)}</span>`).join("") : '<span style="background:none;color:#5E6F69">الأسماء هتظهر لما المستخدمين يفتحوا التطبيق</span>'}</div>
 </body></html>`;
   return new Response(html, { headers: H });
 }
