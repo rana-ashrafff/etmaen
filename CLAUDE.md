@@ -1,0 +1,31 @@
+# اطمئن (Itmaen) — project notes for Claude
+
+Islamic app ("اطمئن", from ﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾). The owner speaks Egyptian Arabic: reply in Egyptian Arabic, keep it simple and friendly.
+
+## Live
+- Site (PWA): https://etmaen.pages.dev — Cloudflare Pages, deploys automatically from `main` of this repo (no build step, output dir `/`).
+- Old address https://rana-ashrafff.github.io/itmaen/ (GitHub Pages, same repo) forwards to etmaen.pages.dev (script at top of `index.html`).
+- Push server: https://itmaen.ranaxashraf88.workers.dev — Cloudflare Worker `itmaen`, deploys automatically from `push/` (Workers Builds). Durable Object stores subscriptions + auto-generated VAPID keys; cron every minute sends prayer-time notifications.
+
+## Files
+- `index.html` — the whole app (HTML + CSS + JS, single file). Arabic/English via `I18N` object. Data loaded from `data/*.js`.
+- `data/quran.js` (Uthmani text, quranenc via quran-json, CC BY-SA), `data/tr-*.js` translations, `data/pages.js` (604 Madinah page starts, quran-meta MIT), `data/content.js` (prophet stories, mood stories, encouragement), `data/extra.js` (quiz + sunnah library), `data/habits.js` (bad-habits solutions), `data/kids.js` (kids mode + daily "رسالة من ربنا ليك" messages), `data/fonts/kfgqpc-hafs.otf` (KFGQPC Mushaf font — license forbids modifying the file; use as-is).
+- `audio/` adhan recordings, `icons/` PWA icons, `manifest.webmanifest`, `sw.js` (bump `VERSION` on every release so phones update).
+- `push/` Cloudflare Worker (`src/index.js`, `src/webpush.js` RFC8291/8292 via WebCrypto, `src/prayer.js`). Test with `npx wrangler dev --local --test-scheduled`.
+
+## Run / publish
+- Local preview: `python3 -m http.server 8000` in the repo root, open http://localhost:8000
+- Publish: commit + push to `main` → Cloudflare Pages + GitHub Pages + Worker all redeploy. Bump `VERSION` in `sw.js`.
+
+## Owner preferences (important)
+- No hearts anywhere (no 🤍/♥) except the heart inside the logo.
+- Surah names Arabic only in Arabic mode. Use "صلى الله عليه وسلم" written out on images (the ﷺ glyph renders badly).
+- Mushaf reader: full screen, page + juz always visible at top, KFGQPC font, real 604-page layout.
+- Khatma counts only when the user taps «خلصت» at the end of a surah.
+- No usernames/handles on Instagram post images.
+- Privacy: everything is stored on-device (localStorage); safe space is AES-GCM encrypted with the user's PIN.
+
+## Open items
+- iPhone web push: tap-to-subscribe was fixed to run inside the user gesture; not yet confirmed working on the owner's iPhone (iOS 26). The Prayer tab shows a status line, an error line (⚠) and the server delivery log to diagnose.
+- Android app (Capacitor, package `app.sakina.muslim`, display name اطمئن) lives outside this repo (project zip sent to the owner; signing key in its `keys/` folder — never commit it). The APK (v2.5) is older than the current site.
+- Cloudflare API token saved in the cloud session never worked (rejected as bad format); deploys go through GitHub instead.
