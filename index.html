@@ -2150,6 +2150,8 @@ const PUSH_URL="https://itmaen.ranaxashraf88.workers.dev";let VAPID_PUB=null;
 const PUSH_CAN=!NATIVE&&"serviceWorker" in navigator&&"PushManager" in window&&"Notification" in window;
 const u8=b=>{b=b.replace(/-/g,"+").replace(/_/g,"/");while(b.length%4)b+="=";return Uint8Array.from(atob(b),c=>c.charCodeAt(0))};
 async function vapidKey(){if(!VAPID_PUB){const r=await fetch(PUSH_URL+"/vapid");VAPID_PUB=(await r.json()).publicKey}return VAPID_PUB}
+let PUSH_REG=null;if(PUSH_CAN&&PUSH_URL){navigator.serviceWorker.ready.then(r=>{PUSH_REG=r}).catch(()=>{});vapidKey().catch(()=>{})}
+async function sendSub(sub,test,testAt){const c=city();const r=await fetch(PUSH_URL+"/subscribe",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({sub:sub.toJSON(),lat:c[2],lng:c[3],tz:c[4],method:methodKey(),asr:asrF(),prayers:AD.p,pre:AD.pre,lang,test:!!test,testAt:testAt||0})});if(!r.ok)throw new Error("server "+r.status)}
 async function pushSubscribe(test,testAt){const reg=await navigator.serviceWorker.ready,key=await vapidKey();let sub=await reg.pushManager.getSubscription();
  if(sub&&sub.options&&sub.options.applicationServerKey){const a=new Uint8Array(sub.options.applicationServerKey),b=u8(key);if(a.length!==b.length||a.some((x,i)=>x!==b[i])){await sub.unsubscribe();sub=null}}
  if(!sub)sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:u8(key)});const c=city();
@@ -2166,9 +2168,12 @@ function pushBlock(){if(NATIVE)return "";const on=S.get("pushOn",false)&&typeof 
 async function pushToggle(){const ios=/iphone|ipad|ipod/i.test(navigator.userAgent);
  if(ios&&!STANDALONE){S.set("pushLastErr",t("pushIos"));toast(t("pushIos"));renderAdhanCard();return}
  if(!PUSH_CAN){S.set("pushLastErr",t("pushNA"));toast(t("pushNA"));renderAdhanCard();return}if(S.get("pushOn",false)&&Notification.permission==="granted"){S.set("pushOn",false);await pushOff();toast(t("pushOffT"));renderAdhanCard();return}
- let perm="default";try{perm=await Notification.requestPermission()}catch(_){}
- if(perm!=="granted"){toast(t("pushDenied"));renderAdhanCard();return}
- try{await pushSubscribe(true);S.set("pushOn",true);S.set("pushLastErr","");toast(t("pushOn"))}catch(e){const m=(e&&(e.name||"")+": "+(e.message||e))||"?";S.set("pushLastErr",m.slice(0,140));toast(t("pushErr"))}renderAdhanCard()}
+ if(Notification.permission==="denied"){S.set("pushLastErr",t("pushDenied"));toast(t("pushDenied"));renderAdhanCard();return}
+ if(!PUSH_REG||!VAPID_PUB){S.set("pushLastErr",lang==="ar"?"لسه بنجهّز، استنى ثانيتين واضغط تاني":"Still preparing, wait 2 seconds and tap again");toast(S.get("pushLastErr",""));vapidKey().catch(()=>{});navigator.serviceWorker.ready.then(r=>{PUSH_REG=r});renderAdhanCard();return}
+ try{let sub=Notification.permission==="granted"?await PUSH_REG.pushManager.getSubscription():null;
+  if(sub&&sub.options&&sub.options.applicationServerKey){const a=new Uint8Array(sub.options.applicationServerKey),b=u8(VAPID_PUB);if(a.length!==b.length||a.some((x,i)=>x!==b[i])){await sub.unsubscribe();sub=null}}
+  if(!sub)sub=await PUSH_REG.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:u8(VAPID_PUB)});
+  await sendSub(sub,true);S.set("pushOn",true);S.set("pushLastErr","");toast(t("pushOn"))}catch(e){const m=(e&&(e.name||"")+": "+(e.message||e))||"?";S.set("pushLastErr",m.slice(0,140));toast(t("pushErr"))}renderAdhanCard()}
 async function pushLogShow(){const el=document.getElementById("pushLog");if(!el)return;try{const reg=await navigator.serviceWorker.ready,sub=await reg.pushManager.getSubscription();if(!sub)return;
  const r=await fetch(PUSH_URL+"/status",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({endpoint:sub.endpoint})}),d=await r.json();
  if(!d.found){el.textContent=t("plogNotFound");return}if(!d.log||!d.log.length){el.textContent=t("plogNone");return}
