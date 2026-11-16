@@ -5,7 +5,7 @@ compatibility_date = "2025-06-01"
 workers_dev = true
 
 [vars]
-VAPID_SUBJECT = "https://rana-ashrafff.github.io/itmaen/"
+VAPID_SUBJECT = "https://etmaen.pages.dev/"
 
 [triggers]
 crons = ["* * * * *"]

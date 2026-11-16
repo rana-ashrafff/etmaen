@@ -5,7 +5,7 @@ import { DurableObject } from "cloudflare:workers";
 import { sendPush, b64u } from "./webpush.js";
 import { times, ymdIn } from "./prayer.js";
 
-const SITE = "https://rana-ashrafff.github.io/itmaen/";
+const SITE = "https://etmaen.pages.dev/";
 const ORIGINS = ["https://etmaen.pages.dev", "https://itmaen.pages.dev", "https://rana-ashrafff.github.io", "http://localhost:8765", "http://localhost:8770"];
 const SITES = { "https://etmaen.pages.dev": "https://etmaen.pages.dev/", "https://itmaen.pages.dev": "https://itmaen.pages.dev/", "https://rana-ashrafff.github.io": "https://rana-ashrafff.github.io/itmaen/" };
 const NAMES = { ar: ["الفجر", "الشروق", "الظهر", "العصر", "المغرب", "العشاء"], en: ["Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha"] };
