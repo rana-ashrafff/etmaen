@@ -4,9 +4,9 @@
   "description": "مواقيت الصلاة والأذان، المصحف، الأذكار، قصص الأنبياء وجداولك — في تطبيق واحد",
   "lang": "ar",
   "dir": "rtl",
-  "id": "/",
-  "start_url": "/?source=pwa",
-  "scope": "/",
+  "id": "./",
+  "start_url": "./?source=pwa",
+  "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#0F2559",
@@ -18,8 +18,8 @@
     { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ],
   "shortcuts": [
-    { "name": "القرآن", "url": "/#quran", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
-    { "name": "الأذكار", "url": "/#azkar", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
-    { "name": "مواقيت الصلاة", "url": "/#prayer", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
+    { "name": "القرآن", "url": "./#quran", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "الأذكار", "url": "./#azkar", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "مواقيت الصلاة", "url": "./#prayer", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
   ]
 }
