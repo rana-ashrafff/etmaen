@@ -42,7 +42,7 @@ window.HABITS = [
    r:["سُئل النبي ﷺ: أي العمل أحب إلى الله؟ قال: «الصلاة على وقتها» (متفق عليه).","ادعِ: ﴿رَبِّ اجْعَلْنِي مُقِيمَ الصَّلَاةِ وَمِن ذُرِّيَّتِي﴾."],
    x:"ابدأ بصلاة واحدة تحافظ عليها في وقتها أسبوع كامل، وبعدين ضيف التانية. ولو فاتتك صلاة، اقضيها فورًا ومتيأسش."},
   en:{t:"Delaying or missing prayers",
-   s:["Turn on adhan alerts in Itmaen with a 10-minute reminder.","Make wudu before the adhan so you're ready.","Anchor prayer to a fixed habit: no lunch before Dhuhr.","Tick each prayer in the app and watch your streak grow."],
+   s:["Turn on adhan alerts in Etmaen with a 10-minute reminder.","Make wudu before the adhan so you're ready.","Anchor prayer to a fixed habit: no lunch before Dhuhr.","Tick each prayer in the app and watch your streak grow."],
    r:["The Prophet ﷺ was asked which deed Allah loves most: \"Prayer on time\" (Bukhari & Muslim).","Pray: \"My Lord, make me one who establishes prayer, and from my descendants\" (14:40)."],
    x:"Start by keeping one prayer on time for a full week, then add another. If you miss one, make it up right away and don't despair."}},
 

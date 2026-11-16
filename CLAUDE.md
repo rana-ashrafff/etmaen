@@ -1,5 +1,7 @@
 # اطمئن (Itmaen) — project notes for Claude
 
+English display name is **Etmaen** (owner's choice, v23). Internal ids stay "itmaen" (worker name, sw cache, crypto salts `itmaen-auth`/`itmaen-data` — never change those or accounts break).
+
 Islamic app ("اطمئن", from ﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾). The owner speaks Egyptian Arabic: reply in Egyptian Arabic, keep it simple and friendly.
 
 ## Live
