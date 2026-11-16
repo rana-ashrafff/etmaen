@@ -29,6 +29,7 @@ Islamic app ("اطمئن", from ﴿أَلَا بِذِكْرِ اللَّهِ ت
 - Privacy: everything is stored on-device (localStorage); safe space is AES-GCM encrypted with the user's PIN.
 - Optional cloud account (email + password, added v20): the phone derives `auth` and a data key from the password (PBKDF2), uploads an AES-GCM-encrypted gzip of all `rm:` keys to the worker (`/acct/*`, one Durable Object instance per email). Server never sees the password or data. Forgotten password = data can't be recovered. Device-only keys skipped: see `ACCT_SKIP`.
 - Browser tab vs installed app (v21): in a normal browser tab `index.html` shows only the landing page (`#landing`: what the app is + install steps for iPhone/Android/computer, auto-picks the tab). Installed (standalone), Capacitor, `?app` in the URL, or sessionStorage `itm-web=1` → the normal app. Screenshots for it: `img/shot-*.webp`. For local testing open http://localhost:8000/?app
+- Usage stats (v24): installed app POSTs `/ping` once a day with a random device id (`rm:@devId`, device-only) + platform/push/acct/kid flags; landing page POSTs `{web:1}`. Private page: `GET /stats?key=…` on the worker; key is the worker secret `STATS_KEY` (set with `wrangler secret put`, never commit it; the owner has the link). Account count only counts accounts created after v24.
 - Weekly review («أسبوعك», `#week`): Sat→Fri daily %, review on Friday; prayer/Quran/adhkar/tasbeeh can't be removed, others can (`wkOff`).
 
 ## Open items

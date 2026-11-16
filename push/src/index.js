@@ -6,7 +6,7 @@ import { sendPush, b64u } from "./webpush.js";
 import { times, ymdIn } from "./prayer.js";
 
 const SITE = "https://etmaen.pages.dev/";
-const ORIGINS = ["https://etmaen.pages.dev", "https://itmaen.pages.dev", "https://rana-ashrafff.github.io", "http://localhost:8765", "http://localhost:8770", "http://localhost:8000"];
+const ORIGINS = ["https://etmaen.pages.dev", "https://itmaen.pages.dev", "https://rana-ashrafff.github.io", "http://localhost:8765", "http://localhost:8770", "http://localhost:8000", "https://localhost", "capacitor://localhost", "http://localhost"];
 const SITES = { "https://etmaen.pages.dev": "https://etmaen.pages.dev/", "https://itmaen.pages.dev": "https://itmaen.pages.dev/", "https://rana-ashrafff.github.io": "https://rana-ashrafff.github.io/itmaen/" };
 const NAMES = { ar: ["الفجر", "الشروق", "الظهر", "العصر", "المغرب", "العشاء"], en: ["Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha"] };
 const TXT = {
@@ -38,6 +38,8 @@ export class SubStore extends DurableObject {
   async kput(obj) { await this.ctx.storage.put(obj); }
   async kdel(ks) { if (ks.length) await this.ctx.storage.delete(ks); }
   async wipe() { await this.ctx.storage.deleteAll(); }
+  async klist(prefix) { return [...(await this.ctx.storage.list({ prefix })).entries()]; }
+  async incr(k, n) { const v = ((await this.ctx.storage.get(k)) || 0) + (n || 1); await this.ctx.storage.put(k, v); return v; }
 }
 
 const store = env => env.SUBS.get(env.SUBS.idFromName("main"));
@@ -46,6 +48,8 @@ const enc = new TextEncoder();
 const hex = buf => [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
 const sha = async s => hex(await crypto.subtle.digest("SHA-256", enc.encode(s)));
 const randHex = n => hex(crypto.getRandomValues(new Uint8Array(n)));
+const statsStore = env => env.SUBS.get(env.SUBS.idFromName("stats"));
+const dayIn = (ts, tz) => new Intl.DateTimeFormat("en-CA", { timeZone: tz || "Africa/Cairo", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(ts));
 const CHUNK = 100000, MAXDATA = 4000000;
 function eqStr(a, b) { if (a.length !== b.length) return false; let r = 0; for (let i = 0; i < a.length; i++) r |= a.charCodeAt(i) ^ b.charCodeAt(i); return r === 0; }
 // Accounts: the app derives `auth` from the password on the phone (slow PBKDF2) and encrypts the
@@ -59,6 +63,7 @@ async function account(path, b, env, h) {
     let u = await us.kget("user");
     if (path === "/acct/register") {
       if (u) return json({ error: "exists" }, 409, h);
+      try { await statsStore(env).incr("accts", 1); } catch (_) {}
       const salt = randHex(16); u = { salt, hash: await sha(salt + b.auth), created: Date.now(), toks: [], fails: 0, lock: 0 };
     } else {
       if (!u) return json({ error: "nouser" }, 404, h);
@@ -90,7 +95,7 @@ async function account(path, b, env, h) {
     return json({ ok: true, updated: nm.updated }, 200, h);
   }
   if (path === "/acct/logout") { u.toks = u.toks.filter(x => x !== th); await us.kput({ user: u }); return json({ ok: true }, 200, h); }
-  if (path === "/acct/delete") { await us.wipe(); return json({ ok: true }, 200, h); }
+  if (path === "/acct/delete") { try { await statsStore(env).incr("accts", -1); } catch (_) {} await us.wipe(); return json({ ok: true }, 200, h); }
   return json({ error: "not found" }, 404, h);
 }
 function cors(req) {
@@ -114,15 +119,53 @@ function clean(b) {
   };
 }
 
+// Anonymous usage counter: each installed app sends a random device id once a day (no name, email or location).
+async function ping(b, env, h) {
+  const ss = statsStore(env), now = Date.now(), day = dayIn(now);
+  if (b.web) { await ss.incr("w:" + day, 1); return json({ ok: true }, 200, h); }
+  if (typeof b.id !== "string" || !/^[0-9a-f]{16,40}$/.test(b.id)) return json({ error: "id" }, 400, h);
+  const k = "d:" + b.id, d = (await ss.kget(k)) || { f: day };
+  const isNewDay = d.l !== day;
+  d.l = day; d.p = ["ios", "and", "pc", "apk"].includes(b.p) ? b.p : "other"; d.n = b.push ? 1 : 0; d.a = b.acct ? 1 : 0; d.k = b.kid ? 1 : 0;
+  await ss.kput({ [k]: d }); if (isNewDay) await ss.incr("c:" + day, 1);
+  return json({ ok: true }, 200, h);
+}
+async function stats(url, env) {
+  const H = { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store", "X-Robots-Tag": "noindex" };
+  if (!env.STATS_KEY || url.searchParams.get("key") !== env.STATS_KEY) return new Response("Not found", { status: 404 });
+  const ss = statsStore(env), now = Date.now(), today = dayIn(now), d7 = dayIn(now - 6 * 864e5), d30 = dayIn(now - 29 * 864e5);
+  const devs = (await ss.klist("d:")).map(x => x[1]);
+  const c = { tot: devs.length, today: 0, w: 0, m: 0, nw: 0, push: 0, acct: 0, kid: 0, ios: 0, and: 0, pc: 0, apk: 0, other: 0 };
+  devs.forEach(d => { if (d.l === today) c.today++; if (d.l >= d7) c.w++; if (d.l >= d30) c.m++; if (d.f === today) c.nw++; if (d.n) c.push++; if (d.a) c.acct++; if (d.k) c.kid++; c[d.p] = (c[d.p] || 0) + 1; });
+  const days = [...Array(14).keys()].reverse().map(i => dayIn(now - i * 864e5));
+  const hist = await ss.kgetMany(days.map(x => "c:" + x)), web = await ss.kgetMany(days.map(x => "w:" + x));
+  const accts = (await ss.kget("accts")) || 0, subs = (await store(env).all()).length, mx = Math.max(1, ...hist.map(x => x || 0));
+  const card = (n, t) => `<div class="c"><b>${n.toLocaleString("ar-EG")}</b><span>${t}</span></div>`;
+  const html = `<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>إحصائيات اطمئن</title><style>
+body{margin:0;font-family:system-ui,"Segoe UI",Tahoma,sans-serif;background:#F6F2E8;color:#0B3D2E;padding:20px}h1{margin:0 0 4px;font-size:24px}p{margin:0 0 18px;color:#5E6F69;font-size:14px}
+h2{font-size:17px;margin:24px 0 10px}.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}.c{background:#fff;border-radius:16px;padding:14px;box-shadow:0 6px 18px -12px rgba(11,61,46,.4)}
+.c b{display:block;font-size:28px;color:#0B5A43}.c span{font-size:13px;color:#5E6F69}.bars{display:grid;grid-template-columns:repeat(14,1fr);gap:6px;align-items:end;height:160px;background:#fff;border-radius:16px;padding:14px}
+.bar{display:grid;grid-template-rows:auto 1fr auto;justify-items:center;height:100%;font-size:11px;color:#5E6F69}.bar i{width:70%;background:#0B5A43;border-radius:6px 6px 3px 3px;align-self:end}</style></head><body>
+<h1>إحصائيات اطمئن</h1><p>أرقام بس، من غير أي بيانات شخصية · آخر تحديث ${new Date(now).toLocaleString("ar-EG", { timeZone: "Africa/Cairo" })}</p>
+<h2>المستخدمين</h2><div class="g">${card(c.tot, "إجمالي الأجهزة اللي ثبّتت التطبيق")}${card(c.today, "فتحوا التطبيق النهارده")}${card(c.w, "فتحوه آخر ٧ أيام")}${card(c.m, "فتحوه آخر ٣٠ يوم")}${card(c.nw, "أجهزة جديدة النهارده")}</div>
+<h2>الأجهزة</h2><div class="g">${card(c.ios, "آيفون")}${card(c.and, "أندرويد (من اللينك)")}${card(c.apk, "أندرويد (APK)")}${card(c.pc, "لابتوب / كمبيوتر")}</div>
+<h2>المميزات</h2><div class="g">${card(subs, "مفعّلين إشعارات الأذان")}${card(accts, "حسابات اتعملت")}${card(c.kid, "بيستخدموا حساب أطفال")}${card(web[13] || 0, "زاروا صفحة التعريف النهارده")}</div>
+<h2>اللي فتحوا التطبيق كل يوم (آخر ١٤ يوم)</h2><div class="bars">${days.map((x, i) => `<div class="bar"><span>${(hist[i] || 0).toLocaleString("ar-EG")}</span><i style="height:${Math.round((hist[i] || 0) / mx * 100)}%"></i><span>${x.slice(8)}/${x.slice(5, 7)}</span></div>`).join("")}</div>
+</body></html>`;
+  return new Response(html, { headers: H });
+}
+
 export default {
   async fetch(req, env) {
     const h = cors(req), url = new URL(req.url), st = store(env), subject = env.VAPID_SUBJECT || SITE;
     if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: h });
     if (req.method === "GET" && url.pathname === "/") return json({ ok: true, service: "itmaen-push" }, 200, h);
     if (req.method === "GET" && url.pathname === "/vapid") return json({ publicKey: (await st.vapid()).publicKey }, 200, { ...h, "Cache-Control": "public, max-age=3600" });
+    if (req.method === "GET" && url.pathname === "/stats") return stats(url, env);
     if (req.method !== "POST") return json({ error: "method" }, 405, h);
     let b; try { b = await req.json(); } catch (_) { return json({ error: "json" }, 400, h); }
     if (url.pathname.startsWith("/acct/")) return account(url.pathname, b || {}, env, h);
+    if (url.pathname === "/ping") return ping(b || {}, env, h);
     if (url.pathname === "/subscribe") {
       const rec = clean(b); if (!rec) return json({ error: "bad subscription" }, 400, h);
       rec.site = SITES[req.headers.get("Origin") || ""] || SITE;

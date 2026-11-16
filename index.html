@@ -767,6 +767,7 @@ document.addEventListener("click",function(e){var b=e.target.closest&&e.target.c
  if(e.target.closest&&e.target.closest("#lLang")){L=L==="ar"?"en":"ar";render();return}
  if(e.target.closest&&e.target.closest("#lNat")&&window.__bip){window.__bip.prompt();window.__bip.userChoice.then(function(){window.__bip=null;document.documentElement.classList.remove("can-install")});return}
  if(e.target.closest&&e.target.closest("#lOpen")){try{sessionStorage.setItem("itm-web","1")}catch(_){}location.hash="more";location.reload()}});
+try{var td=new Date().toISOString().slice(0,10);if(localStorage.getItem("rm:@webPing")!==td){localStorage.setItem("rm:@webPing",td);fetch("https://itmaen.ranaxashraf88.workers.dev/ping",{method:"POST",headers:{"Content-Type":"application/json"},body:'{"web":1}'}).catch(function(){})}}catch(e){}
 var old=false;try{old=!!localStorage.getItem("rm:@profiles")&&!localStorage.getItem("rm:@acct")}catch(e){}if(old)$("lOld").hidden=false;
 render();})();</script>
 
@@ -2441,7 +2442,7 @@ $("hijSeg").addEventListener("click",e=>{const b=e.target.closest("button");if(!
 function greet(){const me=(G.get("profiles",[]).find(p=>p.id===ACTIVE)||{}).name;$("greet").textContent=me?(hourNow()<12?t("greetMN",me):t("greetEN",me)):(hourNow()<12?t("greetM"):t("greetE"))}
 
 /* ================= CLOUD ACCOUNT (email + password; backup is encrypted on the phone) ================= */
-const ACCT_SKIP=/^rm:@(acct|acctDirty)$|(^|:)(pushOn|pushLastErr|adFired|instSnooze)$/;
+const ACCT_SKIP=/^rm:@(acct|acctDirty|devId|pingDay|webPing)$|(^|:)(pushOn|pushLastErr|adFired|instSnooze)$/;
 var ACCT=G.get("acct",null),acctRestoring=false;let acctTmr=null,acctBusy=false,acctLastSync=0,acctMode="register";
 function acctSave(a){ACCT=a;try{a?localStorage.setItem("rm:@acct",JSON.stringify(a)):localStorage.removeItem("rm:@acct")}catch(_){}}
 function acctDirty(){try{return JSON.parse(localStorage.getItem("rm:@acctDirty")||"[]")}catch(_){return []}}
@@ -2526,6 +2527,14 @@ document.addEventListener("click",async e=>{const q=s=>e.target.closest(s);
 document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.closest&&e.target.closest("#cloudCard input")){e.preventDefault();$("acGo").click()}});
 document.addEventListener("visibilitychange",()=>{if(!ACCT||!ACCT.token)return;if(document.hidden){if(acctDirty().length){clearTimeout(acctTmr);acctSync().catch(()=>{})}}else if(Date.now()-acctLastSync>60000)acctSync().catch(()=>{})});
 
+/* ================= anonymous usage counter: random device id, once a day, no personal data ================= */
+function usagePing(){if(document.documentElement.classList.contains("web"))return;let id,day;try{id=localStorage.getItem("rm:@devId");day=localStorage.getItem("rm:@pingDay")}catch(_){return}
+ const today=new Date().toISOString().slice(0,10);if(day===today)return;
+ if(!id){id=hexOf(crypto.getRandomValues(new Uint8Array(12)));try{localStorage.setItem("rm:@devId",id)}catch(_){}}
+ const ua=navigator.userAgent,p=NATIVE?"apk":/iPhone|iPad|iPod/.test(ua)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1)?"ios":/Android/.test(ua)?"and":"pc";
+ const kid=profiles().some(x=>x.type==="kid");
+ fetch(PUSH_URL+"/ping",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({id,p,push:!!S.get("pushOn",false),acct:!!(ACCT&&ACCT.token),kid})}).then(r=>{if(r.ok)try{localStorage.setItem("rm:@pingDay",today)}catch(_){}}).catch(()=>{})}
+
 /* ================= WEEK (Saturday → Friday) + weekly review ================= */
 const WK_ITEMS=[["prayers",1],["quran",1],["azkar",1],["tasbeeh",1],["sadaqa",0],["qiyam",0],["sunnah",0],["wasl",0]];
 const WK_DOW=["Sat","Sun","Mon","Tue","Wed","Thu","Fri"];
@@ -2590,6 +2599,7 @@ rerenderAll();
 setInterval(()=>{renderHero();adhanTick()},1000);
 runSplash();if(KID)startKid();
 if(ACCT&&ACCT.token)setTimeout(()=>acctSync().catch(()=>{}),1500);
+setTimeout(usagePing,4000);
 scheduleNative();
 })();
 </script>
