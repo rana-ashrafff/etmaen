@@ -1,0 +1,19 @@
+# Itmaen push server. Deploys from GitHub via Cloudflare (Workers Builds), root directory: push
+name = "itmaen-push"
+main = "src/index.js"
+compatibility_date = "2025-06-01"
+workers_dev = true
+
+[vars]
+VAPID_SUBJECT = "https://rana-ashrafff.github.io/itmaen/"
+
+[triggers]
+crons = ["* * * * *"]
+
+[[durable_objects.bindings]]
+name = "SUBS"
+class_name = "SubStore"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["SubStore"]

@@ -1,0 +1,91 @@
+// Itmaen push server (Cloudflare Worker + Durable Object).
+// Stores phones' push subscriptions and sends a notification at each prayer time.
+// No manual setup: the VAPID key pair is generated on first use and kept in the Durable Object.
+import { DurableObject } from "cloudflare:workers";
+import { sendPush, b64u } from "./webpush.js";
+import { times, ymdIn } from "./prayer.js";
+
+const SITE = "https://rana-ashrafff.github.io/itmaen/";
+const ORIGINS = ["https://rana-ashrafff.github.io", "http://localhost:8765", "http://localhost:8770"];
+const NAMES = { ar: ["الفجر", "الشروق", "الظهر", "العصر", "المغرب", "العشاء"], en: ["Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha"] };
+const TXT = {
+  ar: { t: p => `حان الآن موعد أذان ${p}`, b: "حيّ على الصلاة، حيّ على الفلاح 🤍", pt: (p, n) => `باقي ${n} دقائق على ${p}`, pb: "اتوضأ واستعد للصلاة", test: "تمام! الإشعارات شغالة، وهتوصلك في وقت كل صلاة 🤍" },
+  en: { t: p => `It's time for ${p}`, b: "Come to prayer, come to success 🤍", pt: (p, n) => `${n} minutes until ${p}`, pb: "Make wudu and get ready", test: "All set! You'll get a notification at every prayer time 🤍" }
+};
+const PRAYERS = [0, 2, 3, 4, 5];
+
+export class SubStore extends DurableObject {
+  async vapid() {
+    let k = await this.ctx.storage.get("vapid");
+    if (!k) {
+      const kp = await crypto.subtle.generateKey({ name: "ECDSA", namedCurve: "P-256" }, true, ["sign", "verify"]);
+      k = { publicKey: b64u.enc(await crypto.subtle.exportKey("raw", kp.publicKey)), privateJwk: await crypto.subtle.exportKey("jwk", kp.privateKey) };
+      await this.ctx.storage.put("vapid", k);
+    }
+    return k;
+  }
+  async put(id, rec) { await this.ctx.storage.put("s:" + id, rec); }
+  async get(id) { return (await this.ctx.storage.get("s:" + id)) || null; }
+  async del(id) { await this.ctx.storage.delete("s:" + id); }
+  async all() { const m = await this.ctx.storage.list({ prefix: "s:" }); return [...m.entries()].map(([k, v]) => [k.slice(2), v]); }
+  async delMany(ids) { if (ids.length) await this.ctx.storage.delete(ids.map(i => "s:" + i)); }
+}
+
+const store = env => env.SUBS.get(env.SUBS.idFromName("main"));
+function cors(req) {
+  const o = req.headers.get("Origin") || "";
+  return { "Access-Control-Allow-Origin": ORIGINS.includes(o) ? o : ORIGINS[0], "Access-Control-Allow-Methods": "GET, POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type", "Access-Control-Max-Age": "86400", Vary: "Origin" };
+}
+const json = (obj, status, h) => new Response(JSON.stringify(obj), { status, headers: { "Content-Type": "application/json", ...h } });
+async function idOf(endpoint) { const d = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(endpoint)); return [...new Uint8Array(d)].slice(0, 12).map(b => b.toString(16).padStart(2, "0")).join(""); }
+function clean(b) {
+  const s = b.sub || {};
+  if (typeof s.endpoint !== "string" || !/^https:\/\//.test(s.endpoint) || !s.keys || !s.keys.p256dh || !s.keys.auth) return null;
+  const num = (v, lo, hi, d) => (typeof v === "number" && v >= lo && v <= hi ? v : d);
+  let tz = typeof b.tz === "string" ? b.tz.slice(0, 64) : "UTC"; try { new Intl.DateTimeFormat("en", { timeZone: tz }); } catch (_) { tz = "UTC"; }
+  return {
+    sub: { endpoint: s.endpoint.slice(0, 1000), keys: { p256dh: String(s.keys.p256dh).slice(0, 200), auth: String(s.keys.auth).slice(0, 100) } },
+    lat: num(b.lat, -90, 90, 30.0444), lng: num(b.lng, -180, 180, 31.2357), tz,
+    method: ["egypt", "umm", "mwl", "isna", "karachi"].includes(b.method) ? b.method : "mwl",
+    asr: b.asr === 2 ? 2 : 1, prayers: Array.isArray(b.prayers) ? b.prayers.slice(0, 5).map(x => (x ? 1 : 0)) : [1, 1, 1, 1, 1],
+    pre: [0, 5, 10, 15, 20, 30].includes(b.pre) ? b.pre : 0, lang: b.lang === "en" ? "en" : "ar", at: Date.now()
+  };
+}
+
+export default {
+  async fetch(req, env) {
+    const h = cors(req), url = new URL(req.url), st = store(env), subject = env.VAPID_SUBJECT || SITE;
+    if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: h });
+    if (req.method === "GET" && url.pathname === "/") return json({ ok: true, service: "itmaen-push" }, 200, h);
+    if (req.method === "GET" && url.pathname === "/vapid") return json({ publicKey: (await st.vapid()).publicKey }, 200, { ...h, "Cache-Control": "public, max-age=3600" });
+    if (req.method !== "POST") return json({ error: "method" }, 405, h);
+    let b; try { b = await req.json(); } catch (_) { return json({ error: "json" }, 400, h); }
+    if (url.pathname === "/subscribe") {
+      const rec = clean(b); if (!rec) return json({ error: "bad subscription" }, 400, h);
+      await st.put(await idOf(rec.sub.endpoint), rec);
+      let test = null; if (b.test) test = await sendPush(rec.sub, { title: "اطمئن", body: TXT[rec.lang].test, tag: "test", url: SITE + "#prayer" }, await st.vapid(), subject);
+      return json({ ok: true, test }, 200, h);
+    }
+    if (url.pathname === "/unsubscribe") {
+      if (typeof b.endpoint !== "string") return json({ error: "endpoint" }, 400, h);
+      await st.del(await idOf(b.endpoint)); return json({ ok: true }, 200, h);
+    }
+    return json({ error: "not found" }, 404, h);
+  },
+  async scheduled(event, env) {
+    const minute = Math.floor(event.scheduledTime / 60000) * 60000, st = store(env), all = await st.all(), subject = env.VAPID_SUBJECT || SITE;
+    const jobs = [];
+    for (const [id, r] of all) {
+      const d = ymdIn(minute, r.tz), tt = times(d.y, d.m, d.d, r.lat, r.lng, r.method, r.asr), N = NAMES[r.lang], T = TXT[r.lang];
+      PRAYERS.forEach((idx, pi) => {
+        if (!r.prayers[pi]) return;
+        if (tt[idx] === minute) jobs.push([id, r, { title: T.t(N[idx]), body: T.b, tag: "adhan-" + idx, url: SITE + "#prayer" }]);
+        if (r.pre && tt[idx] - r.pre * 60000 === minute) jobs.push([id, r, { title: T.pt(N[idx], r.pre), body: T.pb, tag: "pre-" + idx, url: SITE + "#prayer" }]);
+      });
+    }
+    if (!jobs.length) return;
+    const keys = await st.vapid(), dead = [];
+    await Promise.all(jobs.map(async ([id, r, msg]) => { try { const s = await sendPush(r.sub, msg, keys, subject); if (s === 404 || s === 410) dead.push(id); } catch (_) {} }));
+    await st.delMany(dead);
+  }
+};
