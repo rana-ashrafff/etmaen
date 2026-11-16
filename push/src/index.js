@@ -9,8 +9,8 @@ const SITE = "https://rana-ashrafff.github.io/itmaen/";
 const ORIGINS = ["https://rana-ashrafff.github.io", "http://localhost:8765", "http://localhost:8770"];
 const NAMES = { ar: ["الفجر", "الشروق", "الظهر", "العصر", "المغرب", "العشاء"], en: ["Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha"] };
 const TXT = {
-  ar: { t: p => `حان الآن موعد أذان ${p}`, b: "حيّ على الصلاة، حيّ على الفلاح 🤍", pt: (p, n) => `باقي ${n} دقائق على ${p}`, pb: "اتوضأ واستعد للصلاة", test: "تمام! الإشعارات شغالة، وهتوصلك في وقت كل صلاة 🤍" },
-  en: { t: p => `It's time for ${p}`, b: "Come to prayer, come to success 🤍", pt: (p, n) => `${n} minutes until ${p}`, pb: "Make wudu and get ready", test: "All set! You'll get a notification at every prayer time 🤍" }
+  ar: { t: p => `حان الآن موعد أذان ${p}`, b: "حيّ على الصلاة، حيّ على الفلاح 🤍", pt: (p, n) => `باقي ${n} دقائق على ${p}`, pb: "اتوضأ واستعد للصلاة", test: "تمام! الإشعارات شغالة، وهتوصلك في وقت كل صلاة 🤍", st: "إشعار تجريبي في ميعاده ✅", sb: "كده إشعارات الصلاة هتوصلك في وقتها بالظبط، حتى والتطبيق مقفول 🤍" },
+  en: { t: p => `It's time for ${p}`, b: "Come to prayer, come to success 🤍", pt: (p, n) => `${n} minutes until ${p}`, pb: "Make wudu and get ready", test: "All set! You'll get a notification at every prayer time 🤍", st: "Scheduled test arrived on time ✅", sb: "Your prayer notifications will arrive right on time, even when the app is closed 🤍" }
 };
 const PRAYERS = [0, 2, 3, 4, 5];
 
@@ -48,7 +48,8 @@ function clean(b) {
     lat: num(b.lat, -90, 90, 30.0444), lng: num(b.lng, -180, 180, 31.2357), tz,
     method: ["egypt", "umm", "mwl", "isna", "karachi"].includes(b.method) ? b.method : "mwl",
     asr: b.asr === 2 ? 2 : 1, prayers: Array.isArray(b.prayers) ? b.prayers.slice(0, 5).map(x => (x ? 1 : 0)) : [1, 1, 1, 1, 1],
-    pre: [0, 5, 10, 15, 20, 30].includes(b.pre) ? b.pre : 0, lang: b.lang === "en" ? "en" : "ar", at: Date.now()
+    pre: [0, 5, 10, 15, 20, 30].includes(b.pre) ? b.pre : 0, lang: b.lang === "en" ? "en" : "ar", at: Date.now(),
+    testAt: typeof b.testAt === "number" && b.testAt > Date.now() && b.testAt < Date.now() + 30 * 60000 ? Math.floor(b.testAt / 60000) * 60000 : 0
   };
 }
 
@@ -74,8 +75,9 @@ export default {
   },
   async scheduled(event, env) {
     const minute = Math.floor(event.scheduledTime / 60000) * 60000, st = store(env), all = await st.all(), subject = env.VAPID_SUBJECT || SITE;
-    const jobs = [];
+    const jobs = [], done = [];
     for (const [id, r] of all) {
+      if (r.testAt && r.testAt <= minute) { if (minute - r.testAt < 5 * 60000) jobs.push([id, r, { title: TXT[r.lang].st, body: TXT[r.lang].sb, tag: "sched-test", url: SITE + "#prayer" }]); done.push([id, r]); }
       const d = ymdIn(minute, r.tz), tt = times(d.y, d.m, d.d, r.lat, r.lng, r.method, r.asr), N = NAMES[r.lang], T = TXT[r.lang];
       PRAYERS.forEach((idx, pi) => {
         if (!r.prayers[pi]) return;
@@ -83,6 +85,7 @@ export default {
         if (r.pre && tt[idx] - r.pre * 60000 === minute) jobs.push([id, r, { title: T.pt(N[idx], r.pre), body: T.pb, tag: "pre-" + idx, url: SITE + "#prayer" }]);
       });
     }
+    for (const [id, r] of done) { r.testAt = 0; await st.put(id, r); }
     if (!jobs.length) return;
     const keys = await st.vapid(), dead = [];
     await Promise.all(jobs.map(async ([id, r, msg]) => { try { const s = await sendPush(r.sub, msg, keys, subject); if (s === 404 || s === 410) dead.push(id); } catch (_) {} }));
