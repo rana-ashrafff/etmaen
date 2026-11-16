@@ -1,5 +1,5 @@
 # Itmaen push server. Deploys from GitHub via Cloudflare (Workers Builds), root directory: push
-name = "itmaen-push"
+name = "itmaen"
 main = "src/index.js"
 compatibility_date = "2025-06-01"
 workers_dev = true

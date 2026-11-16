@@ -1,5 +1,5 @@
 {
-  "name": "itmaen-push",
+  "name": "itmaen",
   "private": true,
   "type": "module",
   "scripts": { "deploy": "wrangler deploy" },
