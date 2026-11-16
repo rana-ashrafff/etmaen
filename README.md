@@ -12,3 +12,4 @@
 - الترجمات من tanzil.net وquranenc.com
 - التلاوة: مشاري العفاسي عن طريق cdn.islamic.network
 - تسجيلات الأذان: من حزمة homebridge-adhanpod (رخصة MIT)
+- خط المصحف: KFGQPC Uthmanic Script HAFS من مجمع الملك فهد لطباعة المصحف الشريف، مستخدم من غير أي تعديل حسب رخصته

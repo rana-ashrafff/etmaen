@@ -9,8 +9,8 @@ const SITE = "https://rana-ashrafff.github.io/itmaen/";
 const ORIGINS = ["https://rana-ashrafff.github.io", "http://localhost:8765", "http://localhost:8770"];
 const NAMES = { ar: ["الفجر", "الشروق", "الظهر", "العصر", "المغرب", "العشاء"], en: ["Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha"] };
 const TXT = {
-  ar: { t: p => `🕌 صلاة ${p} الآن`, b: (p, tm) => `حان الآن موعد أذان ${p} · ${tm} — حيّ على الصلاة، حيّ على الفلاح 🤍`, pt: (p, n) => `باقي ${n} دقائق على ${p}`, pb: "اتوضأ واستعد للصلاة", test: "تمام! الإشعارات شغالة، وهتوصلك في وقت كل صلاة 🤍", st: "إشعار تجريبي في ميعاده ✅", sb: "كده إشعارات الصلاة هتوصلك في وقتها بالظبط، حتى والتطبيق مقفول 🤍" },
-  en: { t: p => `🕌 ${p} prayer now`, b: (p, tm) => `It's time for ${p} · ${tm} — come to prayer, come to success 🤍`, pt: (p, n) => `${n} minutes until ${p}`, pb: "Make wudu and get ready", test: "All set! You'll get a notification at every prayer time 🤍", st: "Scheduled test arrived on time ✅", sb: "Your prayer notifications will arrive right on time, even when the app is closed 🤍" }
+  ar: { t: p => `🕌 صلاة ${p} الآن`, b: (p, tm) => `حان الآن موعد أذان ${p} · ${tm} — حيّ على الصلاة، حيّ على الفلاح`, pt: (p, n) => `باقي ${n} دقائق على ${p}`, pb: "اتوضأ واستعد للصلاة", test: "تمام! الإشعارات شغالة، وهتوصلك في وقت كل صلاة", st: "إشعار تجريبي في ميعاده ✅", sb: "كده إشعارات الصلاة هتوصلك في وقتها بالظبط، حتى والتطبيق مقفول" },
+  en: { t: p => `🕌 ${p} prayer now`, b: (p, tm) => `It's time for ${p} · ${tm} — come to prayer, come to success`, pt: (p, n) => `${n} minutes until ${p}`, pb: "Make wudu and get ready", test: "All set! You'll get a notification at every prayer time", st: "Scheduled test arrived on time ✅", sb: "Your prayer notifications will arrive right on time, even when the app is closed" }
 };
 const PRAYERS = [0, 2, 3, 4, 5];
 
@@ -29,6 +29,8 @@ export class SubStore extends DurableObject {
   async del(id) { await this.ctx.storage.delete("s:" + id); }
   async all() { const m = await this.ctx.storage.list({ prefix: "s:" }); return [...m.entries()].map(([k, v]) => [k.slice(2), v]); }
   async delMany(ids) { if (ids.length) await this.ctx.storage.delete(ids.map(i => "s:" + i)); }
+  async log(id, entry) { const k = "l:" + id, L = (await this.ctx.storage.get(k)) || []; L.unshift(entry); await this.ctx.storage.put(k, L.slice(0, 8)); }
+  async logs(id) { return (await this.ctx.storage.get("l:" + id)) || []; }
 }
 
 const store = env => env.SUBS.get(env.SUBS.idFromName("main"));
@@ -64,8 +66,13 @@ export default {
     if (url.pathname === "/subscribe") {
       const rec = clean(b); if (!rec) return json({ error: "bad subscription" }, 400, h);
       await st.put(await idOf(rec.sub.endpoint), rec);
-      let test = null; if (b.test) test = await sendPush(rec.sub, { title: "اطمئن", body: TXT[rec.lang].test, tag: "test", url: SITE + "#prayer" }, await st.vapid(), subject);
+      let test = null; if (b.test) { test = await sendPush(rec.sub, { title: "اطمئن", body: TXT[rec.lang].test, tag: "test", url: SITE + "#prayer" }, await st.vapid(), subject); await st.log(await idOf(rec.sub.endpoint), { at: Date.now(), kind: "test", status: test }); }
       return json({ ok: true, test }, 200, h);
+    }
+    if (url.pathname === "/status") {
+      if (typeof b.endpoint !== "string") return json({ error: "endpoint" }, 400, h);
+      const id = await idOf(b.endpoint), rec = await st.get(id);
+      return json({ found: !!rec, tz: rec && rec.tz, prayers: rec && rec.prayers, log: await st.logs(id) }, 200, h);
     }
     if (url.pathname === "/unsubscribe") {
       if (typeof b.endpoint !== "string") return json({ error: "endpoint" }, 400, h);
@@ -89,7 +96,7 @@ export default {
     for (const [id, r] of done) { r.testAt = 0; await st.put(id, r); }
     if (!jobs.length) return;
     const keys = await st.vapid(), dead = [];
-    await Promise.all(jobs.map(async ([id, r, msg]) => { try { const s = await sendPush(r.sub, msg, keys, subject); if (s === 404 || s === 410) dead.push(id); } catch (_) {} }));
+    await Promise.all(jobs.map(async ([id, r, msg]) => { let s = 0; try { s = await sendPush(r.sub, msg, keys, subject); if (s === 404 || s === 410) dead.push(id); } catch (_) { s = -1; } try { await st.log(id, { at: minute, kind: msg.tag, title: msg.title, status: s }); } catch (_) {} }));
     await st.delMany(dead);
   }
 };

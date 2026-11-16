@@ -19,6 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Amiri+Quran&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Cairo:wght@500;600;700;800&family=Baloo+Bhaijaan+2:wght@500;600;700;800&display=swap">
 <style>
+@font-face{font-family:"KFGQPC HAFS";src:url("data/fonts/kfgqpc-hafs.otf") format("opentype");font-display:swap}
 /* Layout: phone-first app shell (max 680px). Mihrab-arch hero, floating pill nav with a raised centre button.
    Palette: deep emerald + brass on a cool mint-white ground; dark mode is a night-garden green. */
 :root{
@@ -27,8 +28,8 @@
   --lapis:var(--pri); --lapis-ink:var(--pri-ink); --tile:var(--pri); --gold:var(--brass);
   --hero-a:#0F5A43; --hero-b:#082E23; --page:#FFFEFA; --page-ink:#1A1A1A;
   --f-ui:"IBM Plex Sans Arabic","Segoe UI",Tahoma,sans-serif; --f-disp:"Cairo","IBM Plex Sans Arabic","Segoe UI",sans-serif;
-  --f-quran:"Amiri","Traditional Arabic",serif; --f-mushaf:"Amiri Quran","Amiri","Traditional Arabic",serif;
-  --r:22px; --qsize:26px; --shadow:0 1px 2px rgba(11,61,46,.06),0 12px 30px -16px rgba(11,61,46,.25);
+  --f-quran:"Amiri","Traditional Arabic",serif; --f-mushaf:"KFGQPC HAFS","Amiri Quran","Amiri","Traditional Arabic",serif;
+  --r:22px; --qsize:30px; --shadow:0 1px 2px rgba(11,61,46,.06),0 12px 30px -16px rgba(11,61,46,.25);
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#06120E; --surface:#0D1F19; --surface-2:#132A22; --ink:#E4F0EA; --muted:#8EA89C; --line:#1E3A30;
@@ -40,6 +41,8 @@
   --hero-a:#0F4A37; --hero-b:#04170F; --page:#0B1A15; --page-ink:#ECF3EF; --shadow:0 1px 0 rgba(255,255,255,.03),0 14px 30px -18px rgba(0,0,0,.7); color-scheme:dark}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
+html,body{margin:0}
+section.view>*{min-width:0;max-width:100%}
 html{-webkit-tap-highlight-color:transparent}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-ui);font-size:16px;line-height:1.7;min-height:100%;
   background-image:radial-gradient(700px 300px at 85% -120px,color-mix(in srgb,var(--pri) 14%,transparent),transparent 70%),radial-gradient(500px 260px at 0% 0%,color-mix(in srgb,var(--brass) 10%,transparent),transparent 70%);background-repeat:no-repeat}
@@ -180,14 +183,26 @@ select.field:focus,input.field:focus{border-color:var(--pri);outline:0}
 .juzg button.done{background:var(--pri);color:var(--pri-ink)}
 .hit{display:grid;gap:4px;padding:10px 0;border:0;border-bottom:1px solid var(--line);text-align:start;background:transparent;width:100%}
 .hit .ar{font-family:var(--f-mushaf);font-size:19px;line-height:1.9}
-.rbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:15;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(8px);padding-block:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.rbar .ttl{flex:1;min-width:120px;font-weight:700}
-.rbar select.field{width:auto;max-width:150px;padding:6px 8px}
+.rbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:15;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(8px);padding-block:8px}
 .page{background:var(--page);color:var(--page-ink);border-radius:var(--r);padding:22px 18px;box-shadow:var(--shadow);border:1px solid color-mix(in srgb,var(--brass) 25%,transparent)}
 .shead{border:1.5px solid var(--brass);border-radius:16px;padding:10px;text-align:center;margin-bottom:12px;background:color-mix(in srgb,var(--brass) 6%,transparent)}
 .shead .n{font-family:var(--f-quran);font-size:28px;line-height:1.3}
 .shead .m{font-size:12px;color:var(--muted)}
 .mpage{min-height:60vh;display:flex;flex-direction:column;gap:6px;touch-action:pan-y}
+body.reading header.top,body.reading nav.tabs{display:none!important}
+body.reading .app{max-width:none;padding-left:0;padding-right:0;padding-top:0;padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+body.reading #v-read{gap:0}
+body.reading #v-read .page{border-radius:0;box-shadow:none;border:0;min-height:calc(100vh - 140px);padding:14px max(14px,env(safe-area-inset-right,0px)) 24px max(14px,env(safe-area-inset-left,0px));max-width:760px;margin:0 auto;width:100%;background:var(--page)}
+body.reading{background:var(--page)}
+body.reading .rbar{background:color-mix(in srgb,var(--page) 96%,transparent);padding:8px max(12px,env(safe-area-inset-right,0px)) 8px max(12px,env(safe-area-inset-left,0px));border-bottom:1px solid color-mix(in srgb,var(--brass) 30%,transparent);display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
+.rrow{display:flex;align-items:center;gap:8px;max-width:760px;margin:0 auto;width:100%;min-width:0}
+.rrow .back{font-size:28px;line-height:1;padding:0 6px}
+.rrow .ttl{flex:1;min-width:0;font-weight:700;font-family:var(--f-disp);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rinfo{display:flex;gap:4px;flex-shrink:0;font-family:var(--f-disp);font-size:12px;font-weight:700;color:var(--brass);white-space:nowrap}
+.rinfo span{border:1px solid color-mix(in srgb,var(--brass) 45%,transparent);border-radius:99px;padding:2px 10px;font-variant-numeric:tabular-nums}
+.rtools .field{flex:1;width:auto}
+.rnav{position:fixed;left:0;right:0;bottom:0;z-index:18;display:flex;justify-content:space-between;align-items:center;gap:8px;background:color-mix(in srgb,var(--page) 94%,transparent);backdrop-filter:blur(8px);border-top:1px solid color-mix(in srgb,var(--brass) 25%,transparent);padding:8px max(12px,env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px))}
+.rnav .btn{min-width:0;flex:1;max-width:140px;justify-content:center;padding-inline:10px}
 .phead{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--muted);border-bottom:1px solid color-mix(in srgb,var(--brass) 30%,transparent);padding-bottom:6px;font-family:var(--f-disp)}
 .pfoot{margin-top:auto;padding-top:10px;text-align:center}
 .pfoot span{display:inline-block;min-width:54px;padding:2px 12px;border-radius:99px;border:1px solid color-mix(in srgb,var(--brass) 50%,transparent);color:var(--brass);font-size:13px;font-variant-numeric:tabular-nums;font-family:var(--f-disp)}
@@ -196,11 +211,14 @@ select.field:focus,input.field:focus{border-color:var(--pri);outline:0}
 .sdone[aria-pressed="true"]{border-style:solid;background:var(--ok);border-color:var(--ok);color:#fff}
 .srow .ok{color:var(--ok);font-weight:700}
 .basm{font-family:var(--f-mushaf);font-size:calc(var(--qsize) * .95);text-align:center;margin:6px 0 10px;direction:rtl}
-.mushaf{font-family:var(--f-mushaf);font-size:var(--qsize);line-height:2.25;text-align:justify;direction:rtl}
+.mushaf{font-family:var(--f-mushaf);font-size:var(--qsize);line-height:2.15;text-align:justify;direction:rtl;word-spacing:.04em}
 .mushaf .a{cursor:pointer;border-radius:6px;transition:background .2s}
 .mushaf .a.sel,.tlist .a.sel{background:color-mix(in srgb,var(--brass) 20%,transparent)}
 .mushaf .a.play,.tlist .a.play{background:color-mix(in srgb,var(--pri) 18%,transparent)}
-.end{font-family:var(--f-quran);color:var(--brass);font-size:.8em;white-space:nowrap}
+.end{font-family:var(--f-mushaf);color:var(--brass);white-space:nowrap}
+.stopm{display:inline-block;width:.7em;height:.9em;vertical-align:-.05em;color:var(--brass);margin-inline:2px}
+.stopm svg{width:100%;height:100%}
+.mushaf .a.stopped,.tlist .a.stopped{background:color-mix(in srgb,var(--brass) 14%,transparent);border-radius:6px}
 .tlist{display:grid}
 .tlist .a{padding:12px 6px;border-bottom:1px solid var(--line);cursor:pointer;border-radius:8px}
 .tlist .a:last-child{border:0}
@@ -483,12 +501,12 @@ textarea.field:focus{border-color:#6A4C7C;outline:0}
 .prof{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
 .prof:last-child{border:0}
 /* love message */
-.love{border-radius:24px;padding:18px;background:linear-gradient(135deg,#FDE7EF,#F3E8FF 60%,#E8F4FF);color:#3B2350;display:grid;gap:8px;position:relative;overflow:hidden}
-.love::after{content:"♥";position:absolute;inset-inline-end:14px;top:-6px;font-size:84px;color:rgba(214,92,140,.12);line-height:1}
-.love .lt{font-family:var(--f-disp);font-size:15px;color:#B04B7E}
+.love{border-radius:24px;padding:18px;background:linear-gradient(135deg,color-mix(in srgb,var(--brass) 14%,var(--surface)),var(--surface) 70%);color:var(--ink);box-shadow:var(--shadow);display:grid;gap:8px;position:relative;overflow:hidden}
+
+.love .lt{font-family:var(--f-disp);font-size:15px;font-weight:700;color:var(--brass)}
 .love p{margin:0;font-size:15.5px;line-height:1.95;position:relative;z-index:1}
-:root[data-theme="dark"] .love{background:linear-gradient(135deg,#3A1F33,#2C2145 60%,#1B2A3D);color:#F5E6F0}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .love{background:linear-gradient(135deg,#3A1F33,#2C2145 60%,#1B2A3D);color:#F5E6F0}}
+
+
 .typeseg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .typeseg button{border:2px solid transparent;border-radius:16px;padding:10px;background:var(--surface-2);display:grid;gap:2px;text-align:center}
 .typeseg button[aria-pressed="true"]{border-color:var(--pri);background:color-mix(in srgb,var(--pri) 9%,var(--surface))}
@@ -570,7 +588,7 @@ body.kid .app,body.kid nav.tabs,body.kid .player{display:none!important}
 </head>
 <body>
 
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<svg width="0" height="0" style="position:absolute;left:0;top:0;overflow:hidden" aria-hidden="true"><defs>
 <linearGradient id="lgBg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#11674C"/><stop offset="1" stop-color="#062A1F"/></linearGradient>
 <linearGradient id="lgGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FBE7B0"/><stop offset=".55" stop-color="#E2B35A"/><stop offset="1" stop-color="#B07A1E"/></linearGradient>
 <radialGradient id="lgGlow" cx="50%" cy="62%" r="45%"><stop offset="0" stop-color="#3CC491" stop-opacity=".35"/><stop offset="1" stop-color="#3CC491" stop-opacity="0"/></radialGradient>
@@ -607,7 +625,7 @@ body.kid .app,body.kid nav.tabs,body.kid .player{display:none!important}
     </div>
 
     <div class="card msg" id="installCard" hidden></div>
-    <a class="safebtn" href="#safe"><span class="sic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.4-9.3-9C1 8.4 3.2 5 6.6 5c2 0 3.4 1.1 4.4 2.5C12 6.1 13.4 5 15.4 5 18.8 5 21 8.4 19.3 12 17 16.6 12 21 12 21z"/></svg></span><div><b data-i="safeT"></b><span data-i="safeSub"></span></div><span style="font-size:22px">‹</span></a>
+    <a class="safebtn" href="#safe"><span class="sic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg></span><div><b data-i="safeT"></b><span data-i="safeSub"></span></div><span style="font-size:22px">‹</span></a>
     <div class="love" id="loveCard"></div>
     <a class="card me" id="meCard" href="#rewards"></a>
     <div class="card" id="todoCard"></div>
@@ -720,18 +738,17 @@ body.kid .app,body.kid nav.tabs,body.kid .player{display:none!important}
   <!-- READER -->
   <section class="view" id="v-read" hidden>
     <div class="rbar">
-      <a class="back" href="#quran" data-i="backQuran"></a>
-      <div class="ttl" id="rTitle"></div>
-      <select class="field" id="trSel" data-ia="translation"></select>
-      <button class="ibtn" id="fMinus" aria-label="A-">A−</button>
-      <button class="ibtn" id="fPlus" aria-label="A+">A+</button>
+      <div class="rrow"><a class="back" href="#quran" aria-label="رجوع">‹</a><div class="ttl" id="rTitle"></div>
+        <div class="rinfo"><span id="pNum"></span><span id="pJuz"></span></div><button class="ibtn" id="rTools" aria-label="Aa">Aa</button></div>
+      <div class="rrow rtools" id="rToolsRow" hidden><select class="field" id="trSel" data-ia="translation"></select>
+        <button class="ibtn" id="fMinus" aria-label="A-">A−</button><button class="ibtn" id="fPlus" aria-label="A+">A+</button></div>
     </div>
     <div class="page mpage" id="mPage">
-      <div class="phead"><span id="pSurahs"></span><span id="pJuz"></span></div>
+      <div class="phead"><span id="pSurahs"></span></div>
       <div id="rBody"></div>
-      <div class="pfoot"><span id="pNum"></span></div>
+      <div class="pfoot"><span id="pFoot"></span></div>
     </div>
-    <div class="row">
+    <div class="rnav">
       <a class="btn" id="rPrev"></a>
       <button class="btn primary" id="rPlay" data-i="playPage"></button>
       <a class="btn" id="rNext"></a>
@@ -980,22 +997,22 @@ ar:{app:"اطمئن",city:"المدينة",langBtn:"English",themeBtn:"الوض�
    mon:["يوم الاثنين","«تُعرض الأعمال يوم الاثنين والخميس، فأحب أن يُعرض عملي وأنا صائم» (الترمذي)."],thu:["يوم الخميس","«تُعرض الأعمال يوم الاثنين والخميس، فأحب أن يُعرض عملي وأنا صائم» (الترمذي)."]},
  methods:{egypt:"الهيئة المصرية العامة للمساحة",umm:"أم القرى",mwl:"رابطة العالم الإسلامي",isna:"أمريكا الشمالية (ISNA)",karachi:"جامعة العلوم الإسلامية بكراتشي"},
  azT:{morning:"أذكار الصباح",evening:"أذكار المساء",prayer:"أذكار بعد الصلاة",sleep:"أذكار النوم"},azS:{morning:"الصباح",evening:"المساء",prayer:"بعد الصلاة",sleep:"النوم"},
- forYou:"رسالة لك",pushState:"الحالة:",psApp:"مفتوح من الأيقونة ✓",psSafari:"مفتوح من Safari ✗ (لازم من الأيقونة)",psGranted:"الإشعارات مسموحة ✓",psDenied:"الإشعارات مرفوضة ✗",psAsk:"لسه ما اتسألتش، اضغط الزرار",psNoApi:"الجهاز مش بيدعم إشعارات المواقع (محتاج iOS 16.4 أو أحدث)",pushTest2:"⏱ جرّب إشعار بعد دقيقتين",pushTest2Ok:"تمام! اقفل التطبيق خالص واستنى دقيقتين، هيوصلك إشعار في ميعاده 🤍",pushT:"إشعارات الأذان على موبايلك",pushSub:"هيوصلك إشعار في وقت كل صلاة حتى والتطبيق مقفول.",pushIos:"على الآيفون: ضيف «اطمئن» للشاشة الرئيسية الأول (زرار المشاركة ⬆️ ← إضافة إلى الشاشة الرئيسية)، وافتحه من الأيقونة، وبعدين شغّل الزرار ده.",
- pushOn:"اتفعّلت! هيوصلك دلوقتي إشعار تجريبي 🤍",pushDenied:"الإشعارات مقفولة للموقع. افتح إعدادات الموبايل واسمح بالإشعارات لـ«اطمئن».",pushErr:"حصلت مشكلة في التفعيل، جرّب تاني بعد شوية.",pushNA:"المتصفح ده مش بيدعم الإشعارات. على الآيفون استخدم Safari وضيف التطبيق للشاشة الرئيسية.",pushOffT:"اتقفلت إشعارات الموبايل",playPage:"استمع للصفحة",prevP:"السابقة ›",nextP:"‹ التالية",pageN:n=>`صفحة ${nf(n)}`,goPage:"روح لصفحة",go:"روح",
- sdAsk:n=>`خلصت سورة ${n}؟ اضغط هنا`,sdDone:n=>`✓ خلصت سورة ${n}`,sdToast:n=>`تم! سورة ${n} اتحسبت في ختمتك`,surahsDone:(a)=>`${nf(a)} سورة من ١١٤`,loveT:"رسالة حب من ربنا 🤍",remLove:"رسالة حب يومية: ربنا بيحبك",remLoveAt:"وقت الرسالة",nLoveT:"رسالة ليك 🤍",
+ forYou:"رسالة لك",backToStop:"رجعناك للآية اللي وقفت عندها",contStop:"كمّل من حيث وقفت",plogT:"آخر الإشعارات اللي اتبعتت لموبايلك:",plogOk:"اتبعت للموبايل ✓",plogGone:"الاشتراك انتهى، اقفل الزرار وافتحه تاني",plogFail:c=>`ما اتبعتش (كود ${c})`,plogNone:"لسه مفيش إشعارات اتبعتت.",plogNotFound:"السيرفر مش لاقي اشتراكك، اقفل الزرار وافتحه تاني.",plogTest:"إشعار التجربة",ayahWord:n=>`آية ${nf(n)}`,pushState:"الحالة:",psApp:"مفتوح من الأيقونة ✓",psSafari:"مفتوح من Safari ✗ (لازم من الأيقونة)",psGranted:"الإشعارات مسموحة ✓",psDenied:"الإشعارات مرفوضة ✗",psAsk:"لسه ما اتسألتش، اضغط الزرار",psNoApi:"الجهاز مش بيدعم إشعارات المواقع (محتاج iOS 16.4 أو أحدث)",pushTest2:"⏱ جرّب إشعار بعد دقيقتين",pushTest2Ok:"تمام! اقفل التطبيق خالص واستنى دقيقتين، هيوصلك إشعار في ميعاده",pushT:"إشعارات الأذان على موبايلك",pushSub:"هيوصلك إشعار في وقت كل صلاة حتى والتطبيق مقفول.",pushIos:"على الآيفون: ضيف «اطمئن» للشاشة الرئيسية الأول (زرار المشاركة ⬆️ ← إضافة إلى الشاشة الرئيسية)، وافتحه من الأيقونة، وبعدين شغّل الزرار ده.",
+ pushOn:"اتفعّلت! هيوصلك دلوقتي إشعار تجريبي",pushDenied:"الإشعارات مقفولة للموقع. افتح إعدادات الموبايل واسمح بالإشعارات لـ«اطمئن».",pushErr:"حصلت مشكلة في التفعيل، جرّب تاني بعد شوية.",pushNA:"المتصفح ده مش بيدعم الإشعارات. على الآيفون استخدم Safari وضيف التطبيق للشاشة الرئيسية.",pushOffT:"اتقفلت إشعارات الموبايل",playPage:"استمع للصفحة",prevP:"→ السابقة",nextP:"التالية ←",pageN:n=>`صفحة ${nf(n)}`,goPage:"روح لصفحة",go:"روح",
+ sdAsk:n=>`خلصت سورة ${n}؟ اضغط هنا`,sdDone:n=>`✓ خلصت سورة ${n}`,sdToast:n=>`تم! سورة ${n} اتحسبت في ختمتك`,surahsDone:(a)=>`${nf(a)} سورة من ١١٤`,loveT:"رسالة من ربنا ليك",remLove:"رسالة يومية من ربنا ليك",remLoveAt:"وقت الرسالة",nLoveT:"رسالة من ربنا ليك",
  accType:["حساب ليّا","حساب لطفلي"],accTypeSub:["كل مميزات اطمئن","شكل وطريقة للأطفال"],kidName:"اسم الطفل",pickAv:"اختار شخصية",kidBadge:"طفل",
  kHi:n=>`أهلًا يا ${n}!`,kSub:"يلا نكسب نجوم النهارده ⭐",kTiles:[["🕌","صلاتي"],["🤲","أذكاري"],["📖","سور قصيرة"],["📚","حكايات"],["😇","أخلاقي الحلوة"],["📿","مسبحتي"],["❓","مسابقة"],["🏆","ملصقاتي"]],
  kBack:"‹ رجوع",kParents:"للكبار 🔒",kGateQ:(a,b)=>`سؤال للكبار: ${nf(a)} + ${nf(b)} = ؟`,kGateNo:"لأ، جرّب تاني",kSwitch:"اختار الحساب",
  kPrayT:"صلاتي النهارده",kPrayDone:"برافو! صليت الخمس صلوات 🎉",kDkT:"أذكاري الصغيرة",kDkTip:"اضغط على الذكر لما تقوله وخد نجمة ⭐",kSurT:"سور قصيرة",kListen:"🔊 اسمع",kRead:"✅ قريتها",kStT:"حكايات الأنبياء",kLesson:"الدرس:",kDone:"خلصت الحكاية ⭐",
  kDeedT:"أخلاقي الحلوة",kDeedTip:"عملت إيه حلو النهارده؟",kTasT:"مسبحتي",kTasTip:"اضغط على الدايرة وقول «سبحان الله»",kQuizT:"مسابقة",kNext:"اللي بعده ➜",kScore:(a,b)=>`جاوبت ${nf(a)} من ${nf(b)} صح!`,kAgain:"العب تاني",
  kStickT:"ملصقاتي",kStickTip:n=>`معاك ${nf(n)} نجمة. اجمع نجوم أكتر عشان تفتح ملصقات جديدة!`,kNeed:n=>`${nf(n)} ⭐`,kNewStick:"ملصق جديد! 🎉",kStars:"نجمة",kGood:["برافو! ⭐","شاطر! 🌟","حلو أوي! ✨","ما شاء الله! 🎉"],
-greetMN:n=>`صباح الخير يا ${n} 🤍`,greetEN:n=>`مساء الخير يا ${n} 🤍`,tagline:"وسط زحمة الدنيا… قلبك يطمئن",
+greetMN:n=>`صباح الخير يا ${n}`,greetEN:n=>`مساء الخير يا ${n}`,tagline:"وسط زحمة الدنيا… قلبك يطمئن",
  welcome:"أهلًا بيك في اطمئن",yourName:"اسمك إيه؟",namePh:"اكتب اسمك",startApp:"يلا نبدأ",onbNote:"حسابك وكل بياناتك محفوظة على جهازك انت بس. محدش يقدر يشوفها.",
  accT:"الحسابات",accSub:"كل حساب ليه بياناته ومساحته الآمنة لوحده.",current:"الحالي",switchTo:"افتح",addAcc:"حساب جديد",accName:"اسم الحساب",create:"إنشاء",delAcc:"حذف",
  safeT:"هنا مساحتك الآمنة",safeSub:"مكان ليك انت وبس، محمي برقم سري ومتشفّر",
  pinNew:"اختار رقم سري (٤ أرقام)",pinConfirm:"اكتب الرقم تاني للتأكيد",pinEnter:"اكتب رقمك السري",pinWrong:"الرقم غلط، جرّب تاني",pinMismatch:"الرقمين مش زي بعض، ابدأ من جديد",pinWait:n=>`استنى ${nf(n)} ثانية`,
  pinWarn:"مهم: الرقم ده بيشفّر بياناتك. لو نسيته مش هنقدر نرجّعها خالص.",forgot:"نسيت الرقم؟",resetVault:"امسح المساحة الآمنة وابدأ من جديد",resetSure:"متأكد؟ كل اللي كتبته هنا هيتمسح نهائيًا",
- noCrypto:"التشفير مش متاح هنا. افتح التطبيق من الموبايل أو من رابط https.",lock:"اقفل",safeHello:"خد نفسك… انت في أمان هنا 🤍",
+ noCrypto:"التشفير مش متاح هنا. افتح التطبيق من الموبايل أو من رابط https.",lock:"اقفل",safeHello:"خد نفسك… انت في أمان هنا",
  privacy:"كل اللي في المساحة الآمنة متشفّر على جهازك بالرقم السري بتاعك. محدش يقدر يقراه، ولا حتى إحنا.",
  journal:"فضفض لربنا",journalSub:"اكتب اللي جواك",breathe:"خد نفس",breatheSub:"تمرين تنفس مع ذكر",habitsT:"عاداتي اللي بغيّرها",habitsSub:"وحلول لأشهر المشاكل",moodLink:"كيف حالك؟",moodLinkSub:"آية ودعاء وقصة لحالتك",
  jPh:"يا رب… اكتب اللي في قلبك، ربنا سامعك قبل ما تكتب",save:"حفظ",saved:"اتحفظ ومتشفّر 🔒",jEmpty:"لسه مفيش حاجة مكتوبة. ابدأ بأول سطر.",
@@ -1003,9 +1020,9 @@ greetMN:n=>`صباح الخير يا ${n} 🤍`,greetEN:n=>`مساء الخير 
  hAdd:"ضيف عادة عايز تغيّرها",hCustom:"أو اكتب عادة بنفسك",hLib:"حلول لأشهر المشاكل",hSolved:"تم الحل ✓",hTrying:"لسه بحاول",hStuck:"مش لاقي حل",hSince:n=>`بقالك ${nf(n)} يوم`,hRestart:"وقعت؟ ابدأ العد من جديد",
  hShow:"الحلول",hHide:"إخفاء",hSteps:"خطوات عملية",hSpirit:"عون من ربنا",hMore:"لو لسه مش لاقي حل",hAddThis:"ضيفها لعاداتي",hEmpty:"ضيف أول عادة عايز تغيّرها؛ محدش هيشوف القايمة دي غيرك.",
  hGeneric:["ادعِ ربنا بصدق إنه يعينك؛ التغيير بيبدأ من جوه.","ابدأ بخطوة صغيرة جدًا كل يوم بدل ما تحاول تغيّر كل حاجة مرة واحدة.","حط بديل حلو مكان العادة، ومتسيبش الفراغ.","ابعد عن الأماكن والناس اللي بيفكّروك بيها.","لو العادة صعبة جدًا، اطلب مساعدة من حد بتثق فيه أو متخصص."],
- hSolvedToast:"الحمد لله! ربنا يثبّتك 🤍",hRestartToast:"ولا يهمك، المهم إنك قمت تاني 🤍",needHelp:"لو حاسس إنك مش بخير خالص، كلّم حد بتثق فيه أو متخصص نفسي. طلب المساعدة قوة مش ضعف.",
+ hSolvedToast:"الحمد لله! ربنا يثبّتك",hRestartToast:"ولا يهمك، المهم إنك قمت تاني",needHelp:"لو حاسس إنك مش بخير خالص، كلّم حد بتثق فيه أو متخصص نفسي. طلب المساعدة قوة مش ضعف.",
  todoT:"مهام اليوم",todoSub:"شغلك ومشاغلك مهمين… وكمان قلبك. ضيف وسطهم حاجة تقرّبك من ربنا.",todoPh:"عايز تعمل إيه النهارده؟",tcat:{work:"شغل",life:"دنيا",worship:"عبادة"},
- todoEmpty:"يومك لسه فاضي. ابدأ بأهم ٣ حاجات.",todoNudge:"يومك مليان شغل ومشاغل… ضيف حاجة واحدة بس تريّح قلبك 🤍",todoGreat:"ما شاء الله! يومك فيه شغل وعبادة؛ ربنا يبارك في وقتك.",
+ todoEmpty:"يومك لسه فاضي. ابدأ بأهم ٣ حاجات.",todoNudge:"يومك مليان شغل ومشاغل… ضيف حاجة واحدة بس تريّح قلبك",todoGreat:"ما شاء الله! يومك فيه شغل وعبادة؛ ربنا يبارك في وقتك.",
  todoIdeas:["أذكار الصباح في المواصلات","ركعتين ضحى في البريك","صفحة قرآن قبل الشغل","استغفار ١٠٠ مرة وانا ماشي","صدقة ولو بسيطة","أكلم أمي/أبويا","دعاء لحد بحبه","نية صالحة لشغلي"],
  niyyah:"انوِ بشغلك إنك تكفي أهلك وتنفع الناس، فيبقى شغلك نفسه عبادة. «إنما الأعمال بالنيات» (متفق عليه).",carry:n=>`نقل ${nf(n)} مهام من امبارح`,todoDone:(a,b)=>`${nf(a)} من ${nf(b)} خلصت`,openTodo:"افتح مهامي",
 backHome:"‹ الرئيسية",backSunan:"‹ السنن",rounds:"دورات",todayCnt:"النهارده",allTime:"الإجمالي",
@@ -1086,22 +1103,22 @@ en:{app:"Itmaen",city:"City",langBtn:"العربية",themeBtn:"Dark / light mod
    mon:["Monday","\"Deeds are presented on Monday and Thursday, and I love that my deeds be presented while I am fasting.\" (Tirmidhi)"],thu:["Thursday","\"Deeds are presented on Monday and Thursday, and I love that my deeds be presented while I am fasting.\" (Tirmidhi)"]},
  methods:{egypt:"Egyptian General Authority of Survey",umm:"Umm al-Qura",mwl:"Muslim World League",isna:"ISNA (North America)",karachi:"University of Islamic Sciences, Karachi"},
  azT:{morning:"Morning adhkar",evening:"Evening adhkar",prayer:"After prayer",sleep:"Before sleep"},azS:{morning:"Morning",evening:"Evening",prayer:"After prayer",sleep:"Sleep"},
- forYou:"A message for you",pushState:"Status:",psApp:"Opened from the icon ✓",psSafari:"Opened in Safari ✗ (open from the icon)",psGranted:"Notifications allowed ✓",psDenied:"Notifications blocked ✗",psAsk:"Not asked yet, tap the switch",psNoApi:"This device doesn't support web notifications (needs iOS 16.4+)",pushTest2:"⏱ Test a notification in 2 minutes",pushTest2Ok:"Done! Close the app completely and wait 2 minutes for an on-time notification 🤍",pushT:"Adhan notifications on your phone",pushSub:"Get a notification at every prayer time, even when the app is closed.",pushIos:"On iPhone: first add Itmaen to your Home Screen (Share ⬆️ → Add to Home Screen), open it from the icon, then turn this on.",
- pushOn:"Done! A test notification is on its way 🤍",pushDenied:"Notifications are blocked. Allow them for Itmaen in your phone settings.",pushErr:"Something went wrong, please try again shortly.",pushNA:"This browser doesn't support notifications. On iPhone use Safari and add the app to your Home Screen.",pushOffT:"Phone notifications turned off",playPage:"Play page",prevP:"‹ Previous",nextP:"Next ›",pageN:n=>`Page ${n}`,goPage:"Go to page",go:"Go",
- sdAsk:n=>`Finished ${n}? Tap here`,sdDone:n=>`✓ Finished ${n}`,sdToast:n=>`Done! ${n} counted in your khatma`,surahsDone:(a)=>`${a} of 114 surahs`,loveT:"A love note from Allah 🤍",remLove:"Daily love note: Allah loves you",remLoveAt:"Time",nLoveT:"A note for you 🤍",
+ forYou:"A message for you",backToStop:"Back to the verse where you stopped",contStop:"Continue where you stopped",plogT:"Latest notifications sent to your phone:",plogOk:"Sent to your phone ✓",plogGone:"Subscription expired, turn the switch off and on",plogFail:c=>`Not sent (code ${c})`,plogNone:"No notifications sent yet.",plogNotFound:"The server can't find your subscription, turn the switch off and on.",plogTest:"Test notification",ayahWord:n=>`verse ${n}`,pushState:"Status:",psApp:"Opened from the icon ✓",psSafari:"Opened in Safari ✗ (open from the icon)",psGranted:"Notifications allowed ✓",psDenied:"Notifications blocked ✗",psAsk:"Not asked yet, tap the switch",psNoApi:"This device doesn't support web notifications (needs iOS 16.4+)",pushTest2:"⏱ Test a notification in 2 minutes",pushTest2Ok:"Done! Close the app completely and wait 2 minutes for an on-time notification",pushT:"Adhan notifications on your phone",pushSub:"Get a notification at every prayer time, even when the app is closed.",pushIos:"On iPhone: first add Itmaen to your Home Screen (Share ⬆️ → Add to Home Screen), open it from the icon, then turn this on.",
+ pushOn:"Done! A test notification is on its way",pushDenied:"Notifications are blocked. Allow them for Itmaen in your phone settings.",pushErr:"Something went wrong, please try again shortly.",pushNA:"This browser doesn't support notifications. On iPhone use Safari and add the app to your Home Screen.",pushOffT:"Phone notifications turned off",playPage:"Play page",prevP:"‹ Previous",nextP:"Next ›",pageN:n=>`Page ${n}`,goPage:"Go to page",go:"Go",
+ sdAsk:n=>`Finished ${n}? Tap here`,sdDone:n=>`✓ Finished ${n}`,sdToast:n=>`Done! ${n} counted in your khatma`,surahsDone:(a)=>`${a} of 114 surahs`,loveT:"A message from Allah to you",remLove:"A daily message from Allah to you",remLoveAt:"Time",nLoveT:"A message from Allah to you",
  accType:["Account for me","Account for my child"],accTypeSub:["All of Itmaen","A kid-friendly look"],kidName:"Child's name",pickAv:"Pick a character",kidBadge:"Kid",
  kHi:n=>`Hi ${n}!`,kSub:"Let's earn stars today ⭐",kTiles:[["🕌","My prayers"],["🤲","My adhkar"],["📖","Short surahs"],["📚","Stories"],["😇","Good manners"],["📿","My tasbih"],["❓","Quiz"],["🏆","Stickers"]],
  kBack:"‹ Back",kParents:"Grown-ups 🔒",kGateQ:(a,b)=>`For grown-ups: ${a} + ${b} = ?`,kGateNo:"Not quite, try again",kSwitch:"Choose an account",
  kPrayT:"My prayers today",kPrayDone:"Bravo! You prayed all five 🎉",kDkT:"My little adhkar",kDkTip:"Tap a dhikr when you say it to get a star ⭐",kSurT:"Short surahs",kListen:"🔊 Listen",kRead:"✅ I read it",kStT:"Prophet stories",kLesson:"Lesson:",kDone:"I finished the story ⭐",
  kDeedT:"Good manners",kDeedTip:"What good did you do today?",kTasT:"My tasbih",kTasTip:"Tap the circle and say “SubhanAllah”",kQuizT:"Quiz",kNext:"Next ➜",kScore:(a,b)=>`You got ${a} of ${b} right!`,kAgain:"Play again",
  kStickT:"My stickers",kStickTip:n=>`You have ${n} stars. Collect more to unlock new stickers!`,kNeed:n=>`${n} ⭐`,kNewStick:"New sticker! 🎉",kStars:"stars",kGood:["Bravo! ⭐","Great job! 🌟","Awesome! ✨","Masha'Allah! 🎉"],
-greetMN:n=>`Good morning, ${n} 🤍`,greetEN:n=>`Good evening, ${n} 🤍`,tagline:"Amid the rush of life… let your heart find rest",
+greetMN:n=>`Good morning, ${n}`,greetEN:n=>`Good evening, ${n}`,tagline:"Amid the rush of life… let your heart find rest",
  welcome:"Welcome to Itmaen",yourName:"What's your name?",namePh:"Your name",startApp:"Let's begin",onbNote:"Your account and all your data stay on your device only. No one else can see them.",
  accT:"Accounts",accSub:"Each account has its own data and safe space.",current:"Current",switchTo:"Open",addAcc:"New account",accName:"Account name",create:"Create",delAcc:"Delete",
  safeT:"Your safe space is here",safeSub:"A place just for you, PIN-protected and encrypted",
  pinNew:"Choose a 4-digit PIN",pinConfirm:"Enter the PIN again",pinEnter:"Enter your PIN",pinWrong:"Wrong PIN, try again",pinMismatch:"PINs don't match, start again",pinWait:n=>`Wait ${nf(n)} seconds`,
  pinWarn:"Important: this PIN encrypts your data. If you forget it, it cannot be recovered.",forgot:"Forgot your PIN?",resetVault:"Erase the safe space and start over",resetSure:"Sure? Everything written here will be permanently erased",
- noCrypto:"Encryption isn't available here. Open the app on your phone or over https.",lock:"Lock",safeHello:"Breathe… you're safe here 🤍",
+ noCrypto:"Encryption isn't available here. Open the app on your phone or over https.",lock:"Lock",safeHello:"Breathe… you're safe here",
  privacy:"Everything in your safe space is encrypted on your device with your PIN. No one can read it, not even us.",
  journal:"Talk to Allah",journalSub:"Write what's in your heart",breathe:"Breathe",breatheSub:"Breathing with dhikr",habitsT:"Habits I'm changing",habitsSub:"With solutions to common struggles",moodLink:"How are you?",moodLinkSub:"A verse, du'a and story",
  jPh:"O Allah… write what's in your heart; He hears you before you write",save:"Save",saved:"Saved and encrypted 🔒",jEmpty:"Nothing written yet. Start with the first line.",
@@ -1109,9 +1126,9 @@ greetMN:n=>`Good morning, ${n} 🤍`,greetEN:n=>`Good evening, ${n} 🤍`,taglin
  hAdd:"Add a habit you want to change",hCustom:"Or write your own",hLib:"Solutions to common struggles",hSolved:"Solved ✓",hTrying:"Still trying",hStuck:"No solution yet",hSince:n=>`${nf(n)} days`,hRestart:"Slipped? Restart the count",
  hShow:"Solutions",hHide:"Hide",hSteps:"Practical steps",hSpirit:"Help from Allah",hMore:"If nothing works yet",hAddThis:"Add to my habits",hEmpty:"Add the first habit you want to change; no one but you will see this list.",
  hGeneric:["Sincerely ask Allah to help you; change starts within.","Start with one tiny step daily instead of changing everything at once.","Put a good replacement in the habit's place; don't leave a void.","Avoid places and people that remind you of it.","If it's very hard, ask someone you trust or a specialist for help."],
- hSolvedToast:"Alhamdulillah! May Allah keep you firm 🤍",hRestartToast:"No worries — what matters is getting up again 🤍",needHelp:"If you feel really unwell, talk to someone you trust or a mental health professional. Asking for help is strength, not weakness.",
+ hSolvedToast:"Alhamdulillah! May Allah keep you firm",hRestartToast:"No worries — what matters is getting up again",needHelp:"If you feel really unwell, talk to someone you trust or a mental health professional. Asking for help is strength, not weakness.",
  todoT:"Today",todoSub:"Your work and errands matter… and so does your heart. Add something that brings you closer to Allah.",todoPh:"What do you want to do today?",tcat:{work:"Work",life:"Life",worship:"Worship"},
- todoEmpty:"Your day is empty. Start with your top 3 things.",todoNudge:"Your day is full of work and errands… add just one thing that comforts your heart 🤍",todoGreat:"Masha'Allah! Your day has both work and worship; may Allah bless your time.",
+ todoEmpty:"Your day is empty. Start with your top 3 things.",todoNudge:"Your day is full of work and errands… add just one thing that comforts your heart",todoGreat:"Masha'Allah! Your day has both work and worship; may Allah bless your time.",
  todoIdeas:["Morning adhkar on my commute","Two rak'ahs of Duha at break","A page of Quran before work","100 istighfar while walking","A small charity","Call my mum/dad","Du'a for someone I love","A good intention for my work"],
  niyyah:"Intend your work to provide for your family and benefit people, and your work itself becomes worship. \"Actions are by intentions\" (Bukhari & Muslim).",carry:n=>`Move ${nf(n)} tasks from yesterday`,todoDone:(a,b)=>`${nf(a)} of ${nf(b)} done`,openTodo:"Open my tasks",
 backHome:"‹ Home",backSunan:"‹ Sunnahs",rounds:"Rounds",todayCnt:"Today",allTime:"All time",
@@ -1308,9 +1325,13 @@ function renderMoodOut(){if(moodSel<0){$("moodOut").innerHTML="";return}const m=
 $("moods").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;moodSel=+b.dataset.i;[...$("moods").children].forEach(x=>x.setAttribute("aria-pressed",x===b));renderMoodOut()});
 function dayOfYear(){const x=ymd(new Date(),TZ());return Math.floor((Date.UTC(x.y,x.m-1,x.d)-Date.UTC(x.y,0,0))/864e5)}
 function renderDailyContent(){const n=dayOfYear(),r=qRef(AYAT[n%AYAT.length]);$("dAyah").textContent=r.ar;$("dAyahTr").textContent=lang!=="ar"?r.tr:"";$("dAyahSrc").textContent=r.src;$("dName").textContent=NAMES[n%NAMES.length]}
-function renderCont(){const lr=S.get("lastRead",null);
- if(lr==null){$("contTxt").textContent=t("startRead");$("contCard").href="#s1";return}
- const [s,a]=fromG(lr);$("contTxt").textContent=(lang==="ar"?"سورة ":"")+sName(s)+" · "+t("pageN",pageOf(lr))+" · "+t("juzN",juzOf(lr));$("contCard").href="#pg"+pageOf(lr)}
+function readPos(){let lr=S.get("lastRead",null);if(typeof lr==="number")lr={g:lr,at:0};const st=S.get("stopAt",null);
+ if(st)return {g:st.g,stop:true};return lr?{g:lr.g,stop:false}:null}
+function renderCont(){const rp=readPos();
+ if(!rp){$("contTxt").textContent=t("startRead");$("contCard").href="#s1";return}
+ const [s,a]=fromG(rp.g);$("contTxt").textContent=(lang==="ar"?"سورة ":"")+sName(s)+(rp.stop?" · "+t("ayahWord",a):"")+" · "+t("pageN",pageOf(rp.g))+" · "+t("juzN",juzOf(rp.g));$("contCard").href="#pg"+pageOf(rp.g);$("contCard").dataset.g=rp.stop?rp.g:""}
+$("contCard").addEventListener("click",()=>{const g=$("contCard").dataset.g;if(g)pendingAyah=+g});
+document.addEventListener("click",e=>{const a=e.target.closest("[data-stopg]");if(a)pendingAyah=+a.dataset.stopg});
 
 /* ================= PRAYER ================= */
 function renderPrayer(){
@@ -1420,6 +1441,7 @@ function renderKhatma(){
  <div class="progress" style="margin:10px 0"><i style="width:${pct}%"></i></div>
  <div class="row"><div><div style="font-family:var(--f-disp);font-size:22px;font-weight:600;color:var(--pri)">${rest<=0?t("khDone"):t("ayatDay",per)}</div><div class="muted" style="font-size:13px">${rest<=0?"":t("pagesApprox",Math.max(1,Math.round(per/10.3)))+" · "+t("khRest",rest,left)}</div></div>
  <a class="btn primary" href="#s${firstUndone()}">${t("continue")}</a></div>
+ ${S.get("stopAt",null)?`<a class="btn gold" href="#pg${pageOf(S.get("stopAt").g)}" data-stopg="${S.get("stopAt").g}" style="margin-top:8px">🔖 ${t("contStop")}: ${(lang==="ar"?"سورة ":"")+sName(fromG(S.get("stopAt").g)[0])} · ${t("ayahWord",fromG(S.get("stopAt").g)[1])}</a>`:""}
  <div style="margin-top:8px">${status}</div>${sp}
  <div class="row" style="margin-top:12px"><button class="btn sm" id="kpToggle">${t("changePlan")} ▾</button><button class="btn sm danger" id="khNew">${t("khNew")}</button></div>
  <div id="kpBox" ${kpOpen?"":"hidden"} style="margin-top:12px;display:grid;gap:10px"><div class="kplans">${KPL.map(k=>`<button class="kplan" data-k="${k.id}" aria-pressed="${k.id===kh.plan}"><b>${k[lang][0]}</b><span>${k[lang][1]}</span><em>${t("ayatDay",Math.ceil(TOTAL/k.d))}</em></button>`).join("")}</div>
@@ -1456,12 +1478,12 @@ function doSearch(){const q=qQuery.trim();const H=$("qHits");if(!H)return;if(q.l
 $("qPane").addEventListener("click",e=>{const b=e.target.closest(".hit");if(!b)return;const [s,a]=fromG(+b.dataset.g);pendingAyah=a;location.hash="s"+s});
 
 /* ================= READER ================= */
-let curS=1,pendingAyah=null,trCode=S.get("tr",lang==="ar"?"":"en"),qsize=S.get("qsize",26),selG=null,obs=null;
+let curS=1,pendingAyah=null,trCode=S.get("tr",lang==="ar"?"":"en"),qsize=S.get("qsize2",30),selG=null,obs=null;
 document.documentElement.style.setProperty("--qsize",qsize+"px");
 function fillTrSel(){$("trSel").innerHTML=`<option value="">${t("noTr")}</option>`+Object.entries(TR_LANGS).map(([k,v])=>`<option value="${k}">${v}</option>`).join("");$("trSel").value=trCode}
 $("trSel").addEventListener("change",e=>{trCode=e.target.value;S.set("tr",trCode);loadTr(trCode,()=>renderReader(true))});
-$("fMinus").addEventListener("click",()=>{qsize=Math.max(18,qsize-2);S.set("qsize",qsize);document.documentElement.style.setProperty("--qsize",qsize+"px")});
-$("fPlus").addEventListener("click",()=>{qsize=Math.min(44,qsize+2);S.set("qsize",qsize);document.documentElement.style.setProperty("--qsize",qsize+"px")});
+$("fMinus").addEventListener("click",()=>{qsize=Math.max(18,qsize-2);S.set("qsize2",qsize);document.documentElement.style.setProperty("--qsize",qsize+"px")});
+$("fPlus").addEventListener("click",()=>{qsize=Math.min(44,qsize+2);S.set("qsize2",qsize);document.documentElement.style.setProperty("--qsize",qsize+"px")});
 const PSTART=(window.QPAGES||[[1,1]]).map(([a,b])=>gi(a,b)),NPAGES=PSTART.length;
 function pageOf(g){let lo=0,hi=NPAGES-1;while(lo<hi){const m=(lo+hi+1)>>1;if(PSTART[m]<=g)lo=m;else hi=m-1}return lo+1}
 const pageRange=n=>[PSTART[n-1],n<NPAGES?PSTART[n]:TOTAL];
@@ -1472,25 +1494,27 @@ function renderReader(keep){
  const [a,b]=pageRange(curPage),bm=new Set(S.get("bm",[]));const first=fromG(a)[0],last=fromG(b-1)[0];curS=first;
  $("rTitle").textContent=(lang==="ar"?"سورة ":"")+sName(first)+(last!==first?" – "+sName(last):"");
  $("pSurahs").textContent=(lang==="ar"?"":"")+[...new Set(Array.from({length:last-first+1},(_,k)=>first+k))].map(n=>lang==="ar"?Q.s[n-1][0]:Q.s[n-1][1]).join(" · ");
- $("pJuz").textContent=t("juzN",juzOf(a));$("pNum").textContent=nf(curPage);
+ $("pJuz").textContent=t("juzN",juzOf(a));$("pNum").textContent=t("pageN",curPage);$("pFoot").textContent=nf(curPage);const stopG=(S.get("stopAt",null)||{}).g;
  let h="",buf="";const rtl=trCode==="ur";
  const flush=()=>{if(buf){h+=trCode?`<div class="tlist">${buf}</div>`:`<div class="mushaf">${buf}</div>`;buf=""}};
  for(let g=a;g<b;g++){const [sn,an]=fromG(g);
   if(an===1){flush();h+=sHead(sn)}
-  const mark=`<span class="end">${bm.has(g)?'<span class="bm">❖</span>':""}﴿${toAr(an)}﴾</span>`;
-  buf+=trCode?`<div class="a" data-g="${g}"><div class="ar">${Q.v[g]} ${mark}</div><div class="tr" dir="${rtl?"rtl":"ltr"}">${nf(an)}. ${esc(trOf(trCode,g))}</div></div>`:`<span class="a" data-g="${g}">${Q.v[g]}</span> ${mark} `;
+  const mark=`<span class="end">${toAr(an)}</span>${bm.has(g)?'<span class="bm">❖</span>':""}${stopG===g?`<span class="stopm" title="${esc(t("stoppedHere"))}">${STOPSVG}</span>`:""}`;
+  const sc=stopG===g?" stopped":"";buf+=trCode?`<div class="a${sc}" data-g="${g}"><div class="ar">${Q.v[g]} ${mark}</div><div class="tr" dir="${rtl?"rtl":"ltr"}">${nf(an)}. ${esc(trOf(trCode,g))}</div></div>`:`<span class="a${sc}" data-g="${g}">${Q.v[g]}</span> ${mark} `;
   if(an===Q.s[sn-1][4]){flush();h+=sdBtn(sn)}}
  flush();$("rBody").innerHTML=h;
  $("rPrev").hidden=curPage<=1;$("rNext").hidden=curPage>=NPAGES;$("rPrev").href="#pg"+(curPage-1);$("rNext").href="#pg"+(curPage+1);
  $("rPrev").textContent=t("prevP");$("rNext").textContent=t("nextP");
- S.set("lastRead",a);renderCont();
+ S.set("lastRead",{g:a,at:Date.now()});renderCont();
  if(!keep){const target=pendingAyah;pendingAyah=null;
   requestAnimationFrame(()=>{const el=target!=null&&document.querySelector(`#rBody .a[data-g="${target}"]`);const sh=pendingSurah&&document.querySelector(`#rBody .shead[data-s="${pendingSurah}"]`);pendingSurah=null;
   if(el&&target!==a){el.scrollIntoView({block:"center"});el.classList.add("sel");setTimeout(()=>el.classList.remove("sel"),1800)}else if(sh&&sh.getBoundingClientRect().top>innerHeight*.35){const go=()=>{const rb=document.querySelector("#v-read .rbar");window.scrollTo(0,Math.max(0,sh.offsetTop+(sh.offsetParent?sh.offsetParent.getBoundingClientRect().top+scrollY:0)-(rb?rb.offsetHeight:0)-20))};go();setTimeout(go,350);if(document.fonts)document.fonts.ready.then(()=>setTimeout(go,50))}else window.scrollTo(0,0)})}
  highlightPlay&&playG!=null&&highlightPlay();
 }
 function watchReading(){}
-function markRead(g){S.set("lastRead",g);renderCont()}
+function markRead(g){S.set("stopAt",{g,at:Date.now()});renderCont();renderReader(true)}
+const STOPSVG='<svg viewBox="0 0 10 13"><path d="M1 0h8v13L5 9.5 1 13z" fill="currentColor"/></svg>';
+$("rTools").addEventListener("click",()=>{$("rToolsRow").hidden=!$("rToolsRow").hidden});
 function toggleSurahDone(n){const D=khSet(),nm=lang==="ar"?Q.s[n-1][0]:Q.s[n-1][1];
  if(D.has(n)){kh.done=kh.done.filter(x=>x!==n);S.set("khatma",kh);revoke("sd:"+kh.start+":"+n,"quran")}
  else{const before=[...Array(30).keys()].filter(juzDone);kh.done.push(n);S.set("khatma",kh);setDaily("quran",true);award("sd:"+kh.start+":"+n,10,"quran");award("qd:"+dayKey(),20,"quran");
@@ -1626,7 +1650,7 @@ function renderAdhanCard(){const C=$("adhanCard"),PN=t("pn");
   <label for="adPre"><span>${t("pre")}</span><select class="field" id="adPre">${[0,5,10,15,20,30].map(m=>`<option value="${m}" ${m===AD.pre?"selected":""}>${m?t("preMin",m):t("preOff")}</option>`).join("")}</select></label>
   <div class="row"><button class="btn" id="adTest">▶ ${t("test")}</button></div>
   ${NATIVE?"":`<p class="muted" style="margin:0;font-size:12px">${t("adhanNote")} ${t("notifAsk")}</p>`}`;
- const save=()=>{S.set("adhan",AD);scheduleNative()};
+ const save=()=>{S.set("adhan",AD);scheduleNative()};setTimeout(pushLogShow,50);
  if(NATIVE){const box=document.createElement("div");box.id="natBox";C.appendChild(box);nativeStatus().then(st=>{if(!st)return;let h="";
    if(st.perm!=="granted")h+=`<div class="warnbox">${t("notifDenied")}</div>`;
    if(st.exact!=="granted")h+=`<div class="warnbox">${t("exactT")}<button class="btn sm" id="exactBtn" style="justify-self:start">${t("exactBtn")}</button></div>`;
@@ -1997,13 +2021,13 @@ function renderSafe(){const B=$("safeBody");
  if(!CRYPTO_OK){B.innerHTML=`<div class="safe-hero"><h2>${t("safeT")}</h2><p>${t("noCrypto")}</p></div>`;return}
  if(!VK){const has=!!(S.get("vault",null)||{}).ct;if(!pinStage||(pinStage==="enter")!==has)pinStage=has?"enter":"new";
   B.innerHTML=pinPad(pinStage==="enter"?t("pinEnter"):pinStage==="new"?t("pinNew"):t("pinConfirm"),pinStage==="enter"?t("safeHello"):t("pinWarn"))+`<div class="privacy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6z"/></svg><span>${t("privacy")}</span></div>`;return}
- const tabs=`<div class="row"><div class="seg" id="safeTabs" style="flex:1">${[["menu","🤍"],["journal",t("journal")],["breathe",t("breathe")],["habits",t("habitsT")]].map(([k,l])=>`<button data-t="${k}" aria-pressed="${k===safeTab}">${l}</button>`).join("")}</div><button class="btn sm" id="safeLock">🔒 ${t("lock")}</button></div>`;
+ const tabs=`<div class="row"><div class="seg" id="safeTabs" style="flex:1">${[["menu","☰"],["journal",t("journal")],["breathe",t("breathe")],["habits",t("habitsT")]].map(([k,l])=>`<button data-t="${k}" aria-pressed="${k===safeTab}">${l}</button>`).join("")}</div><button class="btn sm" id="safeLock">🔒 ${t("lock")}</button></div>`;
  let body="";
  if(safeTab==="menu")body=`<div class="safe-hero"><h2>${t("safeT")}</h2><div style="opacity:.9">${t("safeHello")}</div></div>
   <div class="safe-menu"><button data-go="journal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg><b>${t("journal")}</b><span>${t("journalSub")}</span></button>
   <button data-go="breathe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v18M5 8c3 0 7 2 7 6M19 8c-3 0-7 2-7 6"/></svg><b>${t("breathe")}</b><span>${t("breatheSub")}</span></button>
   <button data-go="habits"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg><b>${t("habitsT")}</b><span>${t("habitsSub")}</span></button>
-  <button data-href="#home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.4-9.3-9C1 8.4 3.2 5 6.6 5c2 0 3.4 1.1 4.4 2.5C12 6.1 13.4 5 15.4 5 18.8 5 21 8.4 19.3 12 17 16.6 12 21 12 21z"/></svg><b>${t("moodLink")}</b><span>${t("moodLinkSub")}</span></button></div>
+  <button data-href="#home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg><b>${t("moodLink")}</b><span>${t("moodLinkSub")}</span></button></div>
   <div class="card"><div class="privacy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6z"/></svg><span>${t("privacy")}</span></div><p class="mean" style="margin:10px 0 0">${t("needHelp")}</p></div>`;
  if(safeTab==="journal")body=`<div class="card" style="display:grid;gap:10px"><h2>${t("journal")}</h2><textarea class="field" id="jText" placeholder="${esc(t("jPh"))}"></textarea><button class="btn primary" id="jSave" style="justify-self:start">🔒 ${t("save")}</button></div>
   ${VD.journal.length?VD.journal.slice().reverse().map(j=>`<div class="jentry"><div class="row"><span class="label">${fmtD(new Date(j.at),{weekday:"long",day:"numeric",month:"long"})} · ${fmtT(new Date(j.at),TZ())}</span><button class="x" data-jdel="${j.id}">✕</button></div><p>${esc(j.text)}</p></div>`).join(""):`<p class="muted" style="text-align:center">${t("jEmpty")}</p>`}`;
@@ -2136,12 +2160,16 @@ let pushTmr=null;function pushResync(){if(!PUSH_CAN||!PUSH_URL||!S.get("pushOn",
 function pushBlock(){if(NATIVE)return "";const on=S.get("pushOn",false)&&typeof Notification!=="undefined"&&Notification.permission==="granted";
  const ios=/iphone|ipad|ipod/i.test(navigator.userAgent),needInstall=ios&&!STANDALONE;
  return `<div class="warnbox" style="background:color-mix(in srgb,var(--pri) 9%,transparent)"><div class="row" style="flex-wrap:nowrap"><b>${t("pushT")}</b><button class="switch" id="pushSw" role="switch" aria-checked="${on}" aria-label="${esc(t("pushT"))}" ${(!PUSH_CAN||!PUSH_URL||needInstall)&&!on?"disabled":""}></button></div>
-  <span>${!PUSH_CAN&&!needInstall?t("pushNA"):needInstall?t("pushIos"):t("pushSub")}</span>${on?`<button class="btn sm primary" id="pushTest2" style="justify-self:start">${t("pushTest2")}</button>`:""}
+  <span>${!PUSH_CAN&&!needInstall?t("pushNA"):needInstall?t("pushIos"):t("pushSub")}</span>${on?`<button class="btn sm primary" id="pushTest2" style="justify-self:start">${t("pushTest2")}</button><div id="pushLog" class="label" style="line-height:1.8"></div>`:""}
   <span class="label">${t("pushState")} ${ios?(STANDALONE?t("psApp"):t("psSafari"))+" · ":""}${typeof Notification==="undefined"||!("PushManager" in window)?t("psNoApi"):Notification.permission==="granted"?t("psGranted"):Notification.permission==="denied"?t("psDenied"):t("psAsk")}</span></div>`}
 async function pushToggle(){if(S.get("pushOn",false)&&Notification.permission==="granted"){S.set("pushOn",false);await pushOff();toast(t("pushOffT"));renderAdhanCard();return}
  let perm="default";try{perm=await Notification.requestPermission()}catch(_){}
  if(perm!=="granted"){toast(t("pushDenied"));renderAdhanCard();return}
  try{await pushSubscribe(true);S.set("pushOn",true);toast(t("pushOn"))}catch(e){toast(t("pushErr"))}renderAdhanCard()}
+async function pushLogShow(){const el=document.getElementById("pushLog");if(!el)return;try{const reg=await navigator.serviceWorker.ready,sub=await reg.pushManager.getSubscription();if(!sub)return;
+ const r=await fetch(PUSH_URL+"/status",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({endpoint:sub.endpoint})}),d=await r.json();
+ if(!d.found){el.textContent=t("plogNotFound");return}if(!d.log||!d.log.length){el.textContent=t("plogNone");return}
+ el.innerHTML=`<b>${t("plogT")}</b><br>`+d.log.slice(0,4).map(x=>`• ${esc(x.kind==="test"||x.kind==="sched-test"?t("plogTest"):(x.title||x.kind))} — ${fmtD(new Date(x.at),{weekday:"short"})} ${fmtT(new Date(x.at),TZ())} — ${x.status===201||x.status===200?t("plogOk"):x.status===404||x.status===410?t("plogGone"):t("plogFail",x.status)}`).join("<br>")}catch(_){}}
 document.addEventListener("click",e=>{if(e.target.closest("#pushSw"))pushToggle();if(e.target.closest("#pushTest2")){pushSubscribe(false,Date.now()+2*60000+15000).then(()=>toast(t("pushTest2Ok"))).catch(()=>toast(t("pushErr")))}});
 
 /* ================= NAMES / ZAKAT / OCCASIONS ================= */
@@ -2184,9 +2212,10 @@ function greet(){const me=(G.get("profiles",[]).find(p=>p.id===ACTIVE)||{}).name
 /* ================= router ================= */
 const VIEWS=["home","prayer","azkar","tasbeeh","more","quran","read","names","zakat","occasions","wasl","stories","prophet","plans","plan","rewards","quiz","sunan","sunnah","todo","safe"];
 const NAVOF={names:"more",zakat:"more",occasions:"more",wasl:"more",tasbeeh:"azkar",read:"quran",stories:"more",prophet:"more",plans:"more",plan:"more",rewards:"home",todo:"home",safe:"home",quiz:"more",sunan:"more",sunnah:"more"};
-function route(){if(KID){kidRoute();return}let v=location.hash.slice(1),m=/^s(\d{1,3})$/.exec(v),pm=/^p-([a-z]+)$/.exec(v),sm=/^sunnah-([a-z]+)$/.exec(v),plm=/^plan-([a-z0-9]+)$/.exec(v);
+function route(){if(KID){kidRoute();return}document.body.classList.toggle("reading",/^#(s\d+|pg\d+)$/.test(location.hash));let v=location.hash.slice(1),m=/^s(\d{1,3})$/.exec(v),pm=/^p-([a-z]+)$/.exec(v),sm=/^sunnah-([a-z]+)$/.exec(v),plm=/^plan-([a-z0-9]+)$/.exec(v);
  const pgm=/^pg(\d{1,3})$/.exec(v);
- if(m&&+m[1]>=1&&+m[1]<=114){const sn=+m[1];if(pendingAyah==null)pendingAyah=null;const g=gi(sn,pendingAyah||1);curPage=pageOf(g);if(!pendingAyah)pendingSurah=sn;pendingAyah=pendingAyah?g:null;v="read"}
+ if(m&&+m[1]>=1&&+m[1]<=114){const sn=+m[1];if(pendingAyah==null)pendingAyah=null;const stp=S.get("stopAt",null);if(!pendingAyah&&stp&&fromG(stp.g)[0]===sn&&!sessionStorage.getItem("noStopJump")){pendingAyah=fromG(stp.g)[1];toast(t("backToStop"))}
+  const g=gi(sn,pendingAyah||1);curPage=pageOf(g);if(!pendingAyah)pendingSurah=sn;pendingAyah=pendingAyah?g:null;v="read"}
  else if(pgm&&+pgm[1]>=1&&+pgm[1]<=NPAGES){curPage=+pgm[1];v="read"}else if(pm){v="prophet"}else if(sm){curSunCat=sm[1];v="sunnah"}else if(plm){if(curPlan!==plm[1]){wkOff=0;itDaysSel=[0,1,2,3,4,5,6];$("planDel").dataset.sure="";$("planDel").textContent=t("delPlan")}curPlan=plm[1];v="plan"}
  else if(!VIEWS.includes(v)||["read","prophet","plan","sunnah"].includes(v))v="home";
  VIEWS.forEach(x=>$("v-"+x).hidden=x!==v);closeSheet();
