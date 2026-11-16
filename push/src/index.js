@@ -6,7 +6,8 @@ import { sendPush, b64u } from "./webpush.js";
 import { times, ymdIn } from "./prayer.js";
 
 const SITE = "https://rana-ashrafff.github.io/itmaen/";
-const ORIGINS = ["https://rana-ashrafff.github.io", "http://localhost:8765", "http://localhost:8770"];
+const ORIGINS = ["https://etmaen.pages.dev", "https://itmaen.pages.dev", "https://rana-ashrafff.github.io", "http://localhost:8765", "http://localhost:8770"];
+const SITES = { "https://etmaen.pages.dev": "https://etmaen.pages.dev/", "https://itmaen.pages.dev": "https://itmaen.pages.dev/", "https://rana-ashrafff.github.io": "https://rana-ashrafff.github.io/itmaen/" };
 const NAMES = { ar: ["الفجر", "الشروق", "الظهر", "العصر", "المغرب", "العشاء"], en: ["Fajr", "Sunrise", "Dhuhr", "Asr", "Maghrib", "Isha"] };
 const TXT = {
   ar: { t: p => `🕌 صلاة ${p} الآن`, b: (p, tm) => `حان الآن موعد أذان ${p} · ${tm} — حيّ على الصلاة، حيّ على الفلاح`, pt: (p, n) => `باقي ${n} دقائق على ${p}`, pb: "اتوضأ واستعد للصلاة", test: "تمام! الإشعارات شغالة، وهتوصلك في وقت كل صلاة", st: "إشعار تجريبي في ميعاده ✅", sb: "كده إشعارات الصلاة هتوصلك في وقتها بالظبط، حتى والتطبيق مقفول" },
@@ -65,8 +66,9 @@ export default {
     let b; try { b = await req.json(); } catch (_) { return json({ error: "json" }, 400, h); }
     if (url.pathname === "/subscribe") {
       const rec = clean(b); if (!rec) return json({ error: "bad subscription" }, 400, h);
+      rec.site = SITES[req.headers.get("Origin") || ""] || SITE;
       await st.put(await idOf(rec.sub.endpoint), rec);
-      let test = null; if (b.test) { test = await sendPush(rec.sub, { title: "اطمئن", body: TXT[rec.lang].test, tag: "test", url: SITE + "#prayer" }, await st.vapid(), subject); await st.log(await idOf(rec.sub.endpoint), { at: Date.now(), kind: "test", status: test }); }
+      let test = null; if (b.test) { test = await sendPush(rec.sub, { title: "اطمئن", body: TXT[rec.lang].test, tag: "test", url: rec.site + "#prayer" }, await st.vapid(), subject); await st.log(await idOf(rec.sub.endpoint), { at: Date.now(), kind: "test", status: test }); }
       return json({ ok: true, test }, 200, h);
     }
     if (url.pathname === "/status") {
@@ -84,13 +86,13 @@ export default {
     const minute = Math.floor(event.scheduledTime / 60000) * 60000, st = store(env), all = await st.all(), subject = env.VAPID_SUBJECT || SITE;
     const jobs = [], done = [];
     for (const [id, r] of all) {
-      if (r.testAt && r.testAt <= minute) { if (minute - r.testAt < 5 * 60000) jobs.push([id, r, { title: TXT[r.lang].st, body: TXT[r.lang].sb, tag: "sched-test", url: SITE + "#prayer" }]); done.push([id, r]); }
+      if (r.testAt && r.testAt <= minute) { if (minute - r.testAt < 5 * 60000) jobs.push([id, r, { title: TXT[r.lang].st, body: TXT[r.lang].sb, tag: "sched-test", url: (r.site || SITE) + "#prayer" }]); done.push([id, r]); }
       const d = ymdIn(minute, r.tz), tt = times(d.y, d.m, d.d, r.lat, r.lng, r.method, r.asr), N = NAMES[r.lang], T = TXT[r.lang];
       PRAYERS.forEach((idx, pi) => {
         if (!r.prayers[pi]) return;
         if (tt[idx] === minute) { const tm = new Intl.DateTimeFormat(r.lang === "ar" ? "ar-EG" : "en-GB", { timeZone: r.tz, hour: "numeric", minute: "2-digit", hour12: true }).format(new Date(tt[idx]));
-          jobs.push([id, r, { title: T.t(N[idx]), body: T.b(N[idx], tm), tag: "adhan-" + idx, url: SITE + "#prayer", adhan: 1 }]); }
-        if (r.pre && tt[idx] - r.pre * 60000 === minute) jobs.push([id, r, { title: T.pt(N[idx], r.pre), body: T.pb, tag: "pre-" + idx, url: SITE + "#prayer" }]);
+          jobs.push([id, r, { title: T.t(N[idx]), body: T.b(N[idx], tm), tag: "adhan-" + idx, url: (r.site || SITE) + "#prayer", adhan: 1 }]); }
+        if (r.pre && tt[idx] - r.pre * 60000 === minute) jobs.push([id, r, { title: T.pt(N[idx], r.pre), body: T.pb, tag: "pre-" + idx, url: (r.site || SITE) + "#prayer" }]);
       });
     }
     for (const [id, r] of done) { r.testAt = 0; await st.put(id, r); }
