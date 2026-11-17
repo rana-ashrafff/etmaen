@@ -416,6 +416,25 @@ table.month tr.today td{background:color-mix(in srgb,var(--pri) 12%,transparent)
 .sn p{margin:0;line-height:1.9;color:var(--ink)}
 .sn .done-btn[aria-pressed="true"]{background:var(--ok);color:#fff}
 
+/* daily wird + custom surah khatma */
+.wirdc{margin-top:12px;background:color-mix(in srgb,var(--pri) 7%,var(--surface-2));border-radius:18px;padding:12px 14px;display:grid;gap:8px}
+.wirdc .wt{font-family:var(--f-disp);font-size:17px;font-weight:700;color:var(--deep)}
+.wdots{display:flex;gap:5px;flex-wrap:wrap}.wdots i{width:14px;height:14px;border-radius:5px;background:var(--line)}.wdots i.on{background:var(--pri)}
+.wrem{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px}
+.wrem input[type=time]{border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:4px 8px}
+.wird-wrap{display:flex;justify-content:center;margin:14px 0 6px}
+.wirdbox{border:0;border-radius:20px;padding:14px 18px;background:linear-gradient(135deg,var(--pri),color-mix(in srgb,var(--pri) 70%,var(--brass)));color:#fff;display:grid;gap:2px;justify-items:center;font-family:var(--f-ui);box-shadow:0 12px 26px -14px var(--pri);max-width:420px;width:100%;animation:wpulse 2.2s ease-in-out infinite}
+.wirdbox b{font-size:17px}.wirdbox span{font-size:13px;opacity:.9}
+.wirdbox.done{background:color-mix(in srgb,var(--ok) 14%,var(--surface));color:var(--ok);box-shadow:none;animation:none;border:1.5px dashed var(--ok)}
+@keyframes wpulse{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
+.kplan.mk{border-style:dashed;border-color:var(--brass)}
+.kb{display:grid;gap:10px;margin-top:12px;border-top:1px solid var(--line);padding-top:12px}
+.kbq{display:flex;gap:6px;flex-wrap:wrap}
+.kbg{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:6px;max-height:320px;overflow-y:auto;padding:2px}
+.kbg button{border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:7px 4px;font-size:13px;display:grid;gap:0;line-height:1.4}
+.kbg button small{font-size:10px;color:var(--muted)}
+.kbg button[aria-pressed="true"]{border-color:var(--pri);background:color-mix(in srgb,var(--pri) 12%,var(--surface));color:var(--pri);font-weight:700}
+.kbn{display:flex;align-items:center;gap:10px}.kbn b{min-width:34px;text-align:center;font-size:20px;color:var(--pri)}
 /* khatma plans */
 .kplans{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:8px}
 .kplan{border:2px solid transparent;background:var(--surface-2);border-radius:18px;padding:12px;text-align:start;display:grid;gap:3px}
@@ -1387,6 +1406,18 @@ Object.assign(I18N.en,{acT:"Your account",acNew:"New account",acHave:"I have an 
  wkItems:{prayers:"Prayer",quran:"Quran reading",azkar:"Adhkar",tasbeeh:"Tasbeeh",sadaqa:"Charity",qiyam:"Qiyam / Duha",sunnah:"Sunnahs",wasl:"Family ties"},
  wkTiers:[["🌟","A radiant week","Ma sha Allah! You were so consistent this week. May Allah keep you steadfast."],["🌸","A lovely week","You're on the right track. A little more focus and you'll shine next week."],["🌱","A good start","Every step brings you closer. Pick one worship and focus on it next week."],["🌙","Don't worry","Allah loves those who return to Him. Next week is a fresh page; a small step every day makes a difference."]],
  wkTips:{prayers:"Try to pray each prayer at its start, and turn on adhan notifications as a reminder.",quran:"Even one page a day, after Fajr or before sleep.",azkar:"Morning and evening adhkar take 5 minutes and bring calm all day.",tasbeeh:"Say SubhanAllah 100 times while walking or waiting. Easy, with great reward.",sadaqa:"Even something small every day; consistency matters most.",qiyam:"Two rak'ahs of Duha or night prayer; start with one day a week.",sunnah:"Apply one sunnah from the Sunnah library each day.",wasl:"A short call to a relative makes a big difference."}});
+Object.assign(I18N.ar,{wirdT:"ورد النهارده",wirdGo:"ابدأ الورد",wirdDoneToday:"✓ خلصت ورد النهارده",wirdNot:"لسه ماخلصتش ورد النهارده",wirdCount:(a,b)=>`خلصت ${nf(a)} ورد من ${nf(b)}`,wirdStreak:n=>`🔥 ${nf(n)} يوم ورا بعض`,
+ wirdJuz:(a,b)=>a===b?`الجزء ${nf(a)}`:`من الجزء ${nf(a)} للجزء ${nf(b)}`,wirdPages:(a,b)=>`من صفحة ${nf(a)} لصفحة ${nf(b)}`,wirdAll:"🎉 خلصت كل أوراد الختمة، ما شاء الله!",
+ wirdAsk:"🎉 وصلت لآخر ورد النهارده!",wirdAskMore:"🌟 خلصت ورد زيادة!",wirdTap:(i,n)=>`دوس هنا عشان يتحسبلك · الورد ${nf(i)} من ${nf(n)}`,wirdOk:(i,n)=>`✓ الورد ${nf(i)} من ${nf(n)} اتحسب`,wirdToast:"تقبّل الله! ورد النهارده اتحسب",
+ wirdRem:"🔔 فكّرني بورد النهارده كل يوم الساعة",wirdRemNeed:"عشان يوصلك إشعار بالورد، فعّل الأول «إشعارات الأذان على موبايلك» من تبويب الصلاة.",wirdRemOn:"تمام، هيوصلك إشعار بالورد كل يوم",wirdPushT:"📖 ورد النهارده",
+ kbMake:"✨ اعمل ختمتك بنفسك",kbMakeSub:"اختار السور وكام سورة في اليوم",kbT:"اختار السور اللي عايز تختمها",kbAll:"الكل",kbNone:"مسح",kbAmma:"جزء عمّ",kbTabarak:"جزء تبارك",kbPer:"كام سورة في اليوم؟",kbSum:(n,p,d)=>`${nf(n)} سورة · ${nf(p)} في اليوم = ${nf(d)} يوم`,kbStart:"ابدأ ختمتي",kbCancel:"إلغاء",kbNeed:"اختار سورة واحدة على الأقل",kbNew:"هتبدأ ختمة جديدة بالسور دي",
+ kbPlan:"ختمتي الخاصة",kbPlanSub:(n,p)=>`${nf(n)} سورة · ${nf(p)} في اليوم`,kbPerDay:n=>`${nf(n)} سورة في اليوم`,kbLeft:(r,d)=>`باقي ${nf(r)} سورة · حوالي ${nf(d)} يوم`});
+Object.assign(I18N.en,{wirdT:"Today's portion",wirdGo:"Start reading",wirdDoneToday:"✓ Today's portion done",wirdNot:"Today's portion isn't done yet",wirdCount:(a,b)=>`${a} of ${b} portions done`,wirdStreak:n=>`🔥 ${n} days in a row`,
+ wirdJuz:(a,b)=>a===b?`Juz ${a}`:`Juz ${a} to ${b}`,wirdPages:(a,b)=>`Pages ${a} to ${b}`,wirdAll:"🎉 You finished every portion of this khatma, masha'Allah!",
+ wirdAsk:"🎉 You reached the end of today's portion!",wirdAskMore:"🌟 You finished an extra portion!",wirdTap:(i,n)=>`Tap to count it · portion ${i} of ${n}`,wirdOk:(i,n)=>`✓ Portion ${i} of ${n} counted`,wirdToast:"May Allah accept it! Today's portion counted",
+ wirdRem:"🔔 Remind me of today's portion every day at",wirdRemNeed:"To get portion reminders, first turn on “Adhan notifications on your phone” in the Prayer tab.",wirdRemOn:"Done, you'll get a daily reminder",wirdPushT:"📖 Today's Quran portion",
+ kbMake:"✨ Build your own khatma",kbMakeSub:"Pick surahs and how many per day",kbT:"Choose the surahs for your khatma",kbAll:"All",kbNone:"Clear",kbAmma:"Juz Amma",kbTabarak:"Juz Tabarak",kbPer:"How many surahs a day?",kbSum:(n,p,d)=>`${n} surahs · ${p} a day = ${d} days`,kbStart:"Start my khatma",kbCancel:"Cancel",kbNeed:"Pick at least one surah",kbNew:"This starts a new khatma with these surahs",
+ kbPlan:"My own khatma",kbPlanSub:(n,p)=>`${n} surahs · ${p} a day`,kbPerDay:n=>`${n} surahs a day`,kbLeft:(r,d)=>`${r} surahs left · about ${d} days`});
 const t=(k,...a)=>{const v=I18N[lang][k];return typeof v==="function"?v(...a):v};
 
 /* ================= Quran data ================= */
@@ -1629,10 +1660,29 @@ $("tasReset").addEventListener("click",()=>{tas.n=0;S.set("tas",tas);renderTas()
 /* ================= QURAN INDEX ================= */
 let qTab=S.get("qTab","surahs"),qQuery="";
 let kh=S.get("khatma",{days:30,start:Date.now(),done:[],plan:"ramadan"});if(!kh.plan)kh.plan="custom";if(!Array.isArray(kh.done)){kh.done=[];delete kh.pos;S.set("khatma",kh)}
+if(!Array.isArray(kh.w))kh.w=[];
 const khSet=()=>new Set(kh.done);
+/* daily wird: the khatma is split into equal portions (juz for 30/15/10-day plans, pages otherwise, N surahs for a custom surah khatma).
+   Portions are done in order; kh.w = [{d:dayKey,i:index}] records each one the reader marked as finished. */
+function khSig(){return kh.plan==="surahs"?"s:"+(kh.list||[]).join(",")+":"+(kh.perDay||1):kh.plan+":"+kh.days}
+function khPortions(){
+ if(kh.plan==="surahs"){const L=(kh.list||[]).slice().sort((x,y)=>x-y),n=Math.max(1,kh.perDay||1),out=[];for(let i=0;i<L.length;i+=n){const ch=L.slice(i,i+n),z=ch[ch.length-1];out.push({s:ch,a:gi(ch[0],1),b:gi(z,Q.s[z-1][4])+1})}return out}
+ const d=Math.max(1,kh.days);
+ if(d<=30&&30%d===0){const per=30/d;return [...Array(d)].map((_,i)=>({juz:[i*per+1,(i+1)*per],a:gi(...JUZ[i*per]),b:(i+1)*per<30?gi(...JUZ[(i+1)*per]):TOTAL}))}
+ return [...Array(d)].map((_,i)=>{const p1=Math.floor(NPAGES*i/d)+1,p2=Math.max(p1,Math.floor(NPAGES*(i+1)/d));return {pg:[p1,p2],a:PSTART[p1-1],b:p2<NPAGES?PSTART[p2]:TOTAL}})}
+function wirdLabel(P){return P.s?P.s.map(n=>sName(n)).join(" · "):P.juz?t("wirdJuz",P.juz[0],P.juz[1]):t("wirdPages",P.pg[0],P.pg[1])}
+function wirdHref(P){return P.s?"#s"+P.s[0]:"#pg"+pageOf(P.a)}
+const wirdToday=()=>kh.w.some(x=>x.d===dayKey());
+function wirdStreak(){const days=new Set(kh.w.map(x=>x.d));let n=0;for(let o=0;o>-400;o--){if(days.has(dayKey(o)))n++;else if(o===0)continue;else break}return n}
+function wirdMark(i){const P=khPortions();if(i!==kh.w.length||i>=P.length)return;kh.w.push({d:dayKey(),i});S.set("khatma",kh);setDaily("quran",true);award("wd:"+kh.start+":"+i,15,"quran");
+ toast(t("wirdToast"));try{navigator.vibrate&&navigator.vibrate([30,40,30])}catch(_){}pushResync();if(!$("v-read").hidden)renderReader(true);if(!$("v-quran").hidden)renderKhatma();renderDaily()}
+function wirdPush(){const R=S.get("wirdRem",{on:false,at:480}),P=khPortions(),i=kh.w.length;if(!R.on||i>=P.length)return {on:0};
+ return {on:1,at:R.at,title:t("wirdPushT"),text:wirdLabel(P[i])+(lang==="ar"?" · افتح اطمئن واقرأ وردك":" · open Etmaen and read"),done:wirdToday()?dayKey():""}}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-wird]");if(b)wirdMark(+b.dataset.wird)});
 function khCovered(){let c=0;kh.done.forEach(n=>c+=Q.s[n-1][4]);return c}
+function khList(){return kh.plan==="surahs"?(kh.list||[]).slice().sort((x,y)=>x-y):null}
 function juzDone(j){const a=gi(...JUZ[j]),b=j<29?gi(...JUZ[j+1]):TOTAL,D=khSet();const s1=fromG(a)[0],s2=fromG(b-1)[0];for(let n=s1;n<=s2;n++)if(!D.has(n))return false;return true}
-function firstUndone(){const D=khSet();for(let n=1;n<=114;n++)if(!D.has(n))return n;return 1}
+function firstUndone(){const D=khSet(),L=khList()||[...Array(114).keys()].map(x=>x+1);for(const n of L)if(!D.has(n))return n;return L[0]||1}
 const KPL=[
  {id:"ramadan",d:30,ar:["ختمة رمضان","جزء كل يوم، ختمة في الشهر"],en:["Ramadan khatma","One juz a day"]},
  {id:"week",d:7,ar:["ختمة الأسبوع","سُبع القرآن يوميًا، على طريقة كثير من الصحابة"],en:["One week","A seventh daily, as many Companions did"]},
@@ -1644,28 +1694,49 @@ const KPL=[
  {id:"d90",d:90,ar:["٣ شهور","ثلث جزء يوميًا"],en:["Three months","A third of a juz a day"]},
  {id:"d180",d:180,ar:["٦ شهور","حوالي ٣ صفحات ونص"],en:["Six months","About 3.5 pages a day"]},
  {id:"d365",d:365,ar:["سنة كاملة","أقل من ٢ صفحة يوميًا، للمبتدئين"],en:["A full year","Under 2 pages a day, great to start"]}];
-let kpOpen=false;
+let kpOpen=false,kbOpen=false,kbSel=new Set(),kbPer=2;
+function kbHTML(){const n=kbSel.size,d=Math.ceil(n/kbPer);return `<div class="kb" id="kb"><b style="font-family:var(--f-disp)">${t("kbT")}</b>
+ <div class="kbq"><button class="btn sm" data-kq="all">${t("kbAll")}</button><button class="btn sm" data-kq="none">${t("kbNone")}</button><button class="btn sm" data-kq="amma">${t("kbAmma")}</button><button class="btn sm" data-kq="tabarak">${t("kbTabarak")}</button></div>
+ <div class="kbg">${Q.s.map((x,i)=>`<button data-kb="${i+1}" aria-pressed="${kbSel.has(i+1)}">${nf(i+1)}. ${sName(i+1)}<small>${t("ayat",x[4])}</small></button>`).join("")}</div>
+ <div class="row"><span class="label">${t("kbPer")}</span><div class="kbn"><button class="btn sm" data-kp="-1">−</button><b>${nf(kbPer)}</b><button class="btn sm" data-kp="1">+</button></div></div>
+ <span class="label" style="color:var(--pri);font-weight:700">${n?t("kbSum",n,kbPer,d):t("kbNeed")}</span><span class="label">${t("kbNew")}</span>
+ <div style="display:flex;gap:8px"><button class="btn primary" id="kbGo" ${n?"":"disabled"}>${t("kbStart")}</button><button class="btn" id="kbX">${t("kbCancel")}</button></div></div>`}
+document.addEventListener("click",e=>{if(!e.target.closest("#kb"))return;const q=s=>e.target.closest(s);let b;
+ if(b=q("[data-kb]")){const n=+b.dataset.kb;kbSel.has(n)?kbSel.delete(n):kbSel.add(n);const y=$("kb").querySelector(".kbg").scrollTop;renderKhatma();$("kb").querySelector(".kbg").scrollTop=y;return}
+ if(b=q("[data-kq]")){const k=b.dataset.kq;kbSel=new Set(k==="all"?[...Array(114).keys()].map(x=>x+1):k==="amma"?[...Array(37).keys()].map(x=>x+78):k==="tabarak"?[...Array(11).keys()].map(x=>x+67):[]);renderKhatma();return}
+ if(b=q("[data-kp]")){kbPer=Math.max(1,Math.min(20,kbPer+ +b.dataset.kp));renderKhatma();return}
+ if(q("#kbX")){kbOpen=false;renderKhatma();return}
+ if(q("#kbGo")&&kbSel.size){const list=[...kbSel].sort((x,y)=>x-y);kh={plan:"surahs",list,perDay:kbPer,days:Math.ceil(list.length/kbPer),start:Date.now(),done:[],w:[]};kh.sig=khSig();S.set("khatma",kh);kbOpen=false;kpOpen=false;pushResync();renderKhatma();toast("✓ "+t("kbPlan"))}});
 function renderKhatma(){
- const plan=KPL.find(x=>x.id===kh.plan)||{id:"custom",d:kh.days,ar:[t("customDays"),""],en:[t("customDays"),""]};
- const KC=khCovered(),rest=TOTAL-KC,el=Math.floor((Date.now()-kh.start)/864e5),left=Math.max(1,kh.days-el),pct=KC/TOTAL*100,per=Math.ceil(rest/left);
- const exp=Math.min(TOTAL,Math.round(TOTAL*Math.min(el,kh.days)/kh.days)),diff=KC-exp;
+ if(kh.sig!==khSig()){kh.sig=khSig();kh.w=[];S.set("khatma",kh)}
+ const SL=khList(),plan=SL?{id:"surahs",ar:[t("kbPlan"),t("kbPlanSub",SL.length,kh.perDay||1)],en:[t("kbPlan"),t("kbPlanSub",SL.length,kh.perDay||1)]}:KPL.find(x=>x.id===kh.plan)||{id:"custom",d:kh.days,ar:[t("customDays"),""],en:[t("customDays"),""]};
+ const LT=SL?SL.reduce((a,n)=>a+Q.s[n-1][4],0):TOTAL,KC=SL?SL.filter(n=>kh.done.includes(n)).reduce((a,n)=>a+Q.s[n-1][4],0):khCovered(),rest=LT-KC,el=Math.floor((Date.now()-kh.start)/864e5),left=Math.max(1,kh.days-el),pct=LT?KC/LT*100:0,per=Math.ceil(rest/left);
+ const exp=Math.min(LT,Math.round(LT*Math.min(el,kh.days)/kh.days)),diff=KC-exp;
+ const WP=khPortions(),wi=kh.w.length,wd=wirdToday(),R=S.get("wirdRem",{on:false,at:480}),hhmm=m=>String(Math.floor(m/60)).padStart(2,"0")+":"+String(m%60).padStart(2,"0");
+ const SLeft=SL?SL.filter(n=>!kh.done.includes(n)).length:0;
+ const wirdHTML=`<div class="wirdc"><div class="row"><span class="label">📖 ${t("wirdT")}</span><span class="badge ${wd?"ok":""}">${t("wirdCount",Math.min(wi,WP.length),WP.length)}</span></div>
+  ${wi>=WP.length?`<div class="wt">${t("wirdAll")}</div>`:`<div class="row"><div class="wt">${wirdLabel(WP[wi])}</div><a class="btn sm primary" href="${wirdHref(WP[wi])}">${t("wirdGo")}</a></div>
+  <span class="label" style="color:${wd?"var(--ok)":"var(--muted)"};font-weight:700">${wd?t("wirdDoneToday"):t("wirdNot")}${wirdStreak()>1?" · "+t("wirdStreak",wirdStreak()):""}</span>`}
+  <div class="wdots">${WP.slice(0,60).map((_,i)=>`<i class="${i<wi?"on":""}"></i>`).join("")}</div>
+  ${NATIVE?"":`<label class="wrem"><input type="checkbox" id="wRemOn" ${R.on?"checked":""}> ${t("wirdRem")} <input type="time" id="wRemAt" value="${hhmm(R.at)}"></label>${R.on&&!S.get("pushOn",false)?`<span class="label" style="color:var(--warn)">${t("wirdRemNeed")}</span>`:""}`}</div>`;
  const status=rest<=0?"":Math.abs(diff)<per*0.5?`<span class="badge ok">${t("onTrack")}</span>`:diff<0?`<span class="badge warn">${t("behind",-diff)}</span>`:`<span class="badge ok">${t("ahead",diff)}</span>`;
  const P=t("pn"),sp=plan.split&&rest>0?`<div><div class="label" style="margin:4px 0 6px">${t("perPrayer")}</div><div class="split">${[0,2,3,4,5].map(i=>`<div>${P[i]}<b>${nf(Math.ceil(per/5))}</b></div>`).join("")}</div></div>`:"";
  $("khatma").innerHTML=`<div class="row"><h2><span class="hi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5c3-1 6-1 8 1 2-2 5-2 8-1v14c-3-1-6-1-8 1-2-2-5-2-8-1z"/></svg></span>${t("khatma")}</h2><span class="badge gold">${nf(pct.toFixed(1))}${lang==="ar"?"٪":"%"}</span></div>
  <div style="display:grid;gap:4px;margin-top:6px"><b style="font-family:var(--f-disp);font-size:16px">${plan[lang][0]}</b><span class="label">${plan[lang][1]||""}</span><span class="label" style="color:var(--pri);font-weight:700">${t("surahsDone",kh.done.length)}</span></div>
  <div class="progress" style="margin:10px 0"><i style="width:${pct}%"></i></div>
- <div class="row"><div><div style="font-family:var(--f-disp);font-size:22px;font-weight:600;color:var(--pri)">${rest<=0?t("khDone"):t("ayatDay",per)}</div><div class="muted" style="font-size:13px">${rest<=0?"":t("pagesApprox",Math.max(1,Math.round(per/10.3)))+" · "+t("khRest",rest,left)}</div></div>
+ <div class="row"><div><div style="font-family:var(--f-disp);font-size:22px;font-weight:600;color:var(--pri)">${rest<=0?t("khDone"):SL?t("kbPerDay",kh.perDay||1):t("ayatDay",per)}</div><div class="muted" style="font-size:13px">${rest<=0?"":SL?t("kbLeft",SLeft,Math.ceil(SLeft/(kh.perDay||1))):t("pagesApprox",Math.max(1,Math.round(per/10.3)))+" · "+t("khRest",rest,left)}</div></div>
  <a class="btn primary" href="#s${firstUndone()}">${t("continue")}</a></div>
  ${S.get("stopAt",null)?`<a class="btn gold" href="#pg${pageOf(S.get("stopAt").g)}" data-stopg="${S.get("stopAt").g}" style="margin-top:8px">🔖 ${t("contStop")}: ${(lang==="ar"?"سورة ":"")+sName(fromG(S.get("stopAt").g)[0])} · ${t("ayahWord",fromG(S.get("stopAt").g)[1])}</a>`:""}
- <div style="margin-top:8px">${status}</div>${sp}
+ ${wirdHTML}<div style="margin-top:8px">${SL?"":status}</div>${SL?"":sp}
  <div class="row" style="margin-top:12px"><button class="btn sm" id="kpToggle">${t("changePlan")} ▾</button><button class="btn sm danger" id="khNew">${t("khNew")}</button></div>
- <div id="kpBox" ${kpOpen?"":"hidden"} style="margin-top:12px;display:grid;gap:10px"><div class="kplans">${KPL.map(k=>`<button class="kplan" data-k="${k.id}" aria-pressed="${k.id===kh.plan}"><b>${k[lang][0]}</b><span>${k[lang][1]}</span><em>${t("ayatDay",Math.ceil(TOTAL/k.d))}</em></button>`).join("")}</div>
+ <div id="kpBox" ${kpOpen?"":"hidden"} style="margin-top:12px;display:grid;gap:10px"><div class="kplans"><button class="kplan mk" id="kbOpen" aria-pressed="${kh.plan==="surahs"}"><b>${t("kbMake")}</b><span>${t("kbMakeSub")}</span></button>${KPL.map(k=>`<button class="kplan" data-k="${k.id}" aria-pressed="${k.id===kh.plan}"><b>${k[lang][0]}</b><span>${k[lang][1]}</span><em>${t("ayatDay",Math.ceil(TOTAL/k.d))}</em></button>`).join("")}</div>
  <label class="label" for="khDays" style="display:flex;align-items:center;gap:8px">${t("customDays")}<input class="field num" id="khDays" type="number" min="3" max="1000" value="${kh.days}" style="width:100px"></label></div>
- <p class="muted" style="font-size:12px;margin:8px 0 0">${t("khAuto")}</p>`;
+ ${kbOpen?kbHTML():""}<p class="muted" style="font-size:12px;margin:8px 0 0">${t("khAuto")}</p>`;
+ const wo=$("wRemOn"),wa=$("wRemAt");if(wo){const save=()=>{const [h,m]=(wa.value||"08:00").split(":").map(Number);S.set("wirdRem",{on:wo.checked,at:(h||0)*60+(m||0)});if(wo.checked&&S.get("pushOn",false))toast(t("wirdRemOn"));pushResync();renderKhatma()};wo.addEventListener("change",save);wa.addEventListener("change",save)}
  $("kpToggle").addEventListener("click",()=>{kpOpen=!kpOpen;renderKhatma()});
- $("kpBox").addEventListener("click",e=>{const b=e.target.closest(".kplan");if(!b)return;const k=KPL.find(x=>x.id===b.dataset.k);kh.plan=k.id;kh.days=k.d;S.set("khatma",kh);kpOpen=false;renderKhatma();toast("✓ "+k[lang][0])});
+ $("kpBox").addEventListener("click",e=>{if(e.target.closest("#kbOpen")){kbOpen=!kbOpen;if(kbOpen&&!kbSel.size)kbSel=new Set(kh.list||[]);renderKhatma();return}const b=e.target.closest(".kplan");if(!b)return;const k=KPL.find(x=>x.id===b.dataset.k);kh.plan=k.id;kh.days=k.d;delete kh.list;S.set("khatma",kh);kpOpen=false;kbOpen=false;pushResync();renderKhatma();toast("✓ "+k[lang][0])});
  $("khDays").addEventListener("change",e=>{const v=Math.max(3,Math.min(1000,+e.target.value||30));kh.days=v;kh.plan="custom";S.set("khatma",kh);renderKhatma()});
- $("khNew").addEventListener("click",function(){if(this.dataset.c){kh={days:kh.days,plan:kh.plan,start:Date.now(),done:[]};S.set("khatma",kh);S.set("lastRead",null);renderKhatma();renderCont()}else{this.dataset.c=1;this.textContent=t("sure")}});
+ $("khNew").addEventListener("click",function(){if(this.dataset.c){kh={days:kh.days,plan:kh.plan,start:Date.now(),done:[],w:[],list:kh.list,perDay:kh.perDay};S.set("khatma",kh);S.set("lastRead",null);renderKhatma();renderCont()}else{this.dataset.c=1;this.textContent=t("sure")}});
 }
 const norm=s=>s.replace(/[ؐ-ًؚ-ٰٟۖ-ۭـ]/g,"").replace(/[ٱأإآ]/g,"ا").replace(/ى/g,"ي").replace(/ة/g,"ه").replace(/ؤ/g,"و").replace(/ئ/g,"ي").replace(/ا/g,"");
 let NORM=null;
@@ -1711,12 +1782,16 @@ function renderReader(keep){
  $("pSurahs").textContent=(lang==="ar"?"":"")+[...new Set(Array.from({length:last-first+1},(_,k)=>first+k))].map(n=>lang==="ar"?Q.s[n-1][0]:Q.s[n-1][1]).join(" · ");
  $("pJuz").textContent=t("juzN",juzOf(a));$("pNum").textContent=t("pageN",curPage);$("pFoot").textContent=nf(curPage);const stopG=(S.get("stopAt",null)||{}).g;
  let h="",buf="";const rtl=trCode==="ur";
+ const WE={},WP=khPortions(),wi=kh.w.length;
+ if(wi<WP.length&&WP[wi].b-1>=a&&WP[wi].b-1<b)WE[WP[wi].b-1]=`<div class="wird-wrap"><button class="wirdbox" data-wird="${wi}"><b>${wirdToday()?t("wirdAskMore"):t("wirdAsk")}</b><span>${t("wirdTap",wi+1,WP.length)}</span></button></div>`;
+ if(wi>0&&WP[wi-1]&&WP[wi-1].b-1>=a&&WP[wi-1].b-1<b&&WE[WP[wi-1].b-1]==null)WE[WP[wi-1].b-1]=`<div class="wird-wrap"><div class="wirdbox done"><b>${t("wirdOk",wi,WP.length)}</b></div></div>`;
  const flush=()=>{if(buf){h+=trCode?`<div class="tlist">${buf}</div>`:`<div class="mushaf">${buf}</div>`;buf=""}};
  for(let g=a;g<b;g++){const [sn,an]=fromG(g);
   if(an===1){flush();h+=sHead(sn)}
   const mark=`<span class="end">${toAr(an)}</span>${bm.has(g)?'<span class="bm">❖</span>':""}${stopG===g?`<span class="stopm" title="${esc(t("stoppedHere"))}">${STOPSVG}</span>`:""}`;
   const sc=stopG===g?" stopped":"";buf+=trCode?`<div class="a${sc}" data-g="${g}"><div class="ar">${Q.v[g]} ${mark}</div><div class="tr" dir="${rtl?"rtl":"ltr"}">${nf(an)}. ${esc(trOf(trCode,g))}</div></div>`:`<span class="a${sc}" data-g="${g}">${Q.v[g]}</span> ${mark} `;
-  if(an===Q.s[sn-1][4]){flush();h+=sdBtn(sn)}}
+  if(an===Q.s[sn-1][4]){flush();h+=sdBtn(sn)}
+  if(WE[g]!=null){flush();h+=WE[g]}}
  flush();$("rBody").innerHTML=h;
  $("rPrev").hidden=curPage<=1;$("rNext").hidden=curPage>=NPAGES;$("rPrev").href="#pg"+(curPage-1);$("rNext").href="#pg"+(curPage+1);
  $("rPrev").textContent=t("prevP");$("rNext").textContent=t("nextP");
@@ -2375,11 +2450,11 @@ const PUSH_CAN=!NATIVE&&"serviceWorker" in navigator&&"PushManager" in window&&"
 const u8=b=>{b=b.replace(/-/g,"+").replace(/_/g,"/");while(b.length%4)b+="=";return Uint8Array.from(atob(b),c=>c.charCodeAt(0))};
 async function vapidKey(){if(!VAPID_PUB){const r=await fetch(PUSH_URL+"/vapid");VAPID_PUB=(await r.json()).publicKey}return VAPID_PUB}
 let PUSH_REG=null;if(PUSH_CAN&&PUSH_URL){navigator.serviceWorker.ready.then(r=>{PUSH_REG=r}).catch(()=>{});vapidKey().catch(()=>{})}
-async function sendSub(sub,test,testAt){const c=city();const r=await fetch(PUSH_URL+"/subscribe",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({sub:sub.toJSON(),lat:c[2],lng:c[3],tz:c[4],method:methodKey(),asr:asrF(),prayers:AD.p,pre:AD.pre,lang,test:!!test,testAt:testAt||0})});if(!r.ok)throw new Error("server "+r.status)}
+async function sendSub(sub,test,testAt){const c=city();const r=await fetch(PUSH_URL+"/subscribe",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({sub:sub.toJSON(),lat:c[2],lng:c[3],tz:c[4],method:methodKey(),asr:asrF(),prayers:AD.p,pre:AD.pre,lang,wird:wirdPush(),test:!!test,testAt:testAt||0})});if(!r.ok)throw new Error("server "+r.status)}
 async function pushSubscribe(test,testAt){const reg=await navigator.serviceWorker.ready,key=await vapidKey();let sub=await reg.pushManager.getSubscription();
  if(sub&&sub.options&&sub.options.applicationServerKey){const a=new Uint8Array(sub.options.applicationServerKey),b=u8(key);if(a.length!==b.length||a.some((x,i)=>x!==b[i])){await sub.unsubscribe();sub=null}}
  if(!sub)sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:u8(key)});const c=city();
- const r=await fetch(PUSH_URL+"/subscribe",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({sub:sub.toJSON(),lat:c[2],lng:c[3],tz:c[4],method:methodKey(),asr:asrF(),prayers:AD.p,pre:AD.pre,lang,test:!!test,testAt:testAt||0})});
+ const r=await fetch(PUSH_URL+"/subscribe",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({sub:sub.toJSON(),lat:c[2],lng:c[3],tz:c[4],method:methodKey(),asr:asrF(),prayers:AD.p,pre:AD.pre,lang,wird:wirdPush(),test:!!test,testAt:testAt||0})});
  if(!r.ok)throw new Error("server "+r.status)}
 async function pushOff(){try{const reg=await navigator.serviceWorker.ready;const sub=await reg.pushManager.getSubscription();if(sub){fetch(PUSH_URL+"/unsubscribe",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({endpoint:sub.endpoint})}).catch(()=>{});await sub.unsubscribe()}}catch(_){}}
 let pushTmr=null;function pushResync(){if(!PUSH_CAN||!PUSH_URL||!S.get("pushOn",false))return;clearTimeout(pushTmr);pushTmr=setTimeout(()=>pushSubscribe(false).catch(()=>{}),800)}

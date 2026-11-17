@@ -115,6 +115,8 @@ function clean(b) {
     method: ["egypt", "umm", "mwl", "isna", "karachi"].includes(b.method) ? b.method : "mwl",
     asr: b.asr === 2 ? 2 : 1, prayers: Array.isArray(b.prayers) ? b.prayers.slice(0, 5).map(x => (x ? 1 : 0)) : [1, 1, 1, 1, 1],
     pre: [0, 5, 10, 15, 20, 30].includes(b.pre) ? b.pre : 0, lang: b.lang === "en" ? "en" : "ar", at: Date.now(),
+    wird: (() => { const w = b.wird || {}; if (!w.on || typeof w.at !== "number" || w.at < 0 || w.at > 1439) return null;
+      return { at: Math.floor(w.at), title: String(w.title || "📖 ورد النهارده").slice(0, 60), text: String(w.text || "").slice(0, 160), done: /^\d{4}-\d{2}-\d{2}$/.test(w.done || "") ? w.done : "" }; })(),
     testAt: typeof b.testAt === "number" && b.testAt > Date.now() && b.testAt < Date.now() + 30 * 60000 ? Math.floor(b.testAt / 60000) * 60000 : 0
   };
 }
@@ -194,6 +196,9 @@ export default {
     const jobs = [], done = [];
     for (const [id, r] of all) {
       if (r.testAt && r.testAt <= minute) { if (minute - r.testAt < 5 * 60000) jobs.push([id, r, { title: TXT[r.lang].st, body: TXT[r.lang].sb, tag: "sched-test", url: (r.site || SITE) + "#prayer" }]); done.push([id, r]); }
+      if (r.wird) { const hm = new Intl.DateTimeFormat("en-GB", { timeZone: r.tz, hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).format(new Date(minute)).split(":").map(Number);
+        const day = new Intl.DateTimeFormat("en-CA", { timeZone: r.tz, year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(minute));
+        if (hm[0] * 60 + hm[1] === r.wird.at && r.wird.done !== day) jobs.push([id, r, { title: r.wird.title, body: r.wird.text, tag: "wird", url: (r.site || SITE) + "#quran" }]); }
       const d = ymdIn(minute, r.tz), tt = times(d.y, d.m, d.d, r.lat, r.lng, r.method, r.asr), N = NAMES[r.lang], T = TXT[r.lang];
       PRAYERS.forEach((idx, pi) => {
         if (!r.prayers[pi]) return;
