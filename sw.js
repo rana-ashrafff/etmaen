@@ -1,7 +1,7 @@
 /* Itmaen service worker: works offline, keeps the app fast. */
-const VERSION = "itmaen-v26";
+const VERSION = "itmaen-v27";
 const CORE = ["./", "index.html", "manifest.webmanifest", "data/quran.js", "data/content.js", "data/extra.js",
-  "data/habits.js", "data/kids.js", "data/pages.js", "data/fonts/kfgqpc-hafs.otf", "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png"];
+  "data/habits.js", "data/wellbeing.js", "data/kids.js", "data/pages.js", "data/fonts/kfgqpc-hafs.otf", "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png"];
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(VERSION).then(c => c.addAll(CORE)).then(() => self.skipWaiting()));
 });

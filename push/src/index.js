@@ -117,6 +117,9 @@ function clean(b) {
     pre: [0, 5, 10, 15, 20, 30].includes(b.pre) ? b.pre : 0, lang: b.lang === "en" ? "en" : "ar", at: Date.now(),
     wird: (() => { const w = b.wird || {}; if (!w.on || typeof w.at !== "number" || w.at < 0 || w.at > 1439) return null;
       return { at: Math.floor(w.at), title: String(w.title || "📖 ورد النهارده").slice(0, 60), text: String(w.text || "").slice(0, 160), done: /^\d{4}-\d{2}-\d{2}$/.test(w.done || "") ? w.done : "" }; })(),
+    rems: Array.isArray(b.rems) ? b.rems.slice(0, 4).filter(x => x && typeof x.at === "number" && x.at >= 0 && x.at < 1440).map(x => ({
+      id: String(x.id || "").slice(0, 12), at: Math.floor(x.at), title: String(x.title || "").slice(0, 60), text: String(x.text || "").slice(0, 160),
+      dates: Array.isArray(x.dates) ? x.dates.filter(d => /^\d{4}-\d{2}-\d{2}$/.test(d)).slice(0, 40) : null })) : [],
     testAt: typeof b.testAt === "number" && b.testAt > Date.now() && b.testAt < Date.now() + 30 * 60000 ? Math.floor(b.testAt / 60000) * 60000 : 0
   };
 }
@@ -196,6 +199,9 @@ export default {
     const jobs = [], done = [];
     for (const [id, r] of all) {
       if (r.testAt && r.testAt <= minute) { if (minute - r.testAt < 5 * 60000) jobs.push([id, r, { title: TXT[r.lang].st, body: TXT[r.lang].sb, tag: "sched-test", url: (r.site || SITE) + "#prayer" }]); done.push([id, r]); }
+      if (r.rems && r.rems.length) { const hm2 = new Intl.DateTimeFormat("en-GB", { timeZone: r.tz, hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).format(new Date(minute)).split(":").map(Number), lm = hm2[0] * 60 + hm2[1];
+        const day2 = new Intl.DateTimeFormat("en-CA", { timeZone: r.tz, year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(minute));
+        for (const x of r.rems) if (x.at === lm && (!x.dates || x.dates.includes(day2))) jobs.push([id, r, { title: x.title, body: x.text, tag: "rem-" + x.id, url: (r.site || SITE) + (x.id === "fast" ? "#w-fast" : "#w-sleep") }]); }
       if (r.wird) { const hm = new Intl.DateTimeFormat("en-GB", { timeZone: r.tz, hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).format(new Date(minute)).split(":").map(Number);
         const day = new Intl.DateTimeFormat("en-CA", { timeZone: r.tz, year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(minute));
         if (hm[0] * 60 + hm[1] === r.wird.at && r.wird.done !== day) jobs.push([id, r, { title: r.wird.title, body: r.wird.text, tag: "wird", url: (r.site || SITE) + "#quran" }]); }

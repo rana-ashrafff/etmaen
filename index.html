@@ -416,6 +416,42 @@ table.month tr.today td{background:color-mix(in srgb,var(--pri) 12%,transparent)
 .sn p{margin:0;line-height:1.9;color:var(--ink)}
 .sn .done-btn[aria-pressed="true"]{background:var(--ok);color:#fff}
 
+/* wellbeing */
+.mfaces{display:flex;gap:6px;justify-content:space-between;margin-top:4px}
+.mfaces button{flex:1;border:2px solid transparent;background:var(--surface-2);border-radius:16px;font-size:28px;padding:8px 0;line-height:1}
+.mfaces button[aria-pressed="true"]{border-color:var(--pri);background:color-mix(in srgb,var(--pri) 12%,var(--surface));transform:scale(1.06)}
+.wtiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.wtile{display:grid;gap:2px;justify-items:start;text-align:start;background:var(--surface-2);border:0;border-radius:18px;padding:12px;text-decoration:none;color:inherit;font:inherit}
+.wtile span{font-size:24px}.wtile b{font-size:14.5px;color:var(--deep)}.wtile small{font-size:11.5px;color:var(--muted);line-height:1.5}
+.helpcard{display:flex;gap:12px;align-items:center;text-decoration:none;color:inherit;background:linear-gradient(135deg,color-mix(in srgb,#6A7FC4 14%,var(--surface)),var(--surface) 70%)}
+.helpbig{display:grid;gap:10px}.helpbig .btn{justify-content:center}
+.wnote{background:color-mix(in srgb,var(--brass) 12%,var(--surface));border-radius:14px;padding:10px 12px;font-size:14px;line-height:1.8;transition:transform .9s ease,opacity .9s ease}
+.wnote.fly{transform:translateY(-120px) scale(.6);opacity:0}
+.mchart{display:grid;grid-template-columns:repeat(30,1fr);gap:2px;height:90px;align-items:end;margin:8px 0}
+.mchart div{height:100%;display:flex;align-items:flex-end;background:var(--surface-2);border-radius:4px}.mchart i{display:block;width:100%;border-radius:4px}
+.emogrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.emogrid button{border:2px solid transparent;background:var(--surface-2);border-radius:16px;padding:10px 4px;display:grid;gap:2px;justify-items:center;font-size:14px;font-weight:600}
+.emogrid button span{font-size:28px}.emogrid button[aria-pressed="true"]{border-color:var(--pri)}
+.wrow{display:grid;grid-template-columns:28px 1fr;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px;line-height:1.7}.wrow:last-child{border:0}
+.bcirc{width:210px;height:210px;border-radius:50%;display:grid;place-content:center;gap:4px;text-align:center;background:radial-gradient(circle,color-mix(in srgb,var(--pri) 30%,var(--surface)),color-mix(in srgb,var(--pri) 10%,var(--surface)));transition:transform 1s ease;transform:scale(.8)}
+.bcirc b{font-size:24px;color:var(--pri);font-family:var(--f-disp)}.bcirc small{font-size:15px;color:var(--deep);max-width:170px;line-height:1.6}
+.bcirc.in{transform:scale(1.08);transition-duration:4s}.bcirc.hold{transform:scale(1.08)}.bcirc.out{transform:scale(.8);transition-duration:6s}
+.gnum{width:110px;height:110px;border-radius:50%;background:var(--pri);color:#fff;display:grid;place-items:center;font-size:54px;font-family:var(--f-disp);font-weight:800}
+.gdots{display:flex;gap:6px}.gdots i{width:12px;height:12px;border-radius:50%;background:var(--line)}.gdots i.on{background:var(--pri)}
+.cring{--p:0;width:190px;height:190px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--pri) calc(var(--p)*360deg),var(--surface-2) 0)}
+.cring.br{background:conic-gradient(var(--brass) calc(var(--p)*360deg),var(--surface-2) 0)}
+.cring b{width:150px;height:150px;border-radius:50%;background:var(--surface);display:grid;place-items:center;font-size:36px;font-family:var(--f-disp);color:var(--pri)}
+.stop{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;width:100%}.stop div{background:var(--surface-2);border-radius:12px;padding:8px 4px;font-size:11.5px;display:grid;gap:2px}.stop b{font-size:20px;color:var(--pri)}
+.trap{border-bottom:1px solid var(--line);padding:8px 0}.trap summary{cursor:pointer}.trap p{margin:6px 0;line-height:1.8;font-size:14px}
+.artl{margin:8px 0;padding-inline-start:20px;display:grid;gap:8px;line-height:1.8}
+.boxpick{background:linear-gradient(135deg,color-mix(in srgb,var(--brass) 18%,var(--surface)),var(--surface));border-radius:18px;padding:14px;animation:pop .5s}
+.boxpick p{margin:6px 0 0;font-size:17px;line-height:1.8}.boxpick small{color:var(--muted)}
+.dua-c{padding:0;overflow:hidden}.dua-h{width:100%;display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;border:0;background:transparent;padding:14px;text-align:start;font:inherit;font-size:15px}
+.dua-c .dua{margin:0 12px 12px}
+.hifz{font-size:var(--qsize);line-height:2.3}.hifz .hw{display:inline-block;line-height:1.25;vertical-align:middle;padding:2px 0;background:color-mix(in srgb,var(--pri) 14%,var(--surface-2));color:transparent;border-radius:8px;cursor:pointer;min-width:2.2em;user-select:none}
+.ramcd{font-family:var(--f-disp);font-size:40px;font-weight:700;color:var(--pri);letter-spacing:.04em;margin:6px 0;font-variant-numeric:tabular-nums}
+#tafBox{background:var(--surface-2);border-radius:14px;padding:10px 12px;margin-top:10px;max-height:38vh;overflow:auto}#tafBox p{margin:6px 0;line-height:1.95;font-size:15px}
+.well-hero{background:linear-gradient(160deg,color-mix(in srgb,#5FA88A 18%,var(--surface)),var(--surface) 75%)}
 /* daily wird + custom surah khatma */
 .wirdc{margin-top:12px;background:color-mix(in srgb,var(--pri) 7%,var(--surface-2));border-radius:18px;padding:12px 14px;display:grid;gap:8px}
 .wirdc .wt{font-family:var(--f-disp);font-size:17px;font-weight:700;color:var(--deep)}
@@ -834,6 +870,8 @@ render();})();</script>
     <a class="card me" id="meCard" href="#rewards"></a>
     <div class="card" id="todoCard"></div>
     <a class="card" id="wkCard" href="#week" style="text-decoration:none;color:inherit;display:block"></a>
+    <div class="card" id="ramCard" hidden></div>
+    <div class="card" id="wellCard"></div>
     <div class="qa" id="qa"></div>
 
     <div class="card msg" id="msgCard"><span class="hi g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3l2.4 5.3 5.6.6-4.2 3.8 1.2 5.6L12 15.6 7 18.3l1.2-5.6L4 8.9l5.6-.6z"/></svg></span>
@@ -961,10 +999,16 @@ render();})();</script>
   </section>
 
   <!-- MORE -->
+  <section class="view" id="v-well" hidden><div id="wellBody" style="display:grid;gap:14px"></div></section>
+  <section class="view" id="v-wt" hidden><div id="wtBody" style="display:grid;gap:14px"></div></section>
   <section class="view" id="v-week" hidden><div id="weekBody" style="display:grid;gap:14px"></div></section>
   <section class="view" id="v-more" hidden>
     <h2 data-i="more"></h2>
     <div class="tiles">
+      <a class="tile new" href="#well"><span class="tag" data-i="newTag"></span><span style="font-size:24px;line-height:1">🌿</span><b data-i="wellT"></b><span data-i="wellTile"></span></a>
+      <a class="tile new" href="#w-duas"><span class="tag" data-i="newTag"></span><span style="font-size:24px;line-height:1">🤲</span><b data-i="wt_duas"></b><span data-i="ws_duas"></span></a>
+      <a class="tile new" href="#w-fast"><span class="tag" data-i="newTag"></span><span style="font-size:24px;line-height:1">🌙</span><b data-i="wt_fast"></b><span data-i="ws_fast"></span></a>
+      <a class="tile new" href="#w-hifz"><span class="tag" data-i="newTag"></span><span style="font-size:24px;line-height:1">🧠</span><b data-i="wt_hifz"></b><span data-i="ws_hifz"></span></a>
       <a class="tile new" href="#week"><span class="tag" data-i="newTag"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><b data-i="wkT"></b><span data-i="wkTile"></span></a>
       <a class="tile new" href="#wasl"><span class="tag" data-i="newTag"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2 20c0-3 3-5 6-5s6 2 6 5M14 15.5c.6-.3 1.3-.5 2-.5 3 0 6 2 6 5"/></svg><b data-i="wasl"></b><span data-i="waslSub"></span></a>
       <a class="tile new" href="#quiz"><span class="tag" data-i="newTag"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17.5v.01"/></svg><b data-i="quizT"></b><span data-i="quizTile"></span></a>
@@ -1122,8 +1166,12 @@ render();})();</script>
     <button id="shPlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 4l13 8-13 8z"/></svg><span data-i="listenFrom"></span></button>
     <button id="shCopy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg><span data-i="copy"></span></button>
     <button id="shShare"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg><span data-i="share"></span></button>
+    <button id="shTaf"><span style="font-size:20px;line-height:1">📘</span><span data-i="tafsir"></span></button>
+    <button id="shRep"><span style="font-size:20px;line-height:1">🔁</span><span data-i="repeat3"></span></button>
+    <button id="shImg"><span style="font-size:20px;line-height:1">🖼</span><span data-i="asImage"></span></button>
     <button id="shMark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5c3-1 6-1 8 1 2-2 5-2 8-1v14c-3-1-6-1-8 1-2-2-5-2-8-1z"/></svg><span data-i="stoppedHere"></span></button>
   </div>
+  <div id="tafBox" hidden></div>
 </div></div>
 
 <div class="player" id="player" hidden><div class="in"><span id="plTxt"></span><button id="plToggle"></button><button id="plStop" data-i="stop"></button></div></div>
@@ -1152,6 +1200,7 @@ render();})();</script>
 <script src="data/habits.js"></script>
 <script src="data/kids.js"></script>
 <script src="data/pages.js"></script>
+<script src="data/wellbeing.js"></script>
 <script>
 (function(){
 "use strict";
@@ -1418,6 +1467,102 @@ Object.assign(I18N.en,{wirdT:"Today's portion",wirdGo:"Start reading",wirdDoneTo
  wirdRem:"🔔 Remind me of today's portion every day at",wirdRemNeed:"To get portion reminders, first turn on “Adhan notifications on your phone” in the Prayer tab.",wirdRemOn:"Done, you'll get a daily reminder",wirdPushT:"📖 Today's Quran portion",
  kbMake:"✨ Build your own khatma",kbMakeSub:"Pick surahs and how many per day",kbT:"Choose the surahs for your khatma",kbAll:"All",kbNone:"Clear",kbAmma:"Juz Amma",kbTabarak:"Juz Tabarak",kbPer:"How many surahs a day?",kbSum:(n,p,d)=>`${n} surahs · ${p} a day = ${d} days`,kbStart:"Start my khatma",kbCancel:"Cancel",kbNeed:"Pick at least one surah",kbNew:"This starts a new khatma with these surahs",
  kbPlan:"My own khatma",kbPlanSub:(n,p)=>`${n} surahs · ${p} a day`,kbPerDay:n=>`${n} surahs a day`,kbLeft:(r,d)=>`${r} surahs left · about ${d} days`});
+Object.assign(I18N.ar,{wellT:"عافيتي",wellSub:"أدوات بسيطة تساعدك تهدى، تفهم نفسك، وتشحن طاقتك.",wellTile:"أدوات لراحتك النفسية",moodQ:"عامل إيه النهارده؟",moodSaved:"✓ اتسجل مزاجك النهارده",lowMood:"لو محتاج حد تتكلم معاه، فيه «محتاج حد يسمعك» في عافيتي",moodPickFirst:"اختار وش الأول",saved:"اتحفظ ✓",
+ wg_calm1:"🌬 اهدى",wg_know:"🧠 افهم نفسك",wg_charge:"🔋 اشحن نفسك",wg_habits2:"🌱 عادات صحية",wg_faith:"🕌 عبادتك",
+ wt_mood:"مزاجي",ws_mood:"سجّل حالتك وشوف شهرك",wd_mood:"اختار حالتك كل يوم، وآخر الشهر هتشوف رسم لمزاجك وحاجات بتأثر فيه.",
+ wt_emo:"سمّي إحساسك",ws_emo:"إحساسك بالظبط إيه؟",wd_emo:"لما تسمّي إحساسك بالظبط بيخف. اختار الأقرب ليك.",
+ wt_night:"قبل ما تنام",ws_night:"٣ أسئلة لطيفة كل ليلة",wd_night:"دقيقتين قبل النوم تفتكر فيهم الحلو اللي حصل. بيحسّن المزاج والنوم.",
+ wt_worry:"فكّك من التفكير الزيادة",ws_worry:"في إيدك ولا مش في إيدك؟",wd_worry:"اكتب اللي شاغلك، واعرف تعمل فيه إيه.",
+ wt_breathe:"تنفّس مع الذكر",ws_breathe:"شهيق وزفير مع التسبيح",wd_breathe:"شهيق ٤ ثواني مع «سبحان الله»، وزفير ٦ ثواني مع «الحمد لله». كمّل ٣ دقايق.",
+ wt_ground:"تمرين الحواس الخمسة",ws_ground:"يرجّعك للحظة دي",wd_ground:"تمرين بيهدّي نوبات القلق ويرجّعك للمكان اللي إنت فيه.",
+ wt_calm:"هدّي أعصابك",ws_calm:"٩٠ ثانية وقت الغضب",wd_calm:"موجة الغضب بتعدّي في حوالي ٩٠ ثانية لو مازوّدتهاش. استنى معانا.",
+ wt_pmr:"استرخاء العضلات",ws_pmr:"شد وارخي جسمك",wd_pmr:"اشد كل مجموعة عضلات ٥ ثواني وبعدين سيبها ١٠. مثالي قبل النوم.",
+ wt_traps:"فخاخ التفكير",ws_traps:"أفكار بتضحك علينا",wd_traps:"اتعرّف على الأفكار اللي بتضحك علينا، وغيّر فكرة مضايقاك بفكرة أعدل.",
+ wt_learn:"اقرأ عن نفسك",ws_learn:"مقالات قصيرة مفيدة",wd_learn:"دقيقتين قراية عن حاجات بتمر بينا كلنا.",
+ wt_box:"صندوق الحاجات الحلوة",ws_box:"افتحه في الأيام الصعبة",wd_box:"حط فيه كل كلمة حلوة أو إنجاز أو لحظة فرحتك، وافتحه لما تحتاجه.",
+ wt_wins:"إنجازاتي الصغيرة",ws_wins:"حاجة عملتها كويس النهارده",wd_wins:"مفيش إنجاز صغير. اكتب حاجة عملتها كويس النهارده حتى لو بسيطة.",
+ wt_joy:"حاجة صغيرة تفرّحك",ws_joy:"جرّبها وشوف الفرق",wd_joy:"اختار نشاط بسيط، قيّم مزاجك قبله وبعده، وشوف بنفسك.",
+ wt_kind:"تحدي الخير",ws_kind:"عمل خير صغير كل يوم",wd_kind:"كل يوم تحدي صغير. عمل الخير بيفرّح اللي بيعمله قبل اللي بيتعمله.",
+ wt_sayno:"قول لأ",ws_sayno:"جمل تحط بيها حدود بأدب",wd_sayno:"إنك تقول لأ مش قلة ذوق، ده احترام لنفسك.",
+ wt_sleep:"نومي",ws_sleep:"تابع نومك ونام أحسن",wd_sleep:"سجّل نمت إمتى وصحيت إمتى، وخلّي التطبيق يفكّرك تبدأ تهدى.",
+ wt_detox:"فك من الموبايل",ws_detox:"استراحة من الشاشة",wd_detox:"اختار مدة، وسيب الموبايل على جنب. ارجع بعدها تاخد نقطك.",
+ wt_focus:"وقت تركيز",ws_focus:"٢٥ دقيقة شغل و٥ راحة",wd_focus:"طريقة بومودورو: ركّز ٢٥ دقيقة، وخد ٥ دقايق راحة.",
+ wt_help:"محتاج حد يسمعك",ws_help:"لو تعبان قوي، إنت مش لوحدك",
+ wt_fast:"صيامي",ws_fast:"الأيام اللي يُستحب صيامها",wd_fast:"تابع صيامك، واعرف الاثنين والخميس والأيام البيض الجاية، وخلّي التطبيق يفكّرك.",
+ wt_duas:"دعاء لكل موقف",ws_duas:"الامتحان، السفر، الكرب…",wd_duas:"أدعية من القرآن والسنة لكل موقف بيقابلك.",
+ wt_hifz:"اختبر حفظك",ws_hifz:"الكلمات بتستخبى وإنت بتكمّل",wd_hifz:"اختار سورة، والكلمات هتستخبى. افتكرها، ودوس عليها تتأكد.",
+ moodNotePh:"عايز تكتب حاجة عن يومك؟ (اختياري)",moodMonth:"مزاجك آخر ٣٠ يوم",moodAvg:(e,n)=>`متوسط مزاجك ${e} في ${nf(n)} يوم`,moodNone:"ابدأ سجّل كل يوم وهتشوف الرسم هنا",insFajrUp:"لاحظنا إن مزاجك بيبقى أحسن في الأيام اللي بتصلي فيها الفجر",insFajrSame:"كمّل تسجيل، وكل ما الأيام تزيد هنقدر نلاحظ أكتر",
+ emoMore:"طب بالظبط؟",emoNamed:s=>`إنت حاسس إنك «${s}». ده إحساس مفهوم.`,emoTry:"ممكن يساعدك:",
+ nq_g:"حاجة حمدت ربنا عليها النهارده؟",nq_l:"حاجة اتعلمتها أو لاحظتها؟",nq_b:"حاجة عايز تعملها أحسن بكرة؟",nqs_g:"حمدت ربنا على",nqs_l:"اتعلمت",nqs_b:"بكرة",nightSaved:"تصبح على خير 🌙",
+ wq1:"إيه اللي شاغل بالك؟",wq2:"الحاجة دي في إيدك تعمل فيها حاجة؟",wYes:"أيوه، في إيدي",wNo:"لأ، مش في إيدي",wq3:"إيه أصغر خطوة تقدر تعملها؟",wAddTodo:"ضيفها لمهام النهارده",wDone:"تمام",wLetGo:"اللي مش في إيدك، في إيد ربنا، وهو أرحم بيك من نفسك. عملت اللي عليك، سيب الباقي عليه.",wRelease:"سيبتها على ربنا",wReleased:"🕊 سيبتها على ربنا",wAdded:"اتضافت لمهام النهارده ✓",wHist:"اللي كتبته قبل كده",
+ bStart:"جاهز؟",bcIn:"شهيق",bcHold:"اثبت",bcOut:"زفير",bcRounds:n=>`${nf(n)} دورة`,start:"ابدأ",next:"التالي",again:"تاني",cancel:"إلغاء",
+ gDone:"تمام ✓",gEnd:"أحسن؟ إنت هنا، ودلوقتي، وفي أمان.",
+ stop0:"وقّف اللي بتعمله",stop1:"خد نفس عميق",stop2:"لاحظ إحساسك وأفكارك",stop3:"وبعدين اتصرف بهدوء",calmEnd:"أحسن؟ قول «أعوذ بالله من الشيطان الرجيم» واتوضى لو تقدر",
+ pmTense:"شد",pmRelax:"سيب…",pmEnd:"جسمك دلوقتي مرتاح 🌿",
+ trLearn:"اتعرّف على الفخاخ",trEx:"مثال",trRec:"غيّر فكرة مضايقاك",trSit:"إيه اللي حصل؟",trTh:"إيه الفكرة اللي جت في دماغك؟",trWhich:"أنهي فخ ده؟",trBal:"فكرة أعدل وأرحم بيك",trNeed:"اكتب الفكرة والفكرة الأعدل",
+ bt_kind:"كلمة حلوة",bt_win:"إنجاز",bt_joy:"لحظة حلوة",boxPh:"اكتب الكلمة أو الإنجاز أو اللحظة…",boxAdd:"حطها في الصندوق",boxOpen:"افتح الصندوق",boxCount:n=>`في الصندوق ${nf(n)} حاجة حلوة`,
+ winPh:"مثلًا: صحيت بدري، ذاكرت ساعة، ساعدت ماما…",winAdd:"سجّل الإنجاز",winCount:n=>`كتبت ${nf(n)} إنجاز لحد دلوقتي`,winToast:"برافو عليك!",
+ joyPick:"اختار حاجة تعملها دلوقتي",joyBefore:"مزاجك قبلها عامل إزاي؟",joyGo:"يلا اعملها، وارجع لما تخلص 😊",joyAfter:"ومزاجك بعدها؟",joyThanks:"شوفت؟ حاجة صغيرة بتفرق",joyStat:n=>`جرّبت ${nf(n)} نشاط`,joyGain:x=>`في المتوسط مزاجك بيتحسن ${x} درجة بعد النشاط`,
+ kindToday:"تحدي النهارده",kindMark:"عملتها ✓",kindDid:"عملتها النهارده",kindToast:"ربنا يتقبل منك 🌷",
+ snTip:"💡 قولها بهدوء ومن غير ما تبرر كتير. «لأ» جملة كاملة.",
+ slLast:"إمبارح نمت إمتى وصحيت إمتى؟",slBed:"نمت",slWake:"صحيت",slAvg:(h,n)=>`متوسط نومك ${nf(h)} ساعة (آخر ${nf(n)} يوم)`,slLow:"الكبار محتاجين ٧ لـ ٩ ساعات نوم. جرّب تنام بدري نص ساعة.",slRem:"🔔 فكّرني أبدأ أهدى الساعة",slTips:"نصايح للنوم الكويس",
+ dxPick:"هتبعد عن الموبايل قد إيه؟",dxMin:m=>m>=60?`${nf(m/60)} ساعة`:`${nf(m)} دقيقة`,dxGo:"سيب الموبايل على جنب… ارجع لما الوقت يخلص",dxStop:"وقّف",dxWin:"برافو! كمّلت الاستراحة 🌿 +١٠",dxCount:n=>`كمّلت ${nf(n)} استراحة`,
+ fcReady:"جاهز تركّز؟",fcWork:"ركّز… الموبايل على جنب",fcBreak:"وقت راحة ☕",fcTip:"قوم اتمشى، اشرب مية، واعمل إطالة",fcBreakT:"خلصت ٢٥ دقيقة! خد ٥ دقايق راحة",fcBackT:"يلا نرجع نركّز",fcDone:n=>`خلصت ${nf(n)} جلسة تركيز`,
+ helpTxt:"لو حاسس إنك تعبان قوي أو مش قادر تكمّل، إنت مش لوحدك، والإحساس ده بيعدّي. كلّم حد بتثق فيه دلوقتي، أو كلّم الخط الساخن للدعم النفسي، والخدمة مجانية وسرية وشغالة ٢٤ ساعة.",helpLine:"الخط الساخن للصحة النفسية",helpFree:"خط مجاني",helpAmb:"الإسعاف",helpNote:"لو فيه خطر على حياتك أو حياة حد، كلّم الإسعاف ١٢٣ فورًا. الأرقام دي تبع الأمانة العامة للصحة النفسية وعلاج الإدمان في مصر.",helpNow:"ولحد ما تكلّم حد، جرّب:",
+ fToday:"صايم النهارده؟",fMark:"أيوه، صايم",fDid:"صايم النهارده",fToast:"اللهم تقبّل 🌙",fMonth:n=>`صمت ${nf(n)} يوم الشهر ده`,fUp:"أيام يُستحب صيامها قريبًا",fw_mon:"الاثنين",fw_thu:"الخميس",fw_white:"الأيام البيض",fw_arafa:"يوم عرفة",fw_ashura:"عاشوراء وتاسوعاء",fw_shawwal:"ست من شوال",fRem:"🔔 فكّرني الليلة اللي قبلها الساعة",fQada:"أيام القضاء اللي عليّ",fQadaSub:"زوّد أو قلّل كل ما تقضي يوم",
+ hzSurah:"السورة",hzL1:"سهل",hzL2:"متوسط",hzL3:"صعب",hzReveal:"اكشف الكل",hzListen:"اسمع السورة",hzTip:"دوس على الكلمة المستخبية عشان تشوفها",
+ ramT:d=>`رمضان · اليوم ${nf(d)}`,ramSuhoor:"السحور",ramIftar:"الفطار",ramAt:(l,t2)=>`${l} الساعة ${t2}`,ramIftarDua:"دعاء الفطار",ramLast:"العشر الأواخر! اجتهد في العبادة واطلب ليلة القدر، وأكثر من:",ramImsak:"إمساكية الشهر",
+ tafsir:"التفسير",tafT:"التفسير الميسّر",tafSrc:"المصدر: التفسير الميسّر · مجمع الملك فهد لطباعة المصحف الشريف",tafLoading:"بنحمّل التفسير…",tafErr:"محتاج إنترنت أول مرة عشان التفسير يتحمّل",
+ repeat3:"كرّر ٣ مرات",asImage:"صورة",imgSaved:"الصورة اتحفظت ✓",
+ relapseT:"وقعت تاني؟ ولا يهمك",relapseTxt:"ربنا بيحب العبد اللي كل ما يقع يرجع. الوقوع مش نهاية الطريق، المهم إنك ترجع. ابدأ من جديد بخطوة صغيرة النهارده.",relapseAyah:"﴿إِنَّ ٱللَّهَ يُحِبُّ ٱلتَّوَّٰبِينَ﴾"});
+Object.assign(I18N.en,{wellT:"My wellbeing",wellSub:"Simple tools to calm down, understand yourself and recharge.",wellTile:"Tools for your peace of mind",moodQ:"How are you today?",moodSaved:"✓ Today's mood saved",lowMood:"If you need someone to talk to, see “Need someone to listen” in My wellbeing",moodPickFirst:"Pick a face first",saved:"Saved ✓",
+ wg_calm1:"🌬 Calm down",wg_know:"🧠 Understand yourself",wg_charge:"🔋 Recharge",wg_habits2:"🌱 Healthy habits",wg_faith:"🕌 Your worship",
+ wt_mood:"My mood",ws_mood:"Log it and see your month",wd_mood:"Pick your mood daily and see a chart of your month and what affects it.",
+ wt_emo:"Name your feeling",ws_emo:"What exactly do you feel?",wd_emo:"Naming a feeling precisely makes it lighter. Pick the closest one.",
+ wt_night:"Before sleep",ws_night:"3 gentle questions nightly",wd_night:"Two minutes before bed to remember the good. It improves mood and sleep.",
+ wt_worry:"Stop overthinking",ws_worry:"In your control or not?",wd_worry:"Write what's on your mind and decide what to do with it.",
+ wt_breathe:"Breathe with dhikr",ws_breathe:"Breathe in and out with tasbeeh",wd_breathe:"Breathe in 4 seconds with SubhanAllah, out 6 seconds with Alhamdulillah. Keep going for 3 minutes.",
+ wt_ground:"5-4-3-2-1",ws_ground:"Back to this moment",wd_ground:"An exercise that calms anxiety and brings you back to where you are.",
+ wt_calm:"Cool down",ws_calm:"90 seconds when angry",wd_calm:"An anger wave passes in about 90 seconds if you don't feed it. Wait with us.",
+ wt_pmr:"Muscle relaxation",ws_pmr:"Tense and release",wd_pmr:"Tense each muscle group for 5 seconds, then release for 10. Great before sleep.",
+ wt_traps:"Thinking traps",ws_traps:"Thoughts that trick us",wd_traps:"Learn the thoughts that trick us and replace an upsetting one with a fairer one.",
+ wt_learn:"Learn about yourself",ws_learn:"Short helpful reads",wd_learn:"Two-minute reads about things we all go through.",
+ wt_box:"Box of good things",ws_box:"Open it on hard days",wd_box:"Keep kind words, wins and happy moments, and open it when you need it.",
+ wt_wins:"My small wins",ws_wins:"Something you did well today",wd_wins:"No win is too small. Write something you did well today.",
+ wt_joy:"A small joy",ws_joy:"Try it and see",wd_joy:"Pick a simple activity, rate your mood before and after, and see for yourself.",
+ wt_kind:"Kindness challenge",ws_kind:"One small good deed a day",wd_kind:"A small challenge each day. Kindness lifts the giver first.",
+ wt_sayno:"Say no",ws_sayno:"Phrases to set boundaries politely",wd_sayno:"Saying no isn't rude; it's self-respect.",
+ wt_sleep:"My sleep",ws_sleep:"Track it and sleep better",wd_sleep:"Log when you slept and woke, and get a wind-down reminder.",
+ wt_detox:"Phone break",ws_detox:"A break from the screen",wd_detox:"Pick a duration and put the phone away. Come back to collect your points.",
+ wt_focus:"Focus time",ws_focus:"25 min work, 5 min break",wd_focus:"The Pomodoro method: focus for 25 minutes, then rest for 5.",
+ wt_help:"Need someone to listen",ws_help:"If you're struggling, you're not alone",
+ wt_fast:"My fasting",ws_fast:"Recommended fasting days",wd_fast:"Track your fasts, see upcoming Mondays, Thursdays and white days, and get reminders.",
+ wt_duas:"A dua for every situation",ws_duas:"Exams, travel, distress…",wd_duas:"Duas from the Quran and Sunnah for situations you face.",
+ wt_hifz:"Test your memorization",ws_hifz:"Words hide as you recall",wd_hifz:"Pick a surah and words will hide. Recall them and tap to check.",
+ moodNotePh:"Want to write something about your day? (optional)",moodMonth:"Your mood, last 30 days",moodAvg:(e,n)=>`Average mood ${e} over ${n} days`,moodNone:"Log daily and your chart will appear here",insFajrUp:"Your mood tends to be better on days you pray Fajr",insFajrSame:"Keep logging; more days will reveal more patterns",
+ emoMore:"More precisely?",emoNamed:s=>`You feel “${s}”. That's understandable.`,emoTry:"This may help:",
+ nq_g:"Something you thanked Allah for today?",nq_l:"Something you learned or noticed?",nq_b:"Something to do better tomorrow?",nqs_g:"Grateful for",nqs_l:"Learned",nqs_b:"Tomorrow",nightSaved:"Good night 🌙",
+ wq1:"What's on your mind?",wq2:"Can you do something about it?",wYes:"Yes, it's in my hands",wNo:"No, it isn't",wq3:"What's the smallest step you can take?",wAddTodo:"Add to today's tasks",wDone:"OK",wLetGo:"What isn't in your hands is in Allah's, and He is more merciful to you than you are. You did your part; leave the rest to Him.",wRelease:"I left it to Allah",wReleased:"🕊 Left to Allah",wAdded:"Added to today's tasks ✓",wHist:"What you wrote before",
+ bStart:"Ready?",bcIn:"In",bcHold:"Hold",bcOut:"Out",bcRounds:n=>`${n} rounds`,start:"Start",next:"Next",again:"Again",cancel:"Cancel",
+ gDone:"Done ✓",gEnd:"Better? You are here, now, and safe.",
+ stop0:"Stop what you're doing",stop1:"Take a deep breath",stop2:"Observe your feelings and thoughts",stop3:"Then proceed calmly",calmEnd:"Better? Seek refuge in Allah and make wudu if you can",
+ pmTense:"Tense",pmRelax:"Release…",pmEnd:"Your body is relaxed now 🌿",
+ trLearn:"Learn the traps",trEx:"Example",trRec:"Change an upsetting thought",trSit:"What happened?",trTh:"What thought came to mind?",trWhich:"Which trap is it?",trBal:"A fairer, kinder thought",trNeed:"Write the thought and the fairer one",
+ bt_kind:"Kind word",bt_win:"Win",bt_joy:"Happy moment",boxPh:"Write the kind word, win or moment…",boxAdd:"Put it in the box",boxOpen:"Open the box",boxCount:n=>`${n} good things in the box`,
+ winPh:"E.g. woke up early, studied an hour, helped mum…",winAdd:"Save the win",winCount:n=>`${n} wins so far`,winToast:"Well done!",
+ joyPick:"Pick something to do now",joyBefore:"How's your mood before?",joyGo:"Go do it, and come back when done 😊",joyAfter:"And your mood after?",joyThanks:"See? Small things matter",joyStat:n=>`You tried ${n} activities`,joyGain:x=>`On average your mood improves ${x} points after an activity`,
+ kindToday:"Today's challenge",kindMark:"Done ✓",kindDid:"Done today",kindToast:"May Allah accept it 🌷",
+ snTip:"💡 Say it calmly without over-explaining. “No” is a complete sentence.",
+ slLast:"When did you sleep and wake last night?",slBed:"Slept",slWake:"Woke",slAvg:(h,n)=>`Average sleep ${h} hours (last ${n} days)`,slLow:"Adults need 7–9 hours. Try sleeping 30 minutes earlier.",slRem:"🔔 Remind me to wind down at",slTips:"Tips for better sleep",
+ dxPick:"How long will you stay off your phone?",dxMin:m=>m>=60?`${m/60} h`:`${m} min`,dxGo:"Put the phone away… come back when time's up",dxStop:"Stop",dxWin:"Well done! Break completed 🌿 +10",dxCount:n=>`${n} breaks completed`,
+ fcReady:"Ready to focus?",fcWork:"Focus… phone away",fcBreak:"Break time ☕",fcTip:"Walk around, drink water, stretch",fcBreakT:"25 minutes done! Take a 5-minute break",fcBackT:"Back to focus",fcDone:n=>`${n} focus sessions done`,
+ helpTxt:"If you feel very low or unable to go on, you're not alone, and this feeling passes. Talk to someone you trust now, or call the mental health support line; it's free, confidential and open 24 hours.",helpLine:"Mental health hotline (Egypt)",helpFree:"Toll-free line",helpAmb:"Ambulance",helpNote:"If anyone's life is in danger, call the ambulance on 123 now. These numbers belong to Egypt's General Secretariat of Mental Health and Addiction Treatment.",helpNow:"Until you talk to someone, try:",
+ fToday:"Fasting today?",fMark:"Yes, fasting",fDid:"Fasting today",fToast:"May Allah accept 🌙",fMonth:n=>`${n} fasting days this month`,fUp:"Recommended fasting days coming up",fw_mon:"Monday",fw_thu:"Thursday",fw_white:"White days",fw_arafa:"Day of Arafah",fw_ashura:"Ashura & Tasu'a",fw_shawwal:"Six days of Shawwal",fRem:"🔔 Remind me the night before at",fQada:"Days I owe (qada)",fQadaSub:"Adjust whenever you make up a day",
+ hzSurah:"Surah",hzL1:"Easy",hzL2:"Medium",hzL3:"Hard",hzReveal:"Reveal all",hzListen:"Listen to the surah",hzTip:"Tap a hidden word to see it",
+ ramT:d=>`Ramadan · day ${d}`,ramSuhoor:"Suhoor",ramIftar:"Iftar",ramAt:(l,t2)=>`${l} at ${t2}`,ramIftarDua:"Iftar dua",ramLast:"The last ten nights! Strive in worship, seek Laylat al-Qadr, and say often:",ramImsak:"Month timetable",
+ tafsir:"Tafsir",tafT:"Al-Muyassar tafsir (Arabic)",tafSrc:"Source: Al-Tafsir Al-Muyassar · King Fahd Complex",tafLoading:"Loading tafsir…",tafErr:"Internet is needed the first time to load the tafsir",
+ repeat3:"Repeat 3×",asImage:"Image",imgSaved:"Image saved ✓",
+ relapseT:"Slipped again? That's okay",relapseTxt:"Allah loves the servant who returns every time he falls. A slip isn't the end of the road; what matters is coming back. Start again with one small step today.",relapseAyah:"﴿إِنَّ ٱللَّهَ يُحِبُّ ٱلتَّوَّٰبِينَ﴾"});
 const t=(k,...a)=>{const v=I18N[lang][k];return typeof v==="function"?v(...a):v};
 
 /* ================= Quran data ================= */
@@ -1816,7 +1961,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-sd]");if(b
  el.addEventListener("touchend",e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;if(Math.abs(dx)<70||Math.abs(dy)>Math.abs(dx))return;
   const rtlDir=document.documentElement.dir==="rtl";const next=rtlDir?dx>0:dx<0;const n=curPage+(next?1:-1);if(n>=1&&n<=NPAGES)location.hash="pg"+n},{passive:true})})();
 $("rBody").addEventListener("click",e=>{const el=e.target.closest(".a");if(!el)return;document.querySelectorAll("#rBody .a.sel").forEach(x=>x.classList.remove("sel"));el.classList.add("sel");selG=+el.dataset.g;openSheet()});
-function openSheet(){const [s,a]=fromG(selG);$("shTitle").textContent=t("ayahN",sName(s),a);$("shBmT").textContent=S.get("bm",[]).includes(selG)?t("bmDel"):t("bmAdd");$("sheet").hidden=false}
+function openSheet(){$("tafBox").hidden=true;const [s,a]=fromG(selG);$("shTitle").textContent=t("ayahN",sName(s),a);$("shBmT").textContent=S.get("bm",[]).includes(selG)?t("bmDel"):t("bmAdd");$("sheet").hidden=false}
 function closeSheet(){$("sheet").hidden=true;document.querySelectorAll("#rBody .a.sel").forEach(x=>x.classList.remove("sel"))}
 $("shClose").addEventListener("click",closeSheet);
 $("shBm").addEventListener("click",()=>{let bm=S.get("bm",[]);if(bm.includes(selG))bm=bm.filter(x=>x!==selG);else{bm.push(selG);toast(t("bmSaved"))}S.set("bm",bm);closeSheet();renderReader(true)});
@@ -1830,11 +1975,14 @@ function playFrom(g,end){playG=g;playEnd=end;audio.src=`https://cdn.islamic.netw
 function highlightPlay(){document.querySelectorAll("#rBody .a.play").forEach(x=>x.classList.remove("play"));if(playG==null)return;const el=document.querySelector(`#rBody .a[data-g="${playG}"]`);if(el){el.classList.add("play");el.scrollIntoView({block:"center",behavior:"smooth"})}}
 function updPlayer(){if(playG==null)return;const [s,a]=fromG(playG);$("plTxt").textContent="▶ "+t("ayahN",sName(s),a);$("plToggle").textContent=audio.paused?t("resume"):t("pause")}
 function stopAudio(){audio.pause();playG=null;$("player").hidden=true;highlightPlay()}
-audio.addEventListener("ended",()=>{if(playG==null)return;if(playG<playEnd){const nx=playG+1;if(!$("v-read").hidden&&pageOf(nx)!==curPage)location.hash="pg"+pageOf(nx);playFrom(nx,playEnd)}else stopAudio()});
+audio.addEventListener("ended",()=>{if(playG==null)return;if(repLeft>0){repLeft--;audio.currentTime=0;audio.play();return}if(playG<playEnd){const nx=playG+1;if(!$("v-read").hidden&&pageOf(nx)!==curPage)location.hash="pg"+pageOf(nx);playFrom(nx,playEnd)}else stopAudio()});
 audio.addEventListener("error",()=>{if(playG!=null){toast(t("audioErr"));stopAudio()}});
 $("plToggle").addEventListener("click",()=>{audio.paused?audio.play():audio.pause();setTimeout(updPlayer,50)});
 $("plStop").addEventListener("click",stopAudio);
-$("shPlay").addEventListener("click",()=>{playFrom(selG,TOTAL-1);closeSheet()});
+$("shPlay").addEventListener("click",()=>{repLeft=0;playFrom(selG,TOTAL-1);closeSheet()});
+$("shTaf").addEventListener("click",()=>showTafsir(selG));
+$("shRep").addEventListener("click",()=>{repLeft=2;playFrom(selG,selG);closeSheet()});
+$("shImg").addEventListener("click",()=>{shareAyahImage(selG);closeSheet()});
 $("rPlay").addEventListener("click",()=>{const [a]=pageRange(curPage);playFrom(a,TOTAL-1)});
 
 /* ================= WASL (family ties) ================= */
@@ -2340,6 +2488,7 @@ function renderSafe(){const B=$("safeBody");
    <div class="label">${t("hSince",days)}</div>
    <div class="st">${[["solved",t("hSolved")],["trying",t("hTrying")],["stuck",t("hStuck")]].map(([k,l])=>`<button data-s="${k}" data-hst="${h.id}" aria-pressed="${h.status===k}">${l}</button>`).join("")}</div>
    <div class="row" style="justify-content:flex-start"><button class="btn sm" data-hopen="${h.id}">${open?t("hHide"):t("hShow")} ${open?"▴":"▾"}</button><button class="btn sm" data-hrs="${h.id}">↺ ${t("hRestart")}</button></div>
+   ${h.relapse&&Date.now()-h.relapse<36e5*24?`<div class="wnote"><b>🌱 ${t("relapseT")}</b><br>${t("relapseTxt")}<div class="ayah" style="font-size:22px;text-align:center;margin-top:6px">${t("relapseAyah")}</div></div>`:""}
    ${open||h.status==="stuck"?solBox(L,h.status==="stuck"):""}</div>`}).join(""):`<p class="muted" style="text-align:center">${t("hEmpty")}</p>`}
   <div class="card" style="display:grid;gap:8px"><h2>${t("hLib")}</h2>${H.map(h=>`<details class="sol" style="background:transparent;padding:0"><summary style="cursor:pointer;font-weight:600;padding:6px 0">${esc(h[lang].t)}</summary>${solBox(h[lang],true)}${used.has(h.id)?"":`<button class="btn sm primary" data-hadd="${h.id}" style="justify-self:start">+ ${t("hAddThis")}</button>`}</details>`).join("")}</div>
   <p class="mean" style="text-align:center">${t("needHelp")}</p>`}
@@ -2373,7 +2522,7 @@ $("safeBody").addEventListener("click",async e=>{const q=sel=>e.target.closest(s
  if(q("#hAddC")){const tx=$("hText").value.trim();if(!tx)return;VD.habits.push({id:Date.now().toString(36),title:tx,status:"trying",since:Date.now()});await vaultSave();renderSafe();return}
  if(b=q("[data-hst]")){const h=VD.habits.find(x=>x.id===b.dataset.hst);h.status=b.dataset.s;if(h.status==="solved")toast(t("hSolvedToast"));if(h.status==="stuck")habOpen[h.id]=true;await vaultSave();renderSafe();return}
  if(b=q("[data-hopen]")){habOpen[b.dataset.hopen]=!habOpen[b.dataset.hopen];renderSafe();return}
- if(b=q("[data-hrs]")){const h=VD.habits.find(x=>x.id===b.dataset.hrs);h.since=Date.now();h.status="trying";await vaultSave();toast(t("hRestartToast"));renderSafe();return}
+ if(b=q("[data-hrs]")){const h=VD.habits.find(x=>x.id===b.dataset.hrs);h.since=Date.now();h.status="trying";h.relapse=Date.now();await vaultSave();toast(t("hRestartToast"));renderSafe();return}
  if(b=q("[data-hdel]")){if(!b.dataset.sure){b.dataset.sure=1;b.textContent=t("sure");return}VD.habits=VD.habits.filter(x=>x.id!==b.dataset.hdel);await vaultSave();renderSafe();return}});
 
 
@@ -2450,11 +2599,11 @@ const PUSH_CAN=!NATIVE&&"serviceWorker" in navigator&&"PushManager" in window&&"
 const u8=b=>{b=b.replace(/-/g,"+").replace(/_/g,"/");while(b.length%4)b+="=";return Uint8Array.from(atob(b),c=>c.charCodeAt(0))};
 async function vapidKey(){if(!VAPID_PUB){const r=await fetch(PUSH_URL+"/vapid");VAPID_PUB=(await r.json()).publicKey}return VAPID_PUB}
 let PUSH_REG=null;if(PUSH_CAN&&PUSH_URL){navigator.serviceWorker.ready.then(r=>{PUSH_REG=r}).catch(()=>{});vapidKey().catch(()=>{})}
-async function sendSub(sub,test,testAt){const c=city();const r=await fetch(PUSH_URL+"/subscribe",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({sub:sub.toJSON(),lat:c[2],lng:c[3],tz:c[4],method:methodKey(),asr:asrF(),prayers:AD.p,pre:AD.pre,lang,wird:wirdPush(),test:!!test,testAt:testAt||0})});if(!r.ok)throw new Error("server "+r.status)}
+async function sendSub(sub,test,testAt){const c=city();const r=await fetch(PUSH_URL+"/subscribe",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({sub:sub.toJSON(),lat:c[2],lng:c[3],tz:c[4],method:methodKey(),asr:asrF(),prayers:AD.p,pre:AD.pre,lang,wird:wirdPush(),rems:remsPush(),test:!!test,testAt:testAt||0})});if(!r.ok)throw new Error("server "+r.status)}
 async function pushSubscribe(test,testAt){const reg=await navigator.serviceWorker.ready,key=await vapidKey();let sub=await reg.pushManager.getSubscription();
  if(sub&&sub.options&&sub.options.applicationServerKey){const a=new Uint8Array(sub.options.applicationServerKey),b=u8(key);if(a.length!==b.length||a.some((x,i)=>x!==b[i])){await sub.unsubscribe();sub=null}}
  if(!sub)sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:u8(key)});const c=city();
- const r=await fetch(PUSH_URL+"/subscribe",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({sub:sub.toJSON(),lat:c[2],lng:c[3],tz:c[4],method:methodKey(),asr:asrF(),prayers:AD.p,pre:AD.pre,lang,wird:wirdPush(),test:!!test,testAt:testAt||0})});
+ const r=await fetch(PUSH_URL+"/subscribe",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({sub:sub.toJSON(),lat:c[2],lng:c[3],tz:c[4],method:methodKey(),asr:asrF(),prayers:AD.p,pre:AD.pre,lang,wird:wirdPush(),rems:remsPush(),test:!!test,testAt:testAt||0})});
  if(!r.ok)throw new Error("server "+r.status)}
 async function pushOff(){try{const reg=await navigator.serviceWorker.ready;const sub=await reg.pushManager.getSubscription();if(sub){fetch(PUSH_URL+"/unsubscribe",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({endpoint:sub.endpoint})}).catch(()=>{});await sub.unsubscribe()}}catch(_){}}
 let pushTmr=null;function pushResync(){if(!PUSH_CAN||!PUSH_URL||!S.get("pushOn",false))return;clearTimeout(pushTmr);pushTmr=setTimeout(()=>pushSubscribe(false).catch(()=>{}),800)}
@@ -2647,19 +2796,221 @@ function renderWeek(){const B=$("weekBody"),st=wkStats(wkView),me=(profiles().fi
 $("weekBody")&&$("weekBody").addEventListener("click",e=>{if(e.target.closest("#wkPrev")){wkView--;renderWeek();return}if(e.target.closest("#wkNext")){if(wkView<0)wkView++;renderWeek();return}
  const b=e.target.closest("[data-wki]");if(b&&!b.disabled){const id=b.dataset.wki,off=S.get("wkOff",[]);S.set("wkOff",off.includes(id)?off.filter(x=>x!==id):[...off,id]);renderWeek();renderWkCard()}});
 
+/* ================= «عافيتي» wellbeing tools + fasting + duas + memorization ================= */
+const WBD=()=>window.WB||{duas:[],emotions:[],traps:[],articles:[],joys:{ar:[],en:[]},kind:{ar:[],en:[]},sayno:[],ground:[],pmr:{ar:[],en:[]}};
+const L2=o=>o?(o[lang]!=null?o[lang]:o.ar):"";
+const TOOLS=[
+ ["calm1",[["breathe","🌬"],["ground","🖐"],["calm","🧊"],["pmr","💆"]]],
+ ["know",[["mood","🙂"],["emo","🎯"],["worry","🧺"],["traps","🧩"],["learn","📖"]]],
+ ["charge",[["night","🌙"],["box","🎁"],["wins","🏅"],["joy","🌻"],["kind","🤝"]]],
+ ["habits2",[["sleep","😴"],["detox","📵"],["focus","⏱"],["sayno","✋"]]],
+ ["faith",[["fast","🌙"],["duas","🤲"],["hifz","🧠"]]]];
+let curTool="mood",wTimer=null,wState={};
+function stopWT(){clearInterval(wTimer);wTimer=null}
+const MOODS5=["😞","😕","😐","🙂","😄"];
+const getMood=k=>(S.get("wb:mood",{})[k||dayKey()]||null);
+function setMood(v,note){const M=S.get("wb:mood",{});M[dayKey()]=Object.assign({},M[dayKey()]||{},{v});if(note!=null)M[dayKey()].n=note;S.set("wb:mood",M);award("md:"+dayKey(),3,"plans")}
+function moodFaces(sel){return `<div class="mfaces">${MOODS5.map((e,i)=>`<button data-mood="${i+1}" aria-pressed="${sel===i+1}">${e}</button>`).join("")}</div>`}
+function toolName(id){return t("wt_"+id)}
+function renderWell(){
+ const m=getMood();
+ $("wellBody").innerHTML=`<div class="card well-hero"><h2>🌿 ${t("wellT")}</h2><p class="muted" style="margin:0">${t("wellSub")}</p>
+  <span class="label" style="margin-top:6px">${t("moodQ")}</span>${moodFaces(m&&m.v)}${m?`<span class="label">${t("moodSaved")}</span>`:""}</div>
+ ${TOOLS.map(([g,L])=>`<div class="card"><h3 style="margin-bottom:10px">${t("wg_"+g)}</h3><div class="wtiles">${L.map(([id,ic])=>`<a class="wtile" href="#w-${id}"><span>${ic}</span><b>${toolName(id)}</b><small>${t("ws_"+id)}</small></a>`).join("")}</div></div>`).join("")}
+ <a class="card helpcard" href="#w-help"><span style="font-size:26px">☎️</span><div><b>${t("wt_help")}</b><div class="mean">${t("ws_help")}</div></div></a>`}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-mood]");if(!b)return;setMood(+b.dataset.mood);toast(t("moodSaved"));
+ if(!$("v-well").hidden)renderWell();if(!$("v-wt").hidden)renderTool();renderWellCard();if(+b.dataset.mood===1)setTimeout(()=>toast(t("lowMood")),1500)});
+function renderWellCard(){const C=$("wellCard");if(!C)return;const m=getMood();
+ C.innerHTML=`<div class="row" style="margin-bottom:6px"><h2><span class="hi g">🌿</span>${t("wellT")}</h2><a class="btn sm" href="#well">${t("open")}</a></div><span class="label">${t("moodQ")}</span>${moodFaces(m&&m.v)}`}
+function back(){return `<a class="btn sm" href="#well" style="justify-self:start">‹ ${t("wellT")}</a>`}
+function renderTool(){stopWT();const B=$("wtBody"),id=curTool,D=WBD();let h="";
+ const head=`<div class="card"><h2>${(TOOLS.flatMap(x=>x[1]).find(x=>x[0]===id)||[0,"☎️"])[1]} ${toolName(id)}</h2><p class="muted" style="margin:6px 0 0">${t("wd_"+id)}</p></div>`;
+ if(id==="mood"){const M=S.get("wb:mood",{}),days=[...Array(30).keys()].reverse().map(o=>dayKey(-o)),m=getMood();
+  const vals=days.map(k=>M[k]&&M[k].v||0),has=vals.filter(Boolean);
+  let ins="";const fj=[],nf_=[];Object.keys(M).forEach(k=>{if(!M[k].v)return;(getPrayed(k)[0]?fj:nf_).push(M[k].v)});
+  const avg=a=>a.reduce((x,y)=>x+y,0)/a.length;
+  if(fj.length>=4&&nf_.length>=3){const d=avg(fj)-avg(nf_);ins=d>0.3?t("insFajrUp"):d<-0.3?"":t("insFajrSame")}
+  h=head+`<div class="card"><span class="label">${t("moodQ")}</span>${moodFaces(m&&m.v)}<textarea class="field" id="moodNote" placeholder="${esc(t("moodNotePh"))}" style="min-height:70px;margin-top:8px">${esc(m&&m.n||"")}</textarea><button class="btn sm primary" id="moodSave" style="margin-top:8px">${t("save")}</button>
+   ${m&&m.v===1?`<a class="btn sm" href="#w-help" style="margin-top:8px">☎️ ${t("wt_help")}</a>`:""}</div>
+   <div class="card"><h3>${t("moodMonth")}</h3><div class="mchart">${vals.map((v,i)=>`<div title="${days[i]}"><i style="height:${v*20}%;background:${["","#C0392B","#E67E22","#BDB76B","#27AE60","#1E8449"][v]||"var(--line)"}"></i></div>`).join("")}</div>
+   <span class="label">${has.length?t("moodAvg",MOODS5[Math.round(avg(has))-1],has.length):t("moodNone")}</span>${ins?`<div class="wnote">💡 ${ins}</div>`:""}</div>`}
+ else if(id==="emo"){const sel=wState.emo,E=D.emotions.find(x=>x.id===sel);
+  h=head+`<div class="card"><div class="emogrid">${D.emotions.map(x=>`<button data-emo="${x.id}" aria-pressed="${x.id===sel}"><span>${x.ic}</span>${L2(x)}</button>`).join("")}</div></div>`+
+  (E?`<div class="card"><span class="label">${t("emoMore")}</span><div class="chips">${L2(E.sub).map((s,i)=>`<button class="chip" data-emos="${i}" aria-pressed="${wState.emos===i}">${s}</button>`).join("")}</div>
+   ${wState.emos!=null?`<div class="wnote" style="margin-top:10px">${t("emoNamed",L2(E.sub)[wState.emos])}</div>`:""}<p style="line-height:1.9;margin:10px 0">${L2(E.say)}</p>
+   <span class="label">${t("emoTry")}</span><div class="chips">${E.go.map(g=>`<a class="chip" href="#w-${g}">${toolName(g)}</a>`).join("")}</div></div>`:"")}
+ else if(id==="night"){const N=S.get("wb:night",{}),k=dayKey(),cur=N[k]||{};
+  h=head+`<div class="card form">${["g","l","b"].map(f=>`<label>${t("nq_"+f)}<textarea class="field" data-nf="${f}" style="min-height:64px">${esc(cur[f]||"")}</textarea></label>`).join("")}<button class="btn primary" id="nightSave">${t("save")}</button></div>
+   ${Object.keys(N).sort().reverse().slice(0,10).filter(d=>d!==k).map(d=>`<div class="card"><span class="label">${fmtD(new Date(d+"T12:00:00"),{weekday:"long",day:"numeric",month:"long"})}</span>${["g","l","b"].filter(f=>N[d][f]).map(f=>`<p style="margin:6px 0"><b>${t("nqs_"+f)}:</b> ${esc(N[d][f])}</p>`).join("")}</div>`).join("")}`}
+ else if(id==="worry"){const W=S.get("wb:worry",[]),st=wState.worry||{};
+  h=head+`<div class="card form">${!st.txt?`<label>${t("wq1")}<textarea class="field" id="wTxt" style="min-height:70px"></textarea></label><button class="btn primary" id="wNext">${t("next")}</button>`
+   :st.ctl==null?`<div class="wnote">«${esc(st.txt)}»</div><b>${t("wq2")}</b><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn primary" data-wctl="1">✋ ${t("wYes")}</button><button class="btn" data-wctl="0">🤲 ${t("wNo")}</button></div>`
+   :st.ctl?`<div class="wnote">«${esc(st.txt)}»</div><label>${t("wq3")}<input class="field" id="wStep" maxlength="80"></label><div style="display:flex;gap:8px"><button class="btn primary" id="wStepSave">${t("wAddTodo")}</button><button class="btn" id="wReset">${t("wDone")}</button></div>`
+   :`<div class="wnote">«${esc(st.txt)}»</div><div class="ayah" style="font-size:24px;text-align:center">﴿وَمَن يَتَوَكَّلۡ عَلَى ٱللَّهِ فَهُوَ حَسۡبُهُۥٓۚ﴾</div><div class="src">${lang==="ar"?"سورة الطلاق · ٣":"At-Talaq 65:3"}</div><p style="line-height:1.9">${t("wLetGo")}</p><button class="btn primary" id="wRelease">🕊 ${t("wRelease")}</button>`}</div>
+   ${W.length?`<div class="card"><h3>${t("wHist")}</h3>${W.slice(-8).reverse().map(x=>`<div class="wrow"><span>${x.ctl?"✋":"🕊"}</span><span>${esc(x.txt)}${x.step?`<br><small class="muted">→ ${esc(x.step)}</small>`:""}</span></div>`).join("")}</div>`:""}`}
+ else if(id==="breathe"){h=head+`<div class="card" style="text-align:center;display:grid;gap:12px;justify-items:center"><div class="bcirc" id="bcirc"><b id="bcT">${t("bStart")}</b><small id="bcS"></small></div><span class="label" id="bcN"></span><button class="btn primary" id="bcGo">${t("start")}</button></div>`}
+ else if(id==="ground"){const i=wState.g||0,G=D.ground;h=head+`<div class="card" style="text-align:center;display:grid;gap:14px;justify-items:center">${i<G.length?`<div class="gnum">${nf(G[i].n)}</div><b style="font-size:18px">${L2(G[i])}</b><div class="gdots">${G.map((_,j)=>`<i class="${j<=i?"on":""}"></i>`).join("")}</div><button class="btn primary" id="gNext">${t("gDone")}</button>`:`<div style="font-size:48px">🌿</div><b>${t("gEnd")}</b><button class="btn" id="gAgain">${t("again")}</button>`}</div>`}
+ else if(id==="calm"){h=head+`<div class="card" style="text-align:center;display:grid;gap:14px;justify-items:center"><div class="cring" id="cring"><b id="cT">٩٠</b></div><div class="stop">${["S","T","O","P"].map((x,i)=>`<div><b>${x}</b>${t("stop"+i)}</div>`).join("")}</div><button class="btn primary" id="cGo">${t("start")}</button></div>`}
+ else if(id==="pmr"){h=head+`<div class="card" style="text-align:center;display:grid;gap:12px;justify-items:center"><div class="bcirc" id="pmc"><b id="pmT">💆</b><small id="pmS"></small></div><span class="label" id="pmN"></span><button class="btn primary" id="pmGo">${t("start")}</button></div>`}
+ else if(id==="traps"){const R=S.get("wb:thoughts",[]);h=head+`<div class="card"><h3>${t("trLearn")}</h3>${D.traps.map(x=>`<details class="trap"><summary><b>${L2(x)}</b></summary><p>${L2(x.d)}</p><p class="muted">${t("trEx")}: ${L2(x.ex)}</p><p>💭 ${L2(x.q)}</p></details>`).join("")}</div>
+   <div class="card form"><h3>${t("trRec")}</h3><label>${t("trSit")}<input class="field" id="trS" maxlength="120"></label><label>${t("trTh")}<textarea class="field" id="trT" style="min-height:60px"></textarea></label>
+   <label>${t("trWhich")}<select class="field" id="trW"><option value="">—</option>${D.traps.map(x=>`<option value="${x.id}">${L2(x)}</option>`).join("")}</select></label><div class="wnote" id="trQ" hidden></div>
+   <label>${t("trBal")}<textarea class="field" id="trB" style="min-height:60px"></textarea></label><button class="btn primary" id="trSave">${t("save")}</button></div>
+   ${R.slice(-5).reverse().map(x=>`<div class="card"><span class="label">${esc(x.s||"")}</span><p style="margin:6px 0;text-decoration:line-through;opacity:.7">${esc(x.t)}</p><p style="margin:0">✅ ${esc(x.b)}</p></div>`).join("")}`}
+ else if(id==="learn"){const a=D.articles.find(x=>x.id===wState.art);h=a?`${`<a class="btn sm" href="#w-learn" data-art="" style="justify-self:start">‹ ${toolName("learn")}</a>`}<div class="card"><h2>${a.ic} ${L2(a)}</h2><ul class="artl">${L2(a.b).map(x=>`<li>${x}</li>`).join("")}</ul><div class="wnote">🩺 ${L2(a.help)}</div></div>`
+   :head+`<div class="wtiles">${D.articles.map(x=>`<button class="wtile" data-art="${x.id}"><span>${x.ic}</span><b>${L2(x)}</b></button>`).join("")}</div>`}
+ else if(id==="box"){const X=S.get("wb:box",[]),r=wState.boxPick;h=head+`<div class="card form"><div class="seg" id="boxType">${["kind","win","joy"].map(k=>`<button data-bt="${k}" aria-pressed="${(wState.bt||"kind")===k}">${t("bt_"+k)}</button>`).join("")}</div><textarea class="field" id="boxTxt" placeholder="${esc(t("boxPh"))}" style="min-height:70px"></textarea><button class="btn primary" id="boxAdd">🎁 ${t("boxAdd")}</button></div>
+   ${X.length?`<div class="card" style="text-align:center;display:grid;gap:10px"><button class="btn gold" id="boxOpen">✨ ${t("boxOpen")}</button>${r!=null&&X[r]?`<div class="boxpick"><small>${t("bt_"+X[r].k)} · ${fmtD(new Date(X[r].at),{day:"numeric",month:"long",year:"numeric"})}</small><p>${esc(X[r].t)}</p></div>`:""}<span class="label">${t("boxCount",X.length)}</span></div>`:""}`}
+ else if(id==="wins"){const X=S.get("wb:wins",[]),today=X.filter(x=>x.d===dayKey());h=head+`<div class="card form"><input class="field" id="winTxt" maxlength="100" placeholder="${esc(t("winPh"))}"><button class="btn primary" id="winAdd">🏅 ${t("winAdd")}</button><span class="label">${t("winCount",X.length)}</span></div>
+   ${X.length?`<div class="card">${X.slice(-20).reverse().map(x=>`<div class="wrow"><span>🏅</span><span>${esc(x.t)}<br><small class="muted">${fmtD(new Date(x.d+"T12:00:00"),{day:"numeric",month:"short"})}</small></span></div>`).join("")}</div>`:""}`}
+ else if(id==="joy"){const A=L2(D.joys),H=S.get("wb:joy",[]),cur=wState.joy;const last=H.filter(x=>x.after);const gain=last.length?last.reduce((a,x)=>a+(x.after-x.before),0)/last.length:0;
+  h=head+(cur==null?`<div class="card"><span class="label">${t("joyPick")}</span><div class="chips">${A.map((a,i)=>`<button class="chip" data-joy="${i}">${a}</button>`).join("")}</div></div>`
+   :`<div class="card form"><b style="font-size:18px">🌻 ${A[cur.i]}</b>${cur.before==null?`<span class="label">${t("joyBefore")}</span>${moodPick("jb")}`:`<span class="label">${t("joyGo")}</span><span class="label">${t("joyAfter")}</span>${moodPick("ja")}`}<button class="btn sm" id="joyX">${t("cancel")}</button></div>`)+
+   (last.length?`<div class="card"><span class="label">${t("joyStat",last.length)}</span>${gain>0?`<div class="wnote">📈 ${t("joyGain",gain.toFixed(1))}</div>`:""}</div>`:"")}
+ else if(id==="kind"){const A=L2(D.kind),i=dayOfYear()%A.length,K=S.get("wb:kind",{}),done=!!K[dayKey()];let st=0;for(let o=0;o>-400;o--){if(K[dayKey(o)])st++;else if(o===0)continue;else break}
+  h=head+`<div class="card" style="text-align:center;display:grid;gap:12px"><span class="label">${t("kindToday")}</span><div style="font-size:21px;font-family:var(--f-disp);font-weight:700;line-height:1.6">${A[i]}</div><button class="btn ${done?"":"primary"}" id="kindDone">${done?"✓ "+t("kindDid"):t("kindMark")}</button>${st>1?`<span class="label">🔥 ${t("wirdStreak",st)}</span>`:""}</div>`}
+ else if(id==="sayno"){h=head+D.sayno.map(x=>`<div class="card"><h3>${L2(x)}</h3><ul class="artl">${L2(x.p).map(p=>`<li>${p}</li>`).join("")}</ul></div>`).join("")+`<div class="wnote">${t("snTip")}</div>`}
+ else if(id==="sleep"){const Z=S.get("wb:sleep",{}),k=dayKey(),z=Z[k]||{},R=S.get("sleepRem",{on:false,at:1350}),hh=m=>String(Math.floor(m/60)).padStart(2,"0")+":"+String(m%60).padStart(2,"0");
+  const dur=x=>{if(!x.bed||!x.wake)return 0;const [a,b]=x.bed.split(":").map(Number),[c,d]=x.wake.split(":").map(Number);let m=(c*60+d)-(a*60+b);if(m<=0)m+=1440;return m/60};
+  const last=[...Array(7).keys()].map(o=>Z[dayKey(-o)]).filter(x=>x&&dur(x)),av=last.length?last.reduce((a,x)=>a+dur(x),0)/last.length:0;
+  h=head+`<div class="card form"><b>${t("slLast")}</b><div style="display:flex;gap:10px;flex-wrap:wrap"><label>${t("slBed")}<input type="time" class="field" id="slB" value="${z.bed||"23:30"}"></label><label>${t("slWake")}<input type="time" class="field" id="slW" value="${z.wake||"07:00"}"></label></div><button class="btn primary" id="slSave">${t("save")}</button>
+   ${last.length?`<span class="label">${t("slAvg",av.toFixed(1),last.length)}</span>${av<6.5?`<div class="wnote">💡 ${t("slLow")}</div>`:""}`:""}</div>
+   <div class="card">${NATIVE?"":`<label class="wrem"><input type="checkbox" id="slRemOn" ${R.on?"checked":""}> ${t("slRem")} <input type="time" id="slRemAt" value="${hh(R.at)}"></label>${R.on&&!S.get("pushOn",false)?`<span class="label" style="color:var(--warn)">${t("wirdRemNeed")}</span>`:""}`}
+   <a class="btn sm" href="#w-learn" data-art="sleep" style="margin-top:8px">📖 ${t("slTips")}</a></div>`}
+ else if(id==="detox"){const X=S.get("wb:detox",null),now=Date.now();
+  if(X&&X.end>now)h=head+`<div class="card" style="text-align:center;display:grid;gap:12px;justify-items:center"><div class="cring"><b id="dxT"></b></div><b>${t("dxGo")}</b><button class="btn sm" id="dxStop">${t("dxStop")}</button></div>`;
+  else{if(X&&X.end<=now&&!X.ok){X.ok=1;S.set("wb:detox",X);award("dx:"+X.end,10,"plans");const C=S.get("wb:detoxN",0)+1;S.set("wb:detoxN",C);setTimeout(()=>toast(t("dxWin")),300)}
+   h=head+`<div class="card" style="text-align:center;display:grid;gap:12px"><span class="label">${t("dxPick")}</span><div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">${[15,30,60,120].map(m=>`<button class="btn" data-dx="${m}">${t("dxMin",m)}</button>`).join("")}</div><span class="label">${t("dxCount",S.get("wb:detoxN",0))}</span></div>`}}
+ else if(id==="focus"){const F=wState.focus;h=head+`<div class="card" style="text-align:center;display:grid;gap:12px;justify-items:center"><div class="cring ${F&&F.br?"br":""}"><b id="fcT">${F?"":"٢٥:٠٠"}</b></div><b id="fcS">${F?(F.br?t("fcBreak"):t("fcWork")):t("fcReady")}</b><span class="label" id="fcTip">${F&&F.br?t("fcTip"):""}</span>
+   <div style="display:flex;gap:8px">${F?`<button class="btn" id="fcStop">${t("dxStop")}</button>`:`<button class="btn primary" id="fcGo">${t("start")}</button>`}</div><span class="label">${t("fcDone",S.get("wb:focusN",0))}</span></div>`}
+ else if(id==="help"){h=`<div class="card helpbig"><h2>☎️ ${toolName("help")}</h2><p style="line-height:1.9">${t("helpTxt")}</p>
+   <a class="btn primary" href="tel:16328">📞 16328 · ${t("helpLine")}</a><a class="btn" href="tel:08008880700">📞 08008880700 · ${t("helpFree")}</a><a class="btn danger" href="tel:123">🚑 123 · ${t("helpAmb")}</a>
+   <p class="muted" style="font-size:13px;line-height:1.8">${t("helpNote")}</p></div><div class="card"><h3>${t("helpNow")}</h3><div class="chips"><a class="chip" href="#w-breathe">${toolName("breathe")}</a><a class="chip" href="#w-ground">${toolName("ground")}</a><a class="chip" href="#w-box">${toolName("box")}</a></div></div>`}
+ else if(id==="fast"){const F=S.get("fast:log",{}),q=S.get("fast:qada",0),k=dayKey(),R=S.get("fastRem",{on:false,at:1260}),hh=m=>String(Math.floor(m/60)).padStart(2,"0")+":"+String(m%60).padStart(2,"0");
+  const up=fastDays(30).slice(0,8);const mon=Object.keys(F).filter(d=>d.slice(0,7)===k.slice(0,7)).length;
+  h=head+`<div class="card" style="display:grid;gap:10px"><div class="row"><b>${t("fToday")}</b><button class="btn ${F[k]?"":"primary"}" id="fMark">${F[k]?"✓ "+t("fDid"):t("fMark")}</button></div><span class="label">${t("fMonth",mon)}</span></div>
+   <div class="card"><h3>${t("fUp")}</h3>${up.map(x=>`<div class="wrow"><span>🌙</span><span><b>${fmtD(new Date(x.k+"T12:00:00"),{weekday:"long",day:"numeric",month:"long"})}</b><br><small class="muted">${x.why.map(w=>t("fw_"+w)).join(" · ")}</small></span></div>`).join("")||`<p class="muted">—</p>`}
+   ${NATIVE?"":`<label class="wrem" style="margin-top:10px"><input type="checkbox" id="fRemOn" ${R.on?"checked":""}> ${t("fRem")} <input type="time" id="fRemAt" value="${hh(R.at)}"></label>${R.on&&!S.get("pushOn",false)?`<span class="label" style="color:var(--warn)">${t("wirdRemNeed")}</span>`:""}`}</div>
+   <div class="card"><h3>${t("fQada")}</h3><div class="kbn" style="justify-content:center"><button class="btn sm" data-fq="-1">−</button><b style="font-size:26px">${nf(q)}</b><button class="btn sm" data-fq="1">+</button></div><span class="label" style="display:block;text-align:center">${t("fQadaSub")}</span></div>`}
+ else if(id==="duas"){const open=wState.dua;h=head+D.duas.map(c=>`<div class="card dua-c"><button class="dua-h" data-dua="${c.id}"><span>${c.ic}</span><b>${L2(c)}</b><span>${open===c.id?"▴":"▾"}</span></button>${open===c.id?c.items.map(x=>`<div class="dua"><div class="ar">${x.t}</div>${lang!=="ar"?`<div class="mean">${esc(x.m)}</div>`:""}<div class="label" style="margin-top:4px">${x.s}</div></div>`).join(""):""}</div>`).join("")}
+ else if(id==="hifz"){const sn=wState.hs||S.get("hifzS",67),lv=wState.hl||1,rev=wState.rev||{};
+  const words=[];const [a]=[gi(sn,1)];for(let g=a;g<a+Q.s[sn-1][4];g++){Q.v[g].split(/\s+/).filter(Boolean).forEach((w,j)=>words.push({w,g,j}));words.push({end:g})}
+  let n=0;const body=words.map(x=>{if(x.end!=null)return `<span class="end">${toAr(fromG(x.end)[1])}</span> `;const i=n++;const hide=lv===1?i%3===2:lv===2?i%2===1:x.j>0;return hide&&!rev[i]?`<span class="hw" data-hw="${i}">${"ـ".repeat(Math.min(6,Math.max(2,Math.round(x.w.length/2))))}</span> `:`<span>${x.w}</span> `}).join("");
+  h=head+`<div class="card form"><label>${t("hzSurah")}<select class="field" id="hzS">${Q.s.map((x,i)=>`<option value="${i+1}" ${i+1===sn?"selected":""}>${nf(i+1)}. ${sName(i+1)}</option>`).join("")}</select></label>
+   <div class="seg">${[1,2,3].map(l=>`<button data-hl="${l}" aria-pressed="${l===lv}">${t("hzL"+l)}</button>`).join("")}</div>
+   <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" id="hzAll">${t("hzReveal")}</button><button class="btn sm" id="hzPlay">🔁 ${t("hzListen")}</button></div></div>
+   <div class="card"><div class="mushaf hifz" dir="rtl">${body}</div></div><p class="muted" style="font-size:12px;text-align:center">${t("hzTip")}</p>`}
+ B.innerHTML=back()+h;
+ if(id==="breathe")wState.bc=0;
+}
+function moodPick(p){return `<div class="mfaces">${MOODS5.map((e,i)=>`<button data-${p}="${i+1}">${e}</button>`).join("")}</div>`}
+/* sunnah fasting days in the next N days (skipping Eid and Tashreeq days) */
+function fastDays(N){const out=[];for(let o=1;o<=N;o++){const dt=new Date(Date.now()+o*864e5),k=dayKey(o),h=hijri(dt,TZ()),wd=new Intl.DateTimeFormat("en-US",{timeZone:TZ(),weekday:"short"}).format(dt),why=[];
+  const forbidden=(h.m===10&&h.d===1)||(h.m===12&&h.d>=10&&h.d<=13);if(forbidden||h.m===9)continue;
+  if(wd==="Mon")why.push("mon");if(wd==="Thu")why.push("thu");if(h.d>=13&&h.d<=15)why.push("white");if(h.m===12&&h.d===9)why.push("arafa");if(h.m===1&&(h.d===9||h.d===10))why.push("ashura");if(h.m===10&&h.d>=2)why.push("shawwal");
+  if(why.length)out.push({k,o,why})}return out}
+function remsPush(){const out=[],F=S.get("fastRem",{on:false,at:1260}),Z=S.get("sleepRem",{on:false,at:1350});
+ if(F.on){const dates=fastDays(40).map(x=>dayKey(x.o-1));out.push({id:"fast",at:F.at,title:lang==="ar"?"🌙 بكرة يوم صيام":"🌙 Tomorrow is a fasting day",text:lang==="ar"?"نوي الصيام واتسحّر ولو بشربة مية":"Intend to fast and have suhoor, even a sip of water",dates})}
+ if(Z.on)out.push({id:"sleep",at:Z.at,title:lang==="ar"?"😴 ابدأ تهدى":"😴 Time to wind down",text:lang==="ar"?"سيب الموبايل، اتوضى، وقول أذكار النوم":"Put the phone down, make wudu and say the sleep adhkar"});
+ return out}
+/* tool interactions */
+document.addEventListener("click",async e=>{if($("v-wt").hidden)return;const q=s=>e.target.closest(s);let b;
+ if(b=q("#moodSave")){const v=(getMood()||{}).v;if(!v){toast(t("moodPickFirst"));return}setMood(v,$("moodNote").value.trim());toast(t("saved"));return}
+ if(b=q("[data-emo]")){wState.emo=b.dataset.emo;wState.emos=null;renderTool();return}
+ if(b=q("[data-emos]")){wState.emos=+b.dataset.emos;renderTool();return}
+ if(q("#nightSave")){const N=S.get("wb:night",{}),o={};document.querySelectorAll("[data-nf]").forEach(x=>{if(x.value.trim())o[x.dataset.nf]=x.value.trim()});if(!Object.keys(o).length)return;N[dayKey()]=o;S.set("wb:night",N);award("nt:"+dayKey(),5,"plans");toast(t("nightSaved"));renderTool();return}
+ if(q("#wNext")){const v=$("wTxt").value.trim();if(!v)return;wState.worry={txt:v};renderTool();return}
+ if(b=q("[data-wctl]")){wState.worry.ctl=b.dataset.wctl==="1";renderTool();return}
+ if(q("#wStepSave")){const st=wState.worry,step=$("wStep").value.trim();if(!step)return;const W=S.get("wb:worry",[]);W.push({txt:st.txt,ctl:1,step,at:Date.now()});S.set("wb:worry",W);
+  const L=getTd();L.push({id:"w"+Date.now().toString(36),text:step,cat:"life",done:false});setTd(L);renderTodoCard();toast(t("wAdded"));wState.worry=null;renderTool();return}
+ if(q("#wReset")){wState.worry=null;renderTool();return}
+ if(q("#wRelease")){const W=S.get("wb:worry",[]);W.push({txt:wState.worry.txt,ctl:0,at:Date.now()});S.set("wb:worry",W);const c=document.querySelector("#wtBody .wnote");if(c)c.classList.add("fly");setTimeout(()=>{wState.worry=null;toast(t("wReleased"));renderTool()},900);return}
+ if(q("#bcGo")){if(wTimer){stopWT();$("bcGo").textContent=t("start");return}$("bcGo").textContent=t("dxStop");let s=0;const P=[[4,"in"],[2,"hold"],[6,"out"]],tot=12;
+  const tick=()=>{const x=s%tot,ph=x<4?0:x<6?1:2,c=$("bcirc");if(!c){stopWT();return}c.className="bcirc "+["in","hold","out"][ph];$("bcT").textContent=[t("bcIn"),t("bcHold"),t("bcOut")][ph];$("bcS").textContent=[lang==="ar"?"سبحان الله":"SubhanAllah","",lang==="ar"?"الحمد لله":"Alhamdulillah"][ph];$("bcN").textContent=t("bcRounds",Math.floor(s/tot));s++};tick();wTimer=setInterval(tick,1000);return}
+ if(q("#gNext")){wState.g=(wState.g||0)+1;renderTool();return}
+ if(q("#gAgain")){wState.g=0;renderTool();return}
+ if(q("#cGo")){let s=90;stopWT();const tick=()=>{const el=$("cT");if(!el){stopWT();return}el.textContent=nf(s);$("cring").style.setProperty("--p",(90-s)/90);if(s<=0){stopWT();el.textContent="🌿";toast(t("calmEnd"))}s--};tick();wTimer=setInterval(tick,1000);return}
+ if(q("#pmGo")){const P=L2(WBD().pmr);let s=0;stopWT();const per=15;const tick=()=>{const i=Math.floor(s/per),x=s%per;if(!$("pmT")){stopWT();return}if(i>=P.length){stopWT();$("pmT").textContent="🌿";$("pmS").textContent=t("pmEnd");return}
+   $("pmc").className="bcirc "+(x<5?"in":"out");$("pmT").textContent=x<5?t("pmTense"):t("pmRelax");$("pmS").textContent=P[i];$("pmN").textContent=`${nf(i+1)} / ${nf(P.length)}`;s++};tick();wTimer=setInterval(tick,1000);return}
+ if(q("#trSave")){const tt=$("trT").value.trim(),bb=$("trB").value.trim();if(!tt||!bb){toast(t("trNeed"));return}const R=S.get("wb:thoughts",[]);R.push({s:$("trS").value.trim(),t:tt,w:$("trW").value,b:bb,at:Date.now()});S.set("wb:thoughts",R);award("tr:"+dayKey(),5,"plans");toast(t("saved"));renderTool();return}
+ if(b=q("[data-art]")){wState.art=b.dataset.art||null;if(b.tagName!=="A"||location.hash==="#w-learn"){e.preventDefault();renderTool()}return}
+ if(b=q("[data-bt]")){wState.bt=b.dataset.bt;renderTool();return}
+ if(q("#boxAdd")){const v=$("boxTxt").value.trim();if(!v)return;const X=S.get("wb:box",[]);X.push({k:wState.bt||"kind",t:v,at:Date.now()});S.set("wb:box",X);toast("🎁 "+t("saved"));renderTool();return}
+ if(q("#boxOpen")){const X=S.get("wb:box",[]);let r;do{r=Math.floor(Math.random()*X.length)}while(X.length>1&&r===wState.boxPick);wState.boxPick=r;renderTool();return}
+ if(q("#winAdd")){const v=$("winTxt").value.trim();if(!v)return;const X=S.get("wb:wins",[]);X.push({d:dayKey(),t:v});S.set("wb:wins",X);award("wn:"+dayKey(),3,"plans");toast("🏅 "+t("winToast"));renderTool();return}
+ if(b=q("[data-joy]")){wState.joy={i:+b.dataset.joy};renderTool();return}
+ if(b=q("[data-jb]")){wState.joy.before=+b.dataset.jb;renderTool();return}
+ if(b=q("[data-ja]")){const H=S.get("wb:joy",[]);H.push(Object.assign({},wState.joy,{after:+b.dataset.ja,d:dayKey()}));S.set("wb:joy",H);award("jy:"+dayKey(),5,"plans");toast(t("joyThanks"));wState.joy=null;renderTool();return}
+ if(q("#joyX")){wState.joy=null;renderTool();return}
+ if(q("#kindDone")){const K=S.get("wb:kind",{});if(K[dayKey()])delete K[dayKey()];else{K[dayKey()]=1;award("kd:"+dayKey(),5,"plans");toast(t("kindToast"))}S.set("wb:kind",K);renderTool();return}
+ if(q("#slSave")){const Z=S.get("wb:sleep",{});Z[dayKey()]={bed:$("slB").value,wake:$("slW").value};S.set("wb:sleep",Z);toast(t("saved"));renderTool();return}
+ if(b=q("[data-dx]")){S.set("wb:detox",{end:Date.now()+ +b.dataset.dx*60000,min:+b.dataset.dx});renderTool();detoxTick();return}
+ if(q("#dxStop")){S.set("wb:detox",null);renderTool();return}
+ if(q("#fcGo")){wState.focus={br:0,end:Date.now()+25*60000};renderTool();focusTick();return}
+ if(q("#fcStop")){wState.focus=null;stopWT();renderTool();return}
+ if(q("#fMark")){const F=S.get("fast:log",{}),k=dayKey();if(F[k])delete F[k];else{F[k]=1;award("fs:"+k,20,"plans");toast(t("fToast"))}S.set("fast:log",F);renderTool();return}
+ if(b=q("[data-fq]")){S.set("fast:qada",Math.max(0,S.get("fast:qada",0)+ +b.dataset.fq));renderTool();return}
+ if(b=q("[data-dua]")){wState.dua=wState.dua===b.dataset.dua?null:b.dataset.dua;renderTool();return}
+ if(b=q("[data-hl]")){wState.hl=+b.dataset.hl;wState.rev={};renderTool();return}
+ if(b=q("[data-hw]")){wState.rev=wState.rev||{};wState.rev[b.dataset.hw]=1;b.outerHTML=`<span class="rv">${"…"}</span>`;renderTool();return}
+ if(q("#hzAll")){wState.hl=0;renderTool();return}
+ if(q("#hzPlay")){const sn=wState.hs||S.get("hifzS",67);playFrom(gi(sn,1),gi(sn,Q.s[sn-1][4]));return}
+});
+document.addEventListener("change",e=>{if($("v-wt").hidden)return;const x=e.target;
+ if(x.id==="trW"){const tr=WBD().traps.find(y=>y.id===x.value),el=$("trQ");if(tr){el.hidden=false;el.textContent="💭 "+L2(tr.q)}else el.hidden=true}
+ if(x.id==="hzS"){wState.hs=+x.value;S.set("hifzS",wState.hs);wState.rev={};renderTool()}
+ if(x.id==="slRemOn"||x.id==="slRemAt"){const [h,m]=($("slRemAt").value||"22:30").split(":").map(Number);S.set("sleepRem",{on:$("slRemOn").checked,at:h*60+m});pushResync();if($("slRemOn").checked&&S.get("pushOn",false))toast(t("wirdRemOn"));renderTool()}
+ if(x.id==="fRemOn"||x.id==="fRemAt"){const [h,m]=($("fRemAt").value||"21:00").split(":").map(Number);S.set("fastRem",{on:$("fRemOn").checked,at:h*60+m});pushResync();if($("fRemOn").checked&&S.get("pushOn",false))toast(t("wirdRemOn"));renderTool()}});
+function detoxTick(){stopWT();const f=()=>{const X=S.get("wb:detox",null),el=$("dxT");if(!X||!el){stopWT();return}const s=Math.max(0,Math.round((X.end-Date.now())/1000));el.textContent=nf(Math.floor(s/60))+":"+nf(String(s%60).padStart(2,"0"));if(s<=0){stopWT();renderTool()}};f();wTimer=setInterval(f,1000)}
+function focusTick(){stopWT();const f=()=>{const F=wState.focus,el=$("fcT");if(!F||!el){stopWT();return}let s=Math.round((F.end-Date.now())/1000);
+  if(s<=0){if(!F.br){S.set("wb:focusN",S.get("wb:focusN",0)+1);award("fc:"+Date.now(),5,"plans");F.br=1;F.end=Date.now()+5*60000;try{navigator.vibrate&&navigator.vibrate([200,100,200])}catch(_){}toast(t("fcBreakT"))}else{F.br=0;F.end=Date.now()+25*60000;toast(t("fcBackT"))}renderTool();focusTick();return}
+  el.textContent=nf(Math.floor(s/60))+":"+nf(String(s%60).padStart(2,"0"))};f();wTimer=setInterval(f,1000)}
+document.addEventListener("visibilitychange",()=>{if(!document.hidden&&!$("v-wt").hidden&&(curTool==="detox"||curTool==="focus"))renderTool(),curTool==="detox"?detoxTick():wState.focus&&focusTick()});
+
+/* ===== Ramadan card ===== */
+function renderRamadan(){const C=$("ramCard");if(!C)return;const now=new Date(),h=hijri(now,TZ()),test=/[?&]ramadan\b/.test(location.search);
+ if(h.m!==9&&!test){C.hidden=true;return}C.hidden=false;const tt=todayTimes(0),c=city();let target,label;
+ if(now<tt[0]){target=tt[0];label=t("ramSuhoor")}else if(now<tt[4]){target=tt[4];label=t("ramIftar")}else{target=todayTimes(1)[0];label=t("ramSuhoor")}
+ const s=Math.max(0,Math.floor((target-now)/1000)),cd=[Math.floor(s/3600),Math.floor(s%3600/60),s%60].map(x=>String(x).padStart(2,"0")).join(":"),day=h.m===9?h.d:1;
+ C.innerHTML=`<div class="row"><h2><span class="hi g">🌙</span>${t("ramT",day)}</h2><span class="badge gold">${label}</span></div>
+  <div class="ramcd">${cd}</div><span class="label">${t("ramAt",label,fmtT(target,c[4]))}</span>
+  <div class="dua" style="margin-top:8px"><div class="ar" style="font-size:18px">ذَهَبَ الظَّمَأُ، وَابْتَلَّتِ الْعُرُوقُ، وَثَبَتَ الْأَجْرُ إِنْ شَاءَ اللَّهُ</div><div class="label">${t("ramIftarDua")} · أبو داود</div></div>
+  ${day>=21?`<div class="wnote">✨ ${t("ramLast")}<br><b style="font-family:var(--f-quran)">اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي</b> <small class="muted">(الترمذي)</small></div>`:""}
+  <a class="btn sm" href="#prayer" style="margin-top:8px">📅 ${t("ramImsak")}</a>`}
+
+/* ===== Mushaf extras: tafsir, repeat for memorization, share ayah as image ===== */
+let tafLoading=null;
+function loadTafsir(){if(window.TAFSIR)return Promise.resolve();if(tafLoading)return tafLoading;tafLoading=new Promise((res,rej)=>{const s=document.createElement("script");s.src="data/tafsir.js";s.onload=res;s.onerror=()=>{tafLoading=null;rej()};document.head.appendChild(s)});return tafLoading}
+function showTafsir(g){const box=$("tafBox");box.hidden=false;box.innerHTML=`<span class="label">${t("tafLoading")}</span>`;
+ loadTafsir().then(()=>{const [s,a]=fromG(g);box.innerHTML=`<b>${t("tafT")}</b><p>${esc(window.TAFSIR[g]||"")}</p><span class="label">${t("tafSrc")}</span>`},()=>{box.innerHTML=`<span class="label" style="color:var(--warn)">${t("tafErr")}</span>`})}
+let repLeft=0;
+async function shareAyahImage(g){const [s,a]=fromG(g),W=1080,H=1350,cv=document.createElement("canvas");cv.width=W;cv.height=H;const x=cv.getContext("2d");
+ try{await document.fonts.load('60px "KFGQPC HAFS"');await document.fonts.load('700 40px Cairo')}catch(_){}
+ const gr=x.createRadialGradient(W/2,H*.3,50,W/2,H*.4,H);gr.addColorStop(0,"#13704F");gr.addColorStop(1,"#05241A");x.fillStyle=gr;x.fillRect(0,0,W,H);
+ x.strokeStyle="rgba(226,179,90,.55)";x.lineWidth=3;const r=60;x.beginPath();x.roundRect?x.roundRect(44,44,W-88,H-88,[r,r,30,30]):x.rect(44,44,W-88,H-88);x.stroke();
+ x.direction="rtl";x.textAlign="center";x.fillStyle="#FFF8E6";let fs=Q.v[g].length>220?52:Q.v[g].length>120?62:74;x.font=`${fs}px "KFGQPC HAFS", Amiri, serif`;
+ const words=(Q.v[g]+" "+toAr(a)).split(" "),lines=[];let cur="";words.forEach(w=>{const tr=cur?cur+" "+w:w;if(x.measureText(tr).width>W-220){lines.push(cur);cur=w}else cur=tr});if(cur)lines.push(cur);
+ const lh=fs*1.9,top=H/2-lines.length*lh/2;lines.forEach((l,i)=>x.fillText(l,W/2,top+i*lh+fs));
+ x.font='700 34px Cairo, sans-serif';x.fillStyle="#E2B35A";x.fillText((lang==="ar"?"سورة ":"")+Q.s[s-1][0]+" · "+toAr(a),W/2,top+lines.length*lh+50);
+ x.font='800 44px Cairo, sans-serif';x.fillStyle="#F3D99B";x.fillText("اطمئن",W/2,H-110);x.font='600 26px Cairo, sans-serif';x.fillStyle="rgba(255,255,255,.7)";x.direction="ltr";x.fillText("etmaen.pages.dev",W/2,H-70);
+ const blob=await new Promise(r=>cv.toBlob(r,"image/png")),file=new File([blob],`etmaen-${s}-${a}.png`,{type:"image/png"});
+ if(navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:"اطمئن"});return}catch(_){}}
+ const u=URL.createObjectURL(blob),l=document.createElement("a");l.href=u;l.download=file.name;document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);toast(t("imgSaved"))}
+
 /* ================= router ================= */
 let qReadT=null;
-const VIEWS=["week","home","prayer","azkar","tasbeeh","more","quran","read","names","zakat","occasions","wasl","stories","prophet","plans","plan","rewards","quiz","sunan","sunnah","todo","safe"];
-const NAVOF={names:"more",zakat:"more",occasions:"more",wasl:"more",tasbeeh:"azkar",read:"quran",stories:"more",prophet:"more",plans:"more",plan:"more",rewards:"home",todo:"home",week:"home",safe:"home",quiz:"more",sunan:"more",sunnah:"more"};
-function route(){if(KID){kidRoute();return}document.body.classList.toggle("reading",/^#(s\d+|pg\d+)$/.test(location.hash));let v=location.hash.slice(1),m=/^s(\d{1,3})$/.exec(v),pm=/^p-([a-z]+)$/.exec(v),sm=/^sunnah-([a-z]+)$/.exec(v),plm=/^plan-([a-z0-9]+)$/.exec(v);
+const VIEWS=["well","wt","week","home","prayer","azkar","tasbeeh","more","quran","read","names","zakat","occasions","wasl","stories","prophet","plans","plan","rewards","quiz","sunan","sunnah","todo","safe"];
+const NAVOF={names:"more",zakat:"more",occasions:"more",wasl:"more",tasbeeh:"azkar",read:"quran",stories:"more",prophet:"more",plans:"more",plan:"more",rewards:"home",todo:"home",week:"home",well:"home",wt:"home",safe:"home",quiz:"more",sunan:"more",sunnah:"more"};
+function route(){if(KID){kidRoute();return}document.body.classList.toggle("reading",/^#(s\d+|pg\d+)$/.test(location.hash));let v=location.hash.slice(1),m=/^s(\d{1,3})$/.exec(v),pm=/^p-([a-z]+)$/.exec(v),sm=/^sunnah-([a-z]+)$/.exec(v),plm=/^plan-([a-z0-9]+)$/.exec(v),wtm=/^w-([a-z]+)$/.exec(v);
  const pgm=/^pg(\d{1,3})$/.exec(v);
  if(m&&+m[1]>=1&&+m[1]<=114){const sn=+m[1];if(pendingAyah==null)pendingAyah=null;const stp=S.get("stopAt",null);if(!pendingAyah&&stp&&fromG(stp.g)[0]===sn&&!sessionStorage.getItem("noStopJump")){pendingAyah=fromG(stp.g)[1];toast(t("backToStop"))}
   const g=gi(sn,pendingAyah||1);curPage=pageOf(g);if(!pendingAyah)pendingSurah=sn;pendingAyah=pendingAyah?g:null;v="read"}
  else if(pgm&&+pgm[1]>=1&&+pgm[1]<=NPAGES){curPage=+pgm[1];v="read"}else if(pm){v="prophet"}else if(sm){curSunCat=sm[1];v="sunnah"}else if(plm){if(curPlan!==plm[1]){wkOff=0;itDaysSel=[0,1,2,3,4,5,6];$("planDel").dataset.sure="";$("planDel").textContent=t("delPlan")}curPlan=plm[1];v="plan"}
- else if(!VIEWS.includes(v)||["read","prophet","plan","sunnah"].includes(v))v="home";
+ else if(wtm){if(curTool!==wtm[1]){wState={};}curTool=wtm[1];v="wt"}
+ else if(!VIEWS.includes(v)||["read","prophet","plan","sunnah","wt"].includes(v))v="home";
  VIEWS.forEach(x=>$("v-"+x).hidden=x!==v);closeSheet();
  document.querySelectorAll("nav.tabs a").forEach(a=>a.setAttribute("aria-current",a.dataset.v===(NAVOF[v]||v)?"page":"false"));
- if(v==="prayer")renderPrayer();if(v==="occasions")renderOcc();if(v==="azkar")renderAzkar();if(v==="quran"){renderKhatma();renderQTabs()}if(v==="wasl")renderWasl();if(v==="stories")renderStories();if(v==="prophet")renderProphet(pm[1]);if(v==="plans")renderPlans();if(v==="plan")renderPlan();if(v==="home"){renderMsg();renderDQ();renderDS();renderMe()}if(v==="rewards")renderRewards();if(v==="todo")renderTodo();if(v==="safe")renderSafe();if(v!=="safe"&&VK)lockVault();if(v==="more"){renderAcc();acctRender()}if(v==="week")renderWeek();if(v==="home")renderWkCard();clearTimeout(qReadT);if(v==="read")qReadT=setTimeout(()=>{if(!$("v-read").hidden&&!getDaily().quran){setDaily("quran",true);renderDaily()}},120000);if(v==="quiz")renderQuizHome();if(v==="sunan")renderSunan();if(v==="sunnah")renderSunnahCat(curSunCat);if(v==="tasbeeh")renderTas();if(v==="prayer"){renderAdhanCard();renderRemCard();renderQada();renderMonth()}if(v!=="prayer"&&compassOn)toggleCompass();
+ if(v==="prayer")renderPrayer();if(v==="occasions")renderOcc();if(v==="azkar")renderAzkar();if(v==="quran"){renderKhatma();renderQTabs()}if(v==="wasl")renderWasl();if(v==="stories")renderStories();if(v==="prophet")renderProphet(pm[1]);if(v==="plans")renderPlans();if(v==="plan")renderPlan();if(v==="home"){renderMsg();renderDQ();renderDS();renderMe()}if(v==="rewards")renderRewards();if(v==="todo")renderTodo();if(v==="safe")renderSafe();if(v!=="safe"&&VK)lockVault();if(v==="more"){renderAcc();acctRender()}if(v==="week")renderWeek();if(v==="well")renderWell();if(v==="wt")renderTool();if(v!=="wt")stopWT();if(v==="home")renderWkCard();clearTimeout(qReadT);if(v==="read")qReadT=setTimeout(()=>{if(!$("v-read").hidden&&!getDaily().quran){setDaily("quran",true);renderDaily()}},120000);if(v==="quiz")renderQuizHome();if(v==="sunan")renderSunan();if(v==="sunnah")renderSunnahCat(curSunCat);if(v==="tasbeeh")renderTas();if(v==="prayer"){renderAdhanCard();renderRemCard();renderQada();renderMonth()}if(v!=="prayer"&&compassOn)toggleCompass();
  if(v==="read"){loadTr(trCode,()=>renderReader(false))}else window.scrollTo(0,0);
  if(v!=="read"&&obs){obs.disconnect()}}
 window.addEventListener("hashchange",route);
@@ -2667,11 +3018,11 @@ window.addEventListener("hashchange",route);
 /* tasbeeh shortcut inside azkar view */
 (function(){const b=document.createElement("a");b.className="btn";b.href="#tasbeeh";b.style.justifyContent="center";b.dataset.i="tasbeeh";$("v-azkar").insertBefore(b,$("azSeg"))})();
 
-function refreshAll(){renderWkCard();acctRender();renderHero();renderFast();renderDaily();renderDailyContent();renderCont();renderWaslHome();renderQA();renderMsg();renderInstall();renderMe();renderDQ();renderDS();renderTodoCard();renderLove();greet();if(!$("v-prayer").hidden)renderPrayer()}
+function refreshAll(){renderWkCard();renderWellCard();renderRamadan();acctRender();renderHero();renderFast();renderDaily();renderDailyContent();renderCont();renderWaslHome();renderQA();renderMsg();renderInstall();renderMe();renderDQ();renderDS();renderTodoCard();renderLove();greet();if(!$("v-prayer").hidden)renderPrayer()}
 function rerenderAll(){applyLang();applyTheme();fillMethods();fillTrSel();renderMoods();renderAzkar();renderTas();renderNames();renderZakat();refreshAll();route()}
 if(lang==="en")loadTr("en",rerenderAll);
 rerenderAll();
-setInterval(()=>{renderHero();adhanTick()},1000);
+setInterval(()=>{renderHero();adhanTick();if(!$("ramCard").hidden&&!$("v-home").hidden)renderRamadan()},1000);
 runSplash();if(KID)startKid();
 if(ACCT&&ACCT.token)setTimeout(()=>acctSync().catch(()=>{}),1500);
 setTimeout(usagePing,4000);
