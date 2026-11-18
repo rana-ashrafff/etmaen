@@ -450,7 +450,6 @@ table.month tr.today td{background:color-mix(in srgb,var(--pri) 12%,transparent)
 .dua-c .dua{margin:0 12px 12px}
 .hifz{font-size:var(--qsize);line-height:2.3}.hifz .hw{display:inline-block;line-height:1.25;vertical-align:middle;padding:2px 0;background:color-mix(in srgb,var(--pri) 14%,var(--surface-2));color:transparent;border-radius:8px;cursor:pointer;min-width:2.2em;user-select:none}
 .ramcd{font-family:var(--f-disp);font-size:40px;font-weight:700;color:var(--pri);letter-spacing:.04em;margin:6px 0;font-variant-numeric:tabular-nums}
-#tafBox{background:var(--surface-2);border-radius:14px;padding:10px 12px;margin-top:10px;max-height:38vh;overflow:auto}#tafBox p{margin:6px 0;line-height:1.95;font-size:15px}
 .well-hero{background:linear-gradient(160deg,color-mix(in srgb,#5FA88A 18%,var(--surface)),var(--surface) 75%)}
 /* daily wird + custom surah khatma */
 .wirdc{margin-top:12px;background:color-mix(in srgb,var(--pri) 7%,var(--surface-2));border-radius:18px;padding:12px 14px;display:grid;gap:8px}
@@ -1169,12 +1168,10 @@ render();})();</script>
     <button id="shPlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 4l13 8-13 8z"/></svg><span data-i="listenFrom"></span></button>
     <button id="shCopy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg><span data-i="copy"></span></button>
     <button id="shShare"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg><span data-i="share"></span></button>
-    <button id="shTaf"><span style="font-size:20px;line-height:1">📘</span><span data-i="tafsir"></span></button>
     <button id="shRep"><span style="font-size:20px;line-height:1">🔁</span><span data-i="repeat3"></span></button>
     <button id="shImg"><span style="font-size:20px;line-height:1">🖼</span><span data-i="asImage"></span></button>
     <button id="shMark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5c3-1 6-1 8 1 2-2 5-2 8-1v14c-3-1-6-1-8 1-2-2-5-2-8-1z"/></svg><span data-i="stoppedHere"></span></button>
   </div>
-  <div id="tafBox" hidden></div>
 </div></div>
 
 <div class="player" id="player" hidden><div class="in"><span id="plTxt"></span><button id="plToggle"></button><button id="plStop" data-i="stop"></button></div></div>
@@ -1515,8 +1512,7 @@ Object.assign(I18N.ar,{slogan:"عبادة تقرّبك… وراحة تطمّن�
  fToday:"صايم النهارده؟",fMark:"أيوه، صايم",fDid:"صايم النهارده",fToast:"اللهم تقبّل 🌙",fMonth:n=>`صمت ${nf(n)} يوم الشهر ده`,fUp:"أيام يُستحب صيامها قريبًا",fw_mon:"الاثنين",fw_thu:"الخميس",fw_white:"الأيام البيض",fw_arafa:"يوم عرفة",fw_ashura:"عاشوراء وتاسوعاء",fw_shawwal:"ست من شوال",fRem:"🔔 فكّرني الليلة اللي قبلها الساعة",fQada:"أيام القضاء اللي عليّ",fQadaSub:"زوّد أو قلّل كل ما تقضي يوم",
  hzSurah:"السورة",hzL1:"سهل",hzL2:"متوسط",hzL3:"صعب",hzReveal:"اكشف الكل",hzListen:"اسمع السورة",hzTip:"دوس على الكلمة المستخبية عشان تشوفها",
  ramT:d=>`رمضان · اليوم ${nf(d)}`,ramSuhoor:"السحور",ramIftar:"الفطار",ramAt:(l,t2)=>`${l} الساعة ${t2}`,ramIftarDua:"دعاء الفطار",ramLast:"العشر الأواخر! اجتهد في العبادة واطلب ليلة القدر، وأكثر من:",ramImsak:"إمساكية الشهر",
- tafsir:"التفسير",tafT:"التفسير الميسّر",tafSrc:"المصدر: التفسير الميسّر · مجمع الملك فهد لطباعة المصحف الشريف",tafLoading:"بنحمّل التفسير…",tafErr:"محتاج إنترنت أول مرة عشان التفسير يتحمّل",
- repeat3:"كرّر ٣ مرات",asImage:"صورة",imgSaved:"الصورة اتحفظت ✓",
+  repeat3:"كرّر ٣ مرات",asImage:"صورة",imgSaved:"الصورة اتحفظت ✓",
  relapseT:"وقعت تاني؟ ولا يهمك",relapseTxt:"ربنا بيحب العبد اللي كل ما يقع يرجع. الوقوع مش نهاية الطريق، المهم إنك ترجع. ابدأ من جديد بخطوة صغيرة النهارده.",relapseAyah:"﴿إِنَّ ٱللَّهَ يُحِبُّ ٱلتَّوَّٰبِينَ﴾"});
 Object.assign(I18N.en,{slogan:"Worship that brings you closer… peace that settles you",sloganSub:"Not just prayer and Quran: a place to slow down and take care of yourself",wellT:"My wellbeing",wellSub:"Simple tools to calm down, understand yourself and recharge.",wellTile:"Tools for your peace of mind",moodQ:"How are you today?",moodSaved:"✓ Today's mood saved",lowMood:"If you need someone to talk to, see “Need someone to listen” in My wellbeing",moodPickFirst:"Pick a face first",saved:"Saved ✓",
  wg_calm1:"🌬 Calm down",wg_know:"🧠 Understand yourself",wg_charge:"🔋 Recharge",wg_habits2:"🌱 Healthy habits",wg_faith:"🕌 Your worship",
@@ -1563,8 +1559,7 @@ Object.assign(I18N.en,{slogan:"Worship that brings you closer… peace that sett
  fToday:"Fasting today?",fMark:"Yes, fasting",fDid:"Fasting today",fToast:"May Allah accept 🌙",fMonth:n=>`${n} fasting days this month`,fUp:"Recommended fasting days coming up",fw_mon:"Monday",fw_thu:"Thursday",fw_white:"White days",fw_arafa:"Day of Arafah",fw_ashura:"Ashura & Tasu'a",fw_shawwal:"Six days of Shawwal",fRem:"🔔 Remind me the night before at",fQada:"Days I owe (qada)",fQadaSub:"Adjust whenever you make up a day",
  hzSurah:"Surah",hzL1:"Easy",hzL2:"Medium",hzL3:"Hard",hzReveal:"Reveal all",hzListen:"Listen to the surah",hzTip:"Tap a hidden word to see it",
  ramT:d=>`Ramadan · day ${d}`,ramSuhoor:"Suhoor",ramIftar:"Iftar",ramAt:(l,t2)=>`${l} at ${t2}`,ramIftarDua:"Iftar dua",ramLast:"The last ten nights! Strive in worship, seek Laylat al-Qadr, and say often:",ramImsak:"Month timetable",
- tafsir:"Tafsir",tafT:"Al-Muyassar tafsir (Arabic)",tafSrc:"Source: Al-Tafsir Al-Muyassar · King Fahd Complex",tafLoading:"Loading tafsir…",tafErr:"Internet is needed the first time to load the tafsir",
- repeat3:"Repeat 3×",asImage:"Image",imgSaved:"Image saved ✓",
+  repeat3:"Repeat 3×",asImage:"Image",imgSaved:"Image saved ✓",
  relapseT:"Slipped again? That's okay",relapseTxt:"Allah loves the servant who returns every time he falls. A slip isn't the end of the road; what matters is coming back. Start again with one small step today.",relapseAyah:"﴿إِنَّ ٱللَّهَ يُحِبُّ ٱلتَّوَّٰبِينَ﴾"});
 const t=(k,...a)=>{const v=I18N[lang][k];return typeof v==="function"?v(...a):v};
 
@@ -1964,7 +1959,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-sd]");if(b
  el.addEventListener("touchend",e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;if(Math.abs(dx)<70||Math.abs(dy)>Math.abs(dx))return;
   const rtlDir=document.documentElement.dir==="rtl";const next=rtlDir?dx>0:dx<0;const n=curPage+(next?1:-1);if(n>=1&&n<=NPAGES)location.hash="pg"+n},{passive:true})})();
 $("rBody").addEventListener("click",e=>{const el=e.target.closest(".a");if(!el)return;document.querySelectorAll("#rBody .a.sel").forEach(x=>x.classList.remove("sel"));el.classList.add("sel");selG=+el.dataset.g;openSheet()});
-function openSheet(){$("tafBox").hidden=true;const [s,a]=fromG(selG);$("shTitle").textContent=t("ayahN",sName(s),a);$("shBmT").textContent=S.get("bm",[]).includes(selG)?t("bmDel"):t("bmAdd");$("sheet").hidden=false}
+function openSheet(){const [s,a]=fromG(selG);$("shTitle").textContent=t("ayahN",sName(s),a);$("shBmT").textContent=S.get("bm",[]).includes(selG)?t("bmDel"):t("bmAdd");$("sheet").hidden=false}
 function closeSheet(){$("sheet").hidden=true;document.querySelectorAll("#rBody .a.sel").forEach(x=>x.classList.remove("sel"))}
 $("shClose").addEventListener("click",closeSheet);
 $("shBm").addEventListener("click",()=>{let bm=S.get("bm",[]);if(bm.includes(selG))bm=bm.filter(x=>x!==selG);else{bm.push(selG);toast(t("bmSaved"))}S.set("bm",bm);closeSheet();renderReader(true)});
@@ -1983,7 +1978,6 @@ audio.addEventListener("error",()=>{if(playG!=null){toast(t("audioErr"));stopAud
 $("plToggle").addEventListener("click",()=>{audio.paused?audio.play():audio.pause();setTimeout(updPlayer,50)});
 $("plStop").addEventListener("click",stopAudio);
 $("shPlay").addEventListener("click",()=>{repLeft=0;playFrom(selG,TOTAL-1);closeSheet()});
-$("shTaf").addEventListener("click",()=>showTafsir(selG));
 $("shRep").addEventListener("click",()=>{repLeft=2;playFrom(selG,selG);closeSheet()});
 $("shImg").addEventListener("click",()=>{shareAyahImage(selG);closeSheet()});
 $("rPlay").addEventListener("click",()=>{const [a]=pageRange(curPage);playFrom(a,TOTAL-1)});
@@ -2981,11 +2975,7 @@ function renderRamadan(){const C=$("ramCard");if(!C)return;const now=new Date(),
   ${day>=21?`<div class="wnote">✨ ${t("ramLast")}<br><b style="font-family:var(--f-quran)">اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي</b> <small class="muted">(الترمذي)</small></div>`:""}
   <a class="btn sm" href="#prayer" style="margin-top:8px">📅 ${t("ramImsak")}</a>`}
 
-/* ===== Mushaf extras: tafsir, repeat for memorization, share ayah as image ===== */
-let tafLoading=null;
-function loadTafsir(){if(window.TAFSIR)return Promise.resolve();if(tafLoading)return tafLoading;tafLoading=new Promise((res,rej)=>{const s=document.createElement("script");s.src="data/tafsir.js";s.onload=res;s.onerror=()=>{tafLoading=null;rej()};document.head.appendChild(s)});return tafLoading}
-function showTafsir(g){const box=$("tafBox");box.hidden=false;box.innerHTML=`<span class="label">${t("tafLoading")}</span>`;
- loadTafsir().then(()=>{const [s,a]=fromG(g);box.innerHTML=`<b>${t("tafT")}</b><p>${esc(window.TAFSIR[g]||"")}</p><span class="label">${t("tafSrc")}</span>`},()=>{box.innerHTML=`<span class="label" style="color:var(--warn)">${t("tafErr")}</span>`})}
+/* ===== Mushaf extras: repeat for memorization, share ayah as image ===== */
 let repLeft=0;
 async function shareAyahImage(g){const [s,a]=fromG(g),W=1080,H=1350,cv=document.createElement("canvas");cv.width=W;cv.height=H;const x=cv.getContext("2d");
  try{await document.fonts.load('60px "KFGQPC HAFS"');await document.fonts.load('700 40px Cairo')}catch(_){}
